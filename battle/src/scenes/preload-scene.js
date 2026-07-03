@@ -1,4 +1,4 @@
-import { BATTLE_ASSET_KEYS, BATTLE_BACKGROUND_ASSET_KEYS, DATA_ASSET_KEYS, FIGHTER_ASSET_KEYS, UI_ASSET_KEYS, MUSIC_KEYS } from '../_misc/asset-keys.js';
+import { BATTLE_ASSET_KEYS, BATTLE_BACKGROUND_ASSET_KEYS, DATA_ASSET_KEYS, FIGHTER_ASSET_KEYS, UI_ASSET_KEYS, MUSIC_KEYS } from '../misc/asset-keys.js';
 import Phaser from '../lib/phaser.js'
 import { SCENE_KEYS } from './scene-keys.js';
 import * as WebFontLoader from '../lib/webfontloader.js';
@@ -79,6 +79,7 @@ export class PreloadScene extends Phaser.Scene {
     }
 
     create() {
+        console.log("preloading...");
         WebFontLoader.default.load({
             custom: {
                 families: ['VT323'],

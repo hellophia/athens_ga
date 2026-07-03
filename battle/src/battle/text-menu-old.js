@@ -1,7 +1,7 @@
 import Phaser from '../lib/phaser.js';
 import { BATTLE_UI_TEXT_STYLE } from './battle-menu-config.js';
-import { animateText } from '../_misc/text.js';
-import { UI_ASSET_KEYS } from '../_misc/asset-keys.js';
+import { animateText } from '../misc/text.js';
+import { UI_ASSET_KEYS } from '../misc/asset-keys.js';
 
 const PORTRAIT_FRAMES = Object.freeze({
     danny_worried: 0,

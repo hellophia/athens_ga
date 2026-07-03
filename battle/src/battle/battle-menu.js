@@ -1,11 +1,11 @@
 import Phaser from '../lib/phaser.js';
-import { UI_ASSET_KEYS } from '../_misc/asset-keys.js';
-import { DIRECTION } from '../_misc/direction.js';
-import { exhaustiveGuard } from '../_misc/guard.js';
+import { UI_ASSET_KEYS } from '../misc/asset-keys.js';
+import { DIRECTION } from '../misc/direction.js';
+import { exhaustiveGuard } from '../misc/guard.js';
 import { ACTIVE_BATTLE_MENU, BATTLE_MENU_OPTIONS } from './battle-menu-options.js';
 import { BATTLE_UI_TEXT_STYLE } from './battle-menu-config.js';
 import { BattleGuy } from './battle-guy.js';
-import { animateText } from '../_misc/text.js';
+import { animateText } from '../misc/text.js';
 
 const CURSOR_PADDING = 125;
 
@@ -163,7 +163,7 @@ export class BattleMenu {
 
   /**
     *
-    * @param {import('../_misc/direction.js').Direction|'OK'|'CANCEL'} input
+    * @param {import('../misc/direction.js').Direction|'OK'|'CANCEL'} input
     */
   handlePlayerInput(input) {
 
@@ -349,7 +349,7 @@ export class BattleMenu {
   }
 
   /**
-  * @param {import('../_misc/direction.js').Direction} direction
+  * @param {import('../misc/direction.js').Direction} direction
   */
   #updateSelectedBattleMenuOptionFromInput(direction) {
 

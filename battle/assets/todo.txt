@@ -1,23 +1,8 @@
 TODO phaser
 
-bug: dialogue box flashes initially in outro
+sketch background
 
-bug: using potato / wait for player input is buggy rn
-bug: tweak positioning player input needed cursor in battle scene
-
-change where enemy attacks originate from / go to
-
-danny attack animation
-
-make a loading screen
-
-z index for enemy attacks
-
-fix enemy sus animation
-
-beessert, monsters, eye guy etc
-
-remove scroll arrows when scroll bar is removed
+sketch/redo text box with proper visuals, 9slice
 
 animations for the rest of the attacks
 

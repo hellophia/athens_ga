@@ -1,4 +1,4 @@
-import { BATTLE_BACKGROUND_ASSET_KEYS, MUSIC_KEYS, UI_ASSET_KEYS } from '../_misc/asset-keys.js';
+import { BATTLE_BACKGROUND_ASSET_KEYS, MUSIC_KEYS, UI_ASSET_KEYS } from '../misc/asset-keys.js';
 import { TextMenu } from '../battle/text-menu.js';
 import { SCENE_KEYS } from './scene-keys.js';
 

@@ -1,4 +1,4 @@
-import { MUSIC_KEYS } from "../_misc/asset-keys.js";
+import { MUSIC_KEYS } from "../misc/asset-keys.js";
 import Phaser from "../lib/phaser.js";
 
 export class CreditsScene extends Phaser.Scene {

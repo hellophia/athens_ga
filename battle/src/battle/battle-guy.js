@@ -1,4 +1,4 @@
-import { BATTLE_ASSET_KEYS, DATA_ASSET_KEYS } from '../_misc/asset-keys.js';
+import { BATTLE_ASSET_KEYS, DATA_ASSET_KEYS } from '../misc/asset-keys.js';
 import { HealthBar } from '../battle/health-bar.js';
 
 export class BattleGuy {

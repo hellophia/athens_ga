@@ -1,4 +1,4 @@
-import { DATA_ASSET_KEYS } from '../_misc/asset-keys.js';
+import { DATA_ASSET_KEYS } from '../misc/asset-keys.js';
 import { Attack } from './attacks.js';
 import { BattleGuy } from './battle-guy.js';
 

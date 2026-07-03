@@ -1,4 +1,4 @@
-import { MUSIC_KEYS } from '../_misc/asset-keys.js';
+import { MUSIC_KEYS } from '../misc/asset-keys.js';
 import { TextMenu } from '../battle/text-menu.js';
 import { SCENE_KEYS } from './scene-keys.js';
 import Phaser from '../lib/phaser.js';

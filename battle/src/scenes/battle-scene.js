@@ -2,14 +2,14 @@ import {
   BATTLE_BACKGROUND_ASSET_KEYS,
   FIGHTER_ASSET_KEYS,
   MUSIC_KEYS,
-} from '../_misc/asset-keys.js';
+} from '../misc/asset-keys.js';
 import { AttackManager } from '../battle/attack-manager.js';
 import { EnemyBattleGuy } from '../battle/battle-guy-enemy.js';
 import { PlayerBattleGuy } from '../battle/battle-guy-player.js';
 import { BattleMenu } from '../battle/battle-menu.js';
-import { DIRECTION } from '../_misc/direction.js';
+import { DIRECTION } from '../misc/direction.js';
 import Phaser from '../lib/phaser.js';
-import { StateMachine } from '../_misc/state-machine.js';
+import { StateMachine } from '../misc/state-machine.js';
 import { SCENE_KEYS } from './scene-keys.js';
 import { BATTLE_MENU_OPTIONS } from '../battle/battle-menu-options.js';
 
@@ -37,7 +37,7 @@ export class BattleScene extends Phaser.Scene {
   #battleStateMachine;
   /** @type {AttackManager} */
   #attackManager;
-  /** @type {import('../_battle/battle-menu-options.js').BattleMenuOptions} */
+  /** @type {import('../battle/battle-menu-options.js').BattleMenuOptions} */
   #pendingPlayerAction
 
   constructor() {
@@ -185,7 +185,7 @@ export class BattleScene extends Phaser.Scene {
       return;
     }
 
-    /** @type {import('../_misc/direction.js').Direction} */
+    /** @type {import('../misc/direction.js').Direction} */
     let selectedDirection = DIRECTION.NONE;
     if (Phaser.Input.Keyboard.JustDown(this.#cursorKeys.left)) {
       selectedDirection = DIRECTION.LEFT;
