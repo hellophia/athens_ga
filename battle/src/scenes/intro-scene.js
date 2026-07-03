@@ -111,8 +111,7 @@ export class IntroScene extends Phaser.Scene {
         introMusic.play();
 
         this.time.delayedCall(3000, () => {
-            this.#textMenu = new TextMenu(this);
-            this.#textMenu._currentSpeaker = "danny";
+            this.#textMenu = new TextMenu(this,"danny");
             this.time.delayedCall(500, () => {
                 this.playLine(0);
             })

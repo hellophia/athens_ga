@@ -47,13 +47,15 @@ export class TextMenu {
 
     /**
    *
-   * @param {Phaser.Scene} scene the Phaser 3 Scene the battle menu will be added to
+   * @param {Phaser.Scene} scene
+   * * @param {string} speaker
    */
-    constructor(scene) {
+    constructor(scene, speaker) {
         this.#scene = scene;
         this.#maxLines = 8;
         this.#lineSpacing = 44;
         this.#maxCharsPerLine = 55;
+        this._currentSpeaker = speaker;
         this.#createTextWindow();
     }
 
@@ -176,15 +178,13 @@ export class TextMenu {
             .image(0, 132, UI_ASSET_KEYS.TEXT_WINDOW_BOTTOM)
             .setOrigin(0);
 
-        //this.#textWindow = this.#scene.add.image(0, 0, UI_ASSET_KEYS.NINESLICE).setOrigin(1).setPosition(986, 178);
-
         this.#portrait = this.#scene.add.sprite(0, 0, UI_ASSET_KEYS.BATTLE_PORTRAITS)
             .setOrigin(0).setPosition(23, 23);
-        this.#portrait.setFrame(0);
+        this.#portrait.setFrame(PORTRAIT_FRAMES[`${this._currentSpeaker}_neutral`]);
 
         this.#portraitFrame = this.#scene.add.image(0, 0, UI_ASSET_KEYS.TEXT_DIALOGUE, 0).setOrigin(0).setScale(.25).setPosition(0, 0)
 
-        this.#userInputCursor = this.#scene.add.image(0, 0, UI_ASSET_KEYS.CURSOR).setOrigin(0).setAngle(90).setScale(.25).setAlpha(0).setPosition(940,111);
+        this.#userInputCursor = this.#scene.add.image(0, 0, UI_ASSET_KEYS.CURSOR).setOrigin(0).setAngle(90).setScale(.25).setAlpha(0).setPosition(940, 111);
 
         this.#textContainer = this.#scene.add.container(19, 376, [
             this.#textWindowTop,

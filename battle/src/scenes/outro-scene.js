@@ -130,8 +130,7 @@ export class OutroScene extends Phaser.Scene {
         //black bg
         this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0x000000).setOrigin(0).setPosition(0, 0);
 
-        this.#textMenu = new TextMenu(this);
-        this.#textMenu._currentSpeaker = "af";
+        this.#textMenu = new TextMenu(this,"af");
         this.time.delayedCall(500, () => {
             this.playLine(0);
         })
