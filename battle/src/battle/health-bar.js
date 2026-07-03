@@ -56,7 +56,7 @@ export class HealthBar {
                 0,
                 this.#fullWidth,
                 18,
-                0x00ff00
+                0x6da700
             )
             .setOrigin(0, 0.5);
 
@@ -87,11 +87,27 @@ export class HealthBar {
                 const isVisible = this._healthBarRectangle.width > 0;
                 this._healthBarRectangle.visible = isVisible;
             },
-            onComplete: options?.callback,
+            onComplete: () => {
+                this._healthBarRectangle.fillColor = this.#getHealthBarColor(percent);
+                options?.callback?.();
+            }
         });
     }
 
-     appearAnimated(percent, options) {
+    #getHealthBarColor(percent) {
+        if (percent > 0.75) {
+            return 0x6da700;
+        }
+        if (percent > 0.5 && percent <= 0.75) {
+            return 0xa08c00;
+        }
+        if (percent > 0.25 && percent <= 0.5) {
+            return 0xa06400;
+        }
+        return 0xa03000;
+    }
+
+    appearAnimated(percent, options) {
         const width = this.#fullWidth * percent;
 
         this.#scene.tweens.add({

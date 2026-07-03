@@ -114,7 +114,7 @@ export class OutroScene extends Phaser.Scene {
         ];
 
         this.#pause = 1000;
-        this.#defaultCharacterDelay = 25;
+        this.#defaultCharacterDelay = 35;
     }
 
     init() {

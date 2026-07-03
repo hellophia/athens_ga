@@ -105,7 +105,8 @@ export class PreloadScene extends Phaser.Scene {
                 families: ['VT323'],
             },
             active: () => {
-                this.scene.start(SCENE_KEYS.INTRO_SCENE);
+                //this.scene.start(SCENE_KEYS.INTRO_SCENE);
+                this.scene.start(SCENE_KEYS.BATTLE_SCENE);
                 //this.scene.start(SCENE_KEYS.OUTRO_SCENE);
                 //this.scene.start(SCENE_KEYS.CREDITS_SCENE);
             },

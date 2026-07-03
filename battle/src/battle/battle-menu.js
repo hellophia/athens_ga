@@ -62,10 +62,8 @@ export class BattleMenu {
   #selectedBattleMenuOption;
   /** @type {import('./battle-menu-options.js').ActiveBattleMenu} */
   #activeBattleMenu;
-  /** @type {string[]} */
-  #queuedMessages;
   /** @type {(() => void) | undefined} */
-  #queuedMessagesCallback;
+  #inputCallback;
   /** @type {boolean} */
   #waitingForPlayerInput;
   /** @type {number | undefined} */
@@ -79,7 +77,7 @@ export class BattleMenu {
   /** @type {Phaser.GameObjects.Image} */
   #userInputCursor;
   /** @type {boolean} */
-  #queuedMessageAnimationPlaying;
+  _messagePlaying;
   /** @type {Phaser.GameObjects.Image} */
   #textWindow;
   /** @type {import('./battle-menu-options.js').BattleMenuOptions | undefined}*/
@@ -95,18 +93,16 @@ export class BattleMenu {
     this.#activePlayerGuy = activePlayerGuy;
     this.#activeBattleMenu = ACTIVE_BATTLE_MENU.BATTLE_MAIN;
     this.#selectedBattleMenuOption = BATTLE_MENU_OPTIONS.HIT;
-    this.#queuedMessagesCallback = undefined;
-    this.#queuedMessages = [];
     this.#waitingForPlayerInput = false;
     this.#selectedAttackIndex = undefined;
     this.#visibleAttackStartIndex = 0;
     this.#visibleAttackLabels = [];
-    this.#queuedMessageAnimationPlaying = false;
     this.#createTextWindow();
     this.#createMainBattleMenu();
     this.#createAttackMenu();
     this.#createPlayerInputCursor();
     this.#chosenBattleMenuOption = undefined;
+    this._messagePlaying = false;
   }
 
   /** @type {number | undefined} */
@@ -162,17 +158,18 @@ export class BattleMenu {
   }
 
   /**
-    *
     * @param {import('../misc/direction.js').Direction|'OK'|'CANCEL'} input
     */
   handlePlayerInput(input) {
 
-    if (this.#queuedMessageAnimationPlaying && input === 'OK') {
+    if (this._messagePlaying) {
+      console.log("handleplayerinput: message is playing, return");
       return;
     }
 
     if (this.#waitingForPlayerInput && (input === 'CANCEL' || input === 'OK')) {
-      this.#updateMessage();
+      console.log("handleplayerinput: dismiss message");
+      this.dismissMessage();
       return;
     }
 
@@ -198,6 +195,10 @@ export class BattleMenu {
     this.#moveAttackMenuCursor();
   }
 
+  get isMessagePlaying(){
+    return this._messagePlaying;
+  }
+
   /**
    * @param {string} message
    * @param {() => void} [callback]
@@ -218,43 +219,45 @@ export class BattleMenu {
   }
 
   /**
-   * @param {string[]} messages
-   * @param {() => void} [callback]
-   * @returns {void}
-   */
-  updateMessagesWaitForInput(messages, callback) {
-    this.#queuedMessages = messages;
-    this.#queuedMessagesCallback = callback;
+ * @param {string} message
+ * @param {() => void} [callback]
+ * @returns {void}
+ */
+  updateMessageWaitForInput(message, callback) {
+    console.log("updateMessageWaitForInput");
 
-    this.#updateMessage();
-  }
-
-  #updateMessage() {
+    this._messagePlaying = true;
     this.#waitingForPlayerInput = false;
+
+    this.#inputCallback = callback;
+
     this.#battleTextLine1.setText('').setAlpha(1);
     this.#userInputCursor.setAlpha(0);
 
-    // check if all messages have been displayed from the queue and call the callback
-    if (this.#queuedMessages.length === 0) {
-      if (this.#queuedMessagesCallback) {
-        this.#queuedMessagesCallback();
-        this.#queuedMessagesCallback = undefined;
-      }
-      return;
-    }
-
-    // get first message from queue and animate message
-    const messageToDisplay = this.#queuedMessages.shift();
-
-    this.#queuedMessageAnimationPlaying = true;
-    animateText(this.#scene, this.#battleTextLine1, messageToDisplay, {
+    animateText(this.#scene, this.#battleTextLine1, message, {
       delay: 50,
       callback: () => {
+        console.log("the callback for animatetext is firing");
         this.#userInputCursor.setAlpha(1);
+        this._messagePlaying = false;
         this.#waitingForPlayerInput = true;
-        this.#queuedMessageAnimationPlaying = false;
       },
     });
+  }
+
+  dismissMessage() {
+    console.log("dismissMessage");
+
+    this._messagePlaying = false;
+    this.#waitingForPlayerInput = false;
+
+    this.#battleTextLine1.setText('').setAlpha(1);
+    this.#userInputCursor.setAlpha(0);
+
+    if (this.#inputCallback) {
+      this.#inputCallback();
+      this.#inputCallback = undefined;
+    }
   }
 
   #createMainBattleMenu() {
@@ -578,7 +581,7 @@ export class BattleMenu {
   }
 
   #createPlayerInputCursor() {
-    this.#userInputCursor = this.#scene.add.image(0, 0, UI_ASSET_KEYS.CURSOR).setAngle(90).setScale(.25).setAlpha(0).setPosition(940,490);
+    this.#userInputCursor = this.#scene.add.image(0, 0, UI_ASSET_KEYS.CURSOR).setAngle(90).setScale(.25).setAlpha(0).setPosition(940, 490);
   }
 
 }

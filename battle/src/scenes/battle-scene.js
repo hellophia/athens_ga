@@ -100,22 +100,27 @@ export class BattleScene extends Phaser.Scene {
     this.#battleStateMachine.update();
 
     const wasSpaceKeyPressed = Phaser.Input.Keyboard.JustDown(this.#cursorKeys.space);
-    // limit input based on the current battle state we are in
-    // if we are not in the right battle state, return early and do not process input
-    if (
+
+    //uncomment if we need to advance dialogue in prebattle or post attack check
+    /*if (
       wasSpaceKeyPressed &&
       (this.#battleStateMachine.currentStateName === BATTLE_STATES.PRE_BATTLE ||
         this.#battleStateMachine.currentStateName === BATTLE_STATES.POST_ATTACK_CHECK)
     ) {
       this.#battleMenu.handlePlayerInput('OK');
       return;
-    }
+    }*/
 
     if (this.#battleStateMachine.currentStateName !== BATTLE_STATES.PLAYER_INPUT) {
       return;
     }
 
     if (wasSpaceKeyPressed) {
+
+      if (this.#battleMenu.isMessagePlaying) {
+        console.log("returning from battlescene update loop because message is still playing");
+        return;
+      }
 
       this.#battleMenu.handlePlayerInput('OK');
 
@@ -129,17 +134,12 @@ export class BattleScene extends Phaser.Scene {
 
         //if it's not time for potato...
         const attackName = this.#activePlayerGuy.attacks[this.#battleMenu.chosenAttack]?.name ?? '';
-        const isPotato = attackName === 'Potato';
-        const isLastAttack = this.#activePlayerGuy.attacks.length === 1;
-        if (isPotato && !isLastAttack) {
+        if ((attackName === 'Potato') && !(this.#activePlayerGuy.attacks.length === 1)) {
           this.#battleMenu.hideAttackMenu();
-          this.#battleMenu.updateMessagesWaitForInput(
-            [`It's not time to use POTATO yet!`],
-            () => {
-              this.time.delayedCall(500, () => {
-                this.#battleMenu.switchToMainBattleMenu();
-              });
-            }
+          this.#battleMenu.updateMessageWaitForInput(`It's not time to use POTATO yet!`, () => {
+            console.log("the callback in updateMessageWaitForInput is firing, switching back to main battle menu");
+            this.#battleMenu.switchToMainBattleMenu();
+          }
           );
           return;
         }
@@ -530,7 +530,7 @@ export class BattleScene extends Phaser.Scene {
         this.#playerHit();
         break;
       case BATTLE_MENU_OPTIONS.FIGHT:
-        this.#playerAttack(); // existing method that handles special item attacks
+        this.#playerAttack();
         break;
       case BATTLE_MENU_OPTIONS.SNACK:
         this.#playerSnack();
