@@ -101,39 +101,23 @@ export class IntroScene extends Phaser.Scene {
 
     create() {
 
+        console.log("intro create");
+
         const introMusic = this.sound.add(MUSIC_KEYS.INTRO_MUSIC);
 
         //black bg
         this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0x000000).setOrigin(0).setPosition(0, 0);
 
-        const startButton = this.add.text(
-            640,
-            360,
-            "click here",
-            {
-                fontSize: "18px",
-                color: "#ffffff",
-            }
-        )
-            .setOrigin(0.5)
-            .setInteractive({ useHandCursor: true });
+        introMusic.play();
 
-        startButton.on("pointerdown", () => {
-
-            startButton.destroy();
-
-            introMusic.play();
-
-            this.time.delayedCall(3000, () => {
-                this.#textMenu = new TextMenu(this);
-                this.#textMenu._currentSpeaker = "danny";
-                this.time.delayedCall(500, () => {
-                    this.playLine(0);
-                })
-            }
-            );
-
-        });
+        this.time.delayedCall(3000, () => {
+            this.#textMenu = new TextMenu(this);
+            this.#textMenu._currentSpeaker = "danny";
+            this.time.delayedCall(500, () => {
+                this.playLine(0);
+            })
+        }
+        );
 
     }
 

@@ -1695,6 +1695,8 @@ get something from uncleaunty kate?
 	&quot;facing&quot;, &quot;N&quot;
 ))
 
+(set:$jumpscared to false)
+
 }</tw-passagedata><tw-passagedata pid="38" name="snacks" tags="" position="1625,75" size="100,100">{
 (set: $dailysnacks to (a:
 &quot;wasa&quot;,
@@ -1870,9 +1872,9 @@ document.querySelector(&#39;tw-hook[name=&quot;straight&quot;]&#39;).addEventLis
 
 document.querySelector(&#39;tw-hook[name=&quot;interact&quot;]&#39;).addEventListener(&quot;click&quot;, interact);
 
-let playerX = $labyrinth.get(&quot;x&quot;)
-let playerY = $labyrinth.get(&quot;y&quot;)
-let facing = $labyrinth.get(&quot;facing&quot;)
+let playerX = $labyrinth.get(&quot;x&quot;);
+let playerY = $labyrinth.get(&quot;y&quot;);
+let facing = $labyrinth.get(&quot;facing&quot;);
 
 const leftTurn = {
 	N: &quot;W&quot;,
@@ -1906,6 +1908,15 @@ function turnRight() {
 }
 
 function moveForward() {
+
+    if(playerX === 1 &amp;&amp; playerY === 3 &amp;&amp; !$jumpscared){
+
+        $jumpscared = true;
+
+        const sound = new Audio(&quot;audio/monster.mp3&quot;);
+        sound.play();
+
+    }
 
 	const key = `${playerX},${playerY}`;
 	const exits = maze[key] || [];

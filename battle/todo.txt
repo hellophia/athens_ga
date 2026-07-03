@@ -1,0 +1,28 @@
+TODO phaser
+
+bug: dialogue box flashes initially in outro
+
+make a loading screen
+
+fix enemy sus animation?
+bug where player can interact too early?
+
+this.load.setPath('');
+
+remove scroll bar arrows
+
+bug with player input needed (potato)
+change prank to player input needed
+tweak input cursor?
+
+danny idle animation
+
+add new attacks
+change positioning for attacks
+z index for attacks
+
+change hp color, 25% 50% 75%
+
+throat singing
+
+bg for dialogue scene with peekin

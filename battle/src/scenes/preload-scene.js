@@ -20,6 +20,26 @@ export class PreloadScene extends Phaser.Scene {
 
     preload() {
 
+        const barheight = 30;
+        const barwidth = 600;
+
+        this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0x000000).setOrigin(0).setPosition(0, 0);
+        let progressBox = this.add.graphics();
+        let progressBar = this.add.graphics();
+        progressBox.fillStyle(0x322b30, 1);
+        progressBox.fillRect(this.scale.width / 2 - (barwidth / 2), this.scale.height / 2 - (barheight / 2), barwidth, barheight);
+
+        this.load.on('progress', (value) => {
+            progressBar.clear();
+            progressBar.fillStyle(0xb89100, 1);
+            progressBar.fillRect(this.scale.width / 2 - (barwidth / 2), this.scale.height / 2 - (barheight / 2), barwidth * value, barheight);
+        });
+
+        this.load.on('complete', () => {
+            progressBar.destroy();
+            progressBox.destroy();
+        });
+
         this.load.audio(MUSIC_KEYS.INTRO_MUSIC, 'assets/music/intro.mp3');
         this.load.audio(MUSIC_KEYS.BATTLE_MUSIC, 'assets/music/finalbattle.mp3');
         this.load.audio(MUSIC_KEYS.OUTRO_MUSIC, 'assets/music/internationale.m4a');
@@ -79,7 +99,7 @@ export class PreloadScene extends Phaser.Scene {
     }
 
     create() {
-        console.log("preloading...");
+        console.log("preload create");
         WebFontLoader.default.load({
             custom: {
                 families: ['VT323'],
