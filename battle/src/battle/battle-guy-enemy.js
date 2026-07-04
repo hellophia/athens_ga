@@ -1,6 +1,6 @@
 import { BattleGuy } from './battle-guy.js';
 import { animateText } from '../misc/text.js';
-import { BATTLE_ASSET_KEYS, DATA_ASSET_KEYS, FIGHTER_ASSET_KEYS } from '../misc/asset-keys.js';
+import { BATTLE_ASSET_KEYS, DATA_ASSET_KEYS, DEPTHS, FIGHTER_ASSET_KEYS } from '../misc/asset-keys.js';
 import { HealthBar } from './health-bar.js';
 
 /** @type {import('../types/typedef.js').Coordinate} */
@@ -19,6 +19,7 @@ export class EnemyBattleGuy extends BattleGuy {
    */
   constructor(config) {
     super(config, ENEMY_POSITION);
+    this._guyGameSprite.setDepth(DEPTHS.ENEMY);
     this._loadAttacksFromCache(DATA_ASSET_KEYS.ENEMY_ATTACKS);
     this._isStunned = false;
     this._guyGameSprite.setScale(.22);
@@ -206,7 +207,7 @@ export class EnemyBattleGuy extends BattleGuy {
     this._guyNameGameText.text = '';
     this._healthBar.setMeterPercentage(0);
 
-    this._phaserHealthBarGameContainer.setAlpha(1);
+    this.healthBarContainer.setAlpha(1);
 
     this._healthBar.appearAnimated(1, { duration });
 
@@ -325,13 +326,13 @@ export class EnemyBattleGuy extends BattleGuy {
     this._healthBarBgImage = this._scene.add.image(0, 0, BATTLE_ASSET_KEYS.HEALTH_BAR_BACKGROUND)
       .setOrigin(0).setScale(.25).setPosition(0, 40);
 
-    this._phaserHealthBarGameContainer = this._scene.add.container(0, 0, [
+    this.healthBarContainer = this._scene.add.container(0, 0, [
       this._healthBarBgImage,
       this._guyNameGameText,
       this._healthBar.container,
     ]).setAlpha(0);
 
-    this._phaserHealthBarGameContainer.setPosition(76, 29);
+    this.healthBarContainer.setPosition(76, 29).setDepth(DEPTHS.ENEMY_HEALTH);
   }
 
 }

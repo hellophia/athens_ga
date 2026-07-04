@@ -1,5 +1,6 @@
 import {
   BATTLE_BACKGROUND_ASSET_KEYS,
+  DEPTHS,
   FIGHTER_ASSET_KEYS,
   MUSIC_KEYS,
 } from '../misc/asset-keys.js';
@@ -57,8 +58,8 @@ export class BattleScene extends Phaser.Scene {
       loop: true
     });
 
-    this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0xffffff).setOrigin(0, 0).setPosition(0, 0);
-    //this.add.image(0, 0, BATTLE_BACKGROUND_ASSET_KEYS.CAVE).setOrigin(0).setAlpha(.5);
+    this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0xffffff).setOrigin(0, 0).setPosition(0, 0).setDepth(DEPTHS.BACKGROUND);
+    //this.add.image(0, 0, BATTLE_BACKGROUND_ASSET_KEYS.CAVE).setOrigin(0).setAlpha(.5).setDepth(DEPTHS.BACKGROUND);
 
     this.#activeEnemyGuy = new EnemyBattleGuy({
       scene: this,
@@ -327,7 +328,7 @@ export class BattleScene extends Phaser.Scene {
       this.#activePlayerGuy.currentHealth;
 
     if (playerMissing <= 0) {
-      this.#battleMenu.updateMessageNoInputRequired(`${this.#activePlayerGuy.name.toUpperCase()} isn't feeling hungry!`, () => {
+      this.#battleMenu.updateMessageWaitForInput(`${this.#activePlayerGuy.name.toUpperCase()} isn't feeling hungry!`, () => {
         this.time.delayedCall(1000, () => {
           this.#battleStateMachine.setState(BATTLE_STATES.POST_ATTACK_CHECK);
         });

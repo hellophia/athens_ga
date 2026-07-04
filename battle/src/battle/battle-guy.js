@@ -104,7 +104,7 @@ export class BattleGuy {
 * @returns {void}
 */
   playGuyAppearAnimation(callback) {
-    throw new Error('playMonsterAppearAnimation is not implemented.');
+    throw new Error('playGuyAppearAnimation problem');
   }
 
   /**
@@ -112,7 +112,7 @@ export class BattleGuy {
    * @returns {void}
    */
   playGuyHealthBarAppearAnimation(callback) {
-    throw new Error('playMonsterHealthBarAppearAnimation is not implemented.');
+    throw new Error('playGuyHealthBarAppearAnimation problem');
   }
 
   /**
@@ -120,7 +120,7 @@ export class BattleGuy {
    * @returns {void}
    */
   playTakeDamageAnimation(callback) {
-    console.log("playtakedamageanimation problem");
+    console.log("playTakeDamageAnimation problem");
   }
 
   /**
@@ -128,11 +128,11 @@ export class BattleGuy {
    * @returns {void}
    */
   playDeathAnimation(callback) {
-    console.log("playdeathanimation problem");
+    console.log("playDeathAnimation problem");
   }
 
   createHealthBarComponents() {
-    console.log("createhealthbarcomponents problem");
+    console.log("createHealthBarComponents problem");
   }
 
 }

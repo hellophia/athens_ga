@@ -1,4 +1,5 @@
 import Phaser from '../lib/phaser.js';
+import { DEPTHS } from '../misc/asset-keys.js';
 import { Attack } from './attacks.js';
 
 export class AttackAnimations {
@@ -199,6 +200,7 @@ export class AttackAnimations {
         const y = 30 + (sprite.height / 2);
 
         sprite.setPosition(startX, y);
+        sprite.setDepth(DEPTHS.ATTACKS);
         sprite.setAlpha(1);
 
         scene.tweens.add({
@@ -379,7 +381,7 @@ export class AttackAnimations {
                 x,
                 -100,
                 key
-            );
+            ).setDepth(DEPTHS.TOP);
 
             scene.tweens.chain({
 

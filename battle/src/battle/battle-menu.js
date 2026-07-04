@@ -1,5 +1,5 @@
 import Phaser from '../lib/phaser.js';
-import { UI_ASSET_KEYS } from '../misc/asset-keys.js';
+import { DEPTHS, UI_ASSET_KEYS } from '../misc/asset-keys.js';
 import { DIRECTION } from '../misc/direction.js';
 import { exhaustiveGuard } from '../misc/guard.js';
 import { ACTIVE_BATTLE_MENU, BATTLE_MENU_OPTIONS } from './battle-menu-options.js';
@@ -58,6 +58,10 @@ export class BattleMenu {
   #attackMenuCursor;
   /** @type {Phaser.GameObjects.Image} */
   #attackMenuScrollBar;
+  /** @type {Phaser.GameObjects.Image} */
+  #attackMenuScrollUp;
+  /** @type {Phaser.GameObjects.Image} */
+  #attackMenuScrollDown;
   /** @type {import('./battle-menu-options.js').BattleMenuOptions} */
   #selectedBattleMenuOption;
   /** @type {import('./battle-menu-options.js').ActiveBattleMenu} */
@@ -195,7 +199,7 @@ export class BattleMenu {
     this.#moveAttackMenuCursor();
   }
 
-  get isMessagePlaying(){
+  get isMessagePlaying() {
     return this._messagePlaying;
   }
 
@@ -261,13 +265,15 @@ export class BattleMenu {
   }
 
   #createMainBattleMenu() {
-    this.#battleTextLine1 = this.#scene.add.text(70, 433, "", BATTLE_UI_TEXT_STYLE);
-    this.#battleTextLine2 = this.#scene.add.text(70, 477, "", BATTLE_UI_TEXT_STYLE);
+    this.#battleTextLine1 = this.#scene.add.text(70, 433, "", BATTLE_UI_TEXT_STYLE).setDepth(DEPTHS.TEXT);
+    this.#battleTextLine2 = this.#scene.add.text(70, 477, "", BATTLE_UI_TEXT_STYLE).setDepth(DEPTHS.TEXT);
 
     this.#mainBattleMenuCursor = this.#scene.add
       .image(278, 436, UI_ASSET_KEYS.CURSOR, 0)
       .setOrigin(0.5)
-      .setScale(.25);
+      .setScale(.25)
+      .setDepth(DEPTHS.TEXT)
+      ;
 
     this.#mainBattleMenuContainer = this.#scene.add.container(45, 405, [
       this.#scene.add.text(0, 0, BATTLE_MENU_OPTIONS.HIT, BATTLE_UI_TEXT_STYLE).setOrigin(.5).setPosition(233, 31),
@@ -277,6 +283,8 @@ export class BattleMenu {
       this.#mainBattleMenuCursor,
     ]);
 
+    this.#mainBattleMenuContainer.setDepth(DEPTHS.TEXT);
+
     this.hideMainBattleMenu();
   }
 
@@ -284,9 +292,12 @@ export class BattleMenu {
     this.#attackMenuCursor = this.#scene.add
       .image(233, 31, UI_ASSET_KEYS.CURSOR, 0)
       .setOrigin(0.5)
-      .setScale(.25);
+      .setScale(.25)
+      .setDepth(DEPTHS.TEXT);
 
-    this.#attackMenuScrollBar = this.#scene.add.image(0, 0, UI_ASSET_KEYS.SCROLL_BAR, 0).setOrigin(0).setScale(.25);
+    this.#attackMenuScrollBar = this.#scene.add.image(0, 0, UI_ASSET_KEYS.SCROLL_BAR, 0).setOrigin(0).setScale(.25).setDepth(DEPTHS.TEXT);
+    this.#attackMenuScrollUp = this.#scene.add.image(0, 0, UI_ASSET_KEYS.SCROLL_UP, 0).setOrigin(0).setScale(.25).setDepth(DEPTHS.TEXT);
+    this.#attackMenuScrollDown = this.#scene.add.image(0, 0, UI_ASSET_KEYS.SCROLL_DOWN, 0).setOrigin(0).setScale(.25).setDepth(DEPTHS.TEXT);
 
     const labelPositions = [
       { x: 233, y: 31 },
@@ -306,10 +317,12 @@ export class BattleMenu {
       this.#visibleAttackLabels[2].setPosition(labelPositions[2].x, labelPositions[2].y),
       this.#visibleAttackLabels[3].setPosition(labelPositions[3].x, labelPositions[3].y),
       this.#attackMenuCursor,
-      this.#scene.add.image(0, 0, UI_ASSET_KEYS.SCROLL_UP, 0).setOrigin(0).setScale(.25).setPosition(885, 9),
-      this.#scene.add.image(0, 0, UI_ASSET_KEYS.SCROLL_DOWN, 0).setOrigin(0).setScale(.25).setPosition(885, 95),
       this.#attackMenuScrollBar.setPosition(885, 38),
+      this.#attackMenuScrollUp.setPosition(885, 9),
+      this.#attackMenuScrollDown.setPosition(885, 95),
     ]);
+
+    this.#attackMenuContainer.setDepth(DEPTHS.TEXT);
 
     this.#renderAttackMenu();
     this.hideAttackMenu();
@@ -328,8 +341,12 @@ export class BattleMenu {
     const rows = Math.ceil(totalAttacks / 2);
     if (rows <= 2) {
       this.#attackMenuScrollBar.setAlpha(0);
+      this.#attackMenuScrollUp.setAlpha(0);
+      this.#attackMenuScrollDown.setAlpha(0);
     } else {
       this.#attackMenuScrollBar.setAlpha(1);
+      this.#attackMenuScrollUp.setAlpha(1);
+      this.#attackMenuScrollDown.setAlpha(1);
 
       const visibleRowIndex = (this.#visibleAttackStartIndex || 0) / 2;
       const maxRowOffset = rows - 2;
@@ -346,7 +363,7 @@ export class BattleMenu {
   #createTextWindow() {
 
     this.#textWindow = this.#scene.add.image(0, 0, UI_ASSET_KEYS.TEXT_WINDOW)
-      .setOrigin(0).setScale(.25).setPosition(19, 379);
+      .setOrigin(0).setScale(.25).setPosition(19, 379).setDepth(DEPTHS.UI);
 
     this.#textWindow.setAlpha(0);
   }
@@ -581,7 +598,7 @@ export class BattleMenu {
   }
 
   #createPlayerInputCursor() {
-    this.#userInputCursor = this.#scene.add.image(0, 0, UI_ASSET_KEYS.CURSOR).setAngle(90).setScale(.25).setAlpha(0).setPosition(940, 490);
+    this.#userInputCursor = this.#scene.add.image(0, 0, UI_ASSET_KEYS.CURSOR).setAngle(90).setScale(.25).setAlpha(0).setPosition(940, 490).setDepth(DEPTHS.TEXT);
   }
 
 }

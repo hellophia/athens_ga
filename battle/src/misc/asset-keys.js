@@ -37,3 +37,15 @@ export const MUSIC_KEYS = Object.freeze({
   OUTRO_MUSIC: 'OUTRO_MUSIC',
   CREDITS_MUSIC: 'CREDITS_MUSIC',
 });
+
+export const DEPTHS = Object.freeze({
+    BACKGROUND: 0,
+    ENEMY: 100,
+    ENEMY_HEALTH: 200,
+    ATTACKS: 300,
+    PLAYER: 400,
+    PLAYER_HEALTH: 500,
+    UI: 600,
+    TEXT: 700,
+    TOP: 800,
+});

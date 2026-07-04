@@ -1,4 +1,4 @@
-import { BATTLE_ASSET_KEYS, DATA_ASSET_KEYS, FIGHTER_ASSET_KEYS } from '../misc/asset-keys.js';
+import { BATTLE_ASSET_KEYS, DATA_ASSET_KEYS, DEPTHS, FIGHTER_ASSET_KEYS } from '../misc/asset-keys.js';
 import { BattleGuy } from './battle-guy.js';
 import { HealthBar } from './health-bar.js';
 
@@ -15,6 +15,7 @@ export class PlayerBattleGuy extends BattleGuy {
    */
   constructor(config) {
     super(config, PLAYER_POSITION);
+    this._guyGameSprite.setDepth(DEPTHS.PLAYER);
     this._loadAttacksFromCache(DATA_ASSET_KEYS.PLAYER_ATTACKS);
 
     this._scene.anims.create({
@@ -154,7 +155,7 @@ export class PlayerBattleGuy extends BattleGuy {
      * @returns {void}
      */
   playGuyHealthBarAppearAnimation(callback) {
-    this._phaserHealthBarGameContainer.setAlpha(1);
+    this.healthBarContainer.setAlpha(1);
     callback();
   }
 
@@ -215,13 +216,13 @@ export class PlayerBattleGuy extends BattleGuy {
     this._healthBarBgImage = this._scene.add.image(0, 0, BATTLE_ASSET_KEYS.HEALTH_BAR_BACKGROUND)
       .setOrigin(0).setScale(.25).setPosition(0, 40);
 
-    this._phaserHealthBarGameContainer = this._scene.add.container(0, 0, [
+    this.healthBarContainer = this._scene.add.container(0, 0, [
       this._healthBarBgImage,
       this._guyNameGameText,
       this._healthBar.container,
     ]).setAlpha(0);
 
-    this._phaserHealthBarGameContainer.setPosition(542, 276);
+    this.healthBarContainer.setPosition(542, 276).setDepth(DEPTHS.PLAYER_HEALTH);
   }
 
 }
