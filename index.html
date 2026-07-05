@@ -837,9 +837,9 @@ document.addEventListener("mouseout", function (e) {
 
 (replace:?bgimg)[&lt;img src=&quot;img/bgs/117-living.jpg&quot;&gt;]
 
-(if: $items&#39;s &quot;Magic D20&quot;&#39;s &quot;found&quot; is true)[(display:&quot;elo hints&quot;)]
+(if: $items&#39;s &quot;D20&quot;&#39;s &quot;found&quot; is true)[(display:&quot;elo hints&quot;)]
 (else:)[
-(set: $items&#39;s &quot;Magic D20&quot;&#39;s &quot;found&quot; to true)
+(set: $items&#39;s &quot;D20&quot;&#39;s &quot;found&quot; to true)
 (set: $dialoguetext to (a:
 (dm:
 &quot;character&quot;,&quot;elo&quot;,
@@ -1032,7 +1032,7 @@ document.addEventListener("mouseout", function (e) {
 [[go somewhere else-&gt;athens]]</tw-passagedata><tw-passagedata pid="19" name="hal.tracks" tags="" position="1125,75" size="100,100">daily:./audio/music/Anita Ward - Ring My Bell - Instrumental.mp3
 burks:./audio/music/hajime tachibana - THE BASSMAN FROM LDK.mp3
 athens:./audio/music/masayoshi takanaka - BREEZIN&#39;.mp3
-syfritt:./audio/music/Davy Graham Alex Korner - 3 4 Ad.mp3
+syfritt:./audio/music/trapqueen.m4a
 117:./audio/music/ff9 - South Gate.mp3
 grass:./audio/music/Emahoy Tsege Mariam Gebru - The Mad Man&#39;s Laughter.mp3
 mcbride:./audio/music/utena - Hikarisasu Niwa.mp3
@@ -1164,7 +1164,7 @@ hole:./audio/music/ff7 - mako reactor.mp3</tw-passagedata><tw-passagedata pid="2
 
 (replace:?bgimg)[&lt;img src=&quot;img/bgs/syfritt.png&quot;&gt;]
 
-(if: $items&#39;s &quot;Sticky hand&quot;&#39;s &quot;found&quot; is true)[
+(if: $items&#39;s &quot;Cell phone&quot;&#39;s &quot;found&quot; is true)[
 (set: $dialoguetext to (a:
 (dm:
 &quot;character&quot;,&quot;memphis&quot;,
@@ -1210,11 +1210,11 @@ hole:./audio/music/ff7 - mako reactor.mp3</tw-passagedata><tw-passagedata pid="2
 (dm:
 &quot;character&quot;,&quot;memphis&quot;,
 &quot;mood&quot;,&quot;neutral&quot;,
-&quot;text&quot;,&quot;You can take my sticky hand tho.&quot;),
+&quot;text&quot;,&quot;You can borrow my cell phone tho.&quot;),
 (dm:
 &quot;character&quot;,&quot;narrator&quot;,
 &quot;mood&quot;,&quot;none&quot;,
-&quot;text&quot;,&quot;Danny got the sticky hand!&quot;),
+&quot;text&quot;,&quot;Danny got Memphis&#39;s cell phone!&quot;),
 (dm:
 &quot;character&quot;,&quot;memphis&quot;,
 &quot;mood&quot;,&quot;neutral&quot;,
@@ -1381,7 +1381,7 @@ you got some broccoli!
 [[OK-&gt;davis-weing]]</tw-passagedata><tw-passagedata pid="31" name="items" tags="" position="1375,75" size="100,100">{
 (set: $items to (dm:
 
-&quot;Magic D20&quot;, (dm:
+&quot;D20&quot;, (dm:
     &quot;found&quot;, false,
     &quot;hint&quot;, &quot;&quot;,
     &quot;image&quot;, &quot;&quot;
@@ -1405,7 +1405,7 @@ you got some broccoli!
     &quot;image&quot;, &quot;&quot;
 ),
 
-&quot;Sticky hand&quot;, (dm:
+&quot;Cell phone&quot;, (dm:
     &quot;found&quot;, false,
     &quot;hint&quot;, &quot;I think I see Mem and Maggie playing outside, they probably wanna help you out!&quot;,
     &quot;image&quot;, &quot;&quot;
