@@ -91,8 +91,8 @@ export class BattleScene extends Phaser.Scene {
     this.cameras.main.fadeIn(2000);
 
     /*
-    this.time.delayedCall(2000, () => {
-      this.#attackManager.playAttackAnimation("CHUPA", () => { })
+    this.time.delayedCall(1000, () => {
+      this.#attackManager.playAttackAnimation("BIKE", () => { })
     });*/
 
   }

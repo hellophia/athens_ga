@@ -15,6 +15,9 @@ export class AttackAnimations {
             POOL: this.pool,
             DIRTBIKE: this.dirtbike,
             CHICKEN: this.chicken,
+            CAPITAL: this.capital,
+            BEES: this.bees,
+            BIKE: this.bike,
         };
     }
 
@@ -66,12 +69,13 @@ export class AttackAnimations {
 
         const { scene, sprite, width, height } = this.#context;
 
-        const groundY = scene.scale.height / 4;
+        const groundY = scene.scale.height * .3;
 
-        sprite.setScale(.5);
-
-        sprite.setPosition(-100, groundY);
-        sprite.setAlpha(1);
+        sprite
+            .setScale(.5)
+            .setPosition(-100, groundY)
+            .setAlpha(1)
+            .setDepth(DEPTHS.ATTACKS);
 
         scene.tweens.chain({
 
@@ -99,14 +103,14 @@ export class AttackAnimations {
                 },
 
                 {
-                    x: scene.scale.width * 0.66,
+                    x: scene.scale.width * 0.75,
                     y: groundY - 120,
                     duration: 350,
                     ease: 'Sine.Out',
                 },
 
                 {
-                    x: scene.scale.width * 0.66,
+                    x: scene.scale.width * 0.75,
                     y: groundY,
 
                     duration: 250,
@@ -142,6 +146,8 @@ export class AttackAnimations {
 
         const { scene, sprite, width, height } = this.#context;
 
+        sprite.setDepth(DEPTHS.ATTACKS);
+
         this.playSound(attack);
 
         const path = new Phaser.Curves.Spline([
@@ -162,25 +168,28 @@ export class AttackAnimations {
             }
         });
 
-        const follower = { t: 0 };
+        const data = { t: 0 };
 
         scene.tweens.add({
-            targets: follower,
+            targets: data,
             t: 1,
-            duration: 2000,
+            duration: 1500,
             ease: 'Linear',
 
             onUpdate: () => {
 
-                const point = path.getPoint(follower.t);
+                const point = path.getPoint(data.t);
 
                 sprite.setPosition(point.x, point.y);
             },
 
             onComplete: () => {
                 cleanup();
-                callback();
             },
+        });
+
+        scene.time.delayedCall(1000, () => {
+            callback();
         });
     }
 
@@ -196,12 +205,14 @@ export class AttackAnimations {
         const { scene, sprite, width, height } = this.#context;
 
         const startX = -sprite.width;
-        const centerX = (scene.scale.width / 2) - (sprite.width / 2);
+        const centerX = scene.scale.width * .42;
         const y = 30 + (sprite.height / 2);
 
-        sprite.setPosition(startX, y);
-        sprite.setDepth(DEPTHS.ATTACKS);
-        sprite.setAlpha(1);
+        sprite
+            .setPosition(startX, y)
+            .setDepth(DEPTHS.ATTACKS)
+            .setAlpha(1)
+            .setScale(.8);
 
         scene.tweens.add({
             targets: sprite,
@@ -215,15 +226,15 @@ export class AttackAnimations {
 
                     this.playSound(attack);
 
-                    const laser = scene.add.graphics();
+                    const laser = scene.add.graphics().setDepth(DEPTHS.ATTACKS);
 
                     laser.lineStyle(6, 0xff0000);
 
                     const startLaserX = sprite.x - (sprite.width / 4);
                     const startLaserY = sprite.y - (sprite.height / 4);
 
-                    const endLaserX = scene.scale.width * 0.75;
-                    const endLaserY = scene.scale.height * 0.25;
+                    const endLaserX = scene.scale.width * 0.70;
+                    const endLaserY = scene.scale.height * 0.15;
 
                     laser.beginPath();
                     laser.moveTo(startLaserX, startLaserY);
@@ -268,13 +279,14 @@ export class AttackAnimations {
         const { scene, sprite, width, height } = this.#context;
         const key = attack._spriteKey;
         const player = attack._player;
+
         sprite.setAlpha(0);
 
-        const startX = scene.scale.width * 0.75;
-        const startY = scene.scale.height * 0.25;
+        const startX = scene.scale.width * 0.65;
+        const startY = scene.scale.height * 0.18;
 
         const targetX = scene.scale.width * 0.25;
-        const targetY = scene.scale.height * 0.75;
+        const targetY = scene.scale.height * 0.45;
 
         let finished = 0;
 
@@ -358,6 +370,7 @@ export class AttackAnimations {
         const { scene, sprite, width, height } = this.#context;
         const key = attack._spriteKey;
         const player = attack._player;
+
         sprite.setAlpha(0);
 
         const bounceY = scene.scale.height * 0.66;
@@ -441,6 +454,8 @@ export class AttackAnimations {
 
         const { scene, sprite, width, height } = this.#context;
 
+        sprite.setDepth(DEPTHS.TOP);
+
         const marginX = sprite.width / 2;
         const marginY = sprite.height / 2;
 
@@ -485,32 +500,42 @@ export class AttackAnimations {
         teleport();
     }
 
+    /*
+      ____  _      _   _     _ _        
+     |  _ \(_)_ __| |_| |__ (_) | _____ 
+     | | | | | '__| __| '_ \| | |/ / _ \
+     | |_| | | |  | |_| |_) | |   <  __/
+     |____/|_|_|   \__|_.__/|_|_|\_\___|
+    */
     static dirtbike(attack, callback, cleanup) {
 
         const { scene, sprite, width, height } = this.#context;
 
         const startX = -(sprite.width);
-        const stopX = width / 3;
+        const stopX = width * .4;
         const endX = width + sprite.width;
 
-        const y = height * 0.2;
+        const y = height * 0.4;
 
         sprite
             .setPosition(startX, y)
             .setAlpha(1)
-            .setScale(.5);
+            .setScale(.5)
+            .setDepth(DEPTHS.ATTACKS);
 
         scene.tweens.add({
             targets: sprite,
             x: stopX,
-            duration: 700,
+            duration: 1000,
             ease: 'Back.Out',
 
             onComplete: () => {
 
-                this.playSound(attack);
                 sprite.play(attack._spriteKey);
-                scene.time.delayedCall(1000, () => { callback(); });
+                scene.time.delayedCall(500, () => {
+                    this.playSound(attack);
+                    callback();
+                });
 
                 sprite.once(
                     Phaser.Animations.Events.ANIMATION_COMPLETE,
@@ -519,12 +544,10 @@ export class AttackAnimations {
                         scene.tweens.add({
                             targets: sprite,
                             x: endX,
-                            duration: 500,
+                            duration: 600,
                             ease: 'Quad.In',
 
                             onComplete: () => {
-                                sprite.setAlpha(0).setFrame(0);
-
                                 cleanup();
                             }
                         });
@@ -535,6 +558,13 @@ export class AttackAnimations {
         });
     }
 
+    /*
+       ____ _     _      _              
+      / ___| |__ (_) ___| | _____ _ __  
+     | |   | '_ \| |/ __| |/ / _ \ '_ \ 
+     | |___| | | | | (__|   <  __/ | | |
+      \____|_| |_|_|\___|_|\_\___|_| |_|
+    */
     static chicken(attack, callback, cleanup) {
 
         const { scene, sprite, width, height } = this.#context;
@@ -543,20 +573,20 @@ export class AttackAnimations {
         const endX = width + sprite.width;
 
         const groundY = height * 0.25;
-        sprite.setScale(.5);
 
         sprite
             .setPosition(startX, groundY)
-            .setAlpha(1);
+            .setAlpha(1)
+            .setScale(.5)
+            .setDepth(DEPTHS.ATTACKS);
 
         scene.tweens.chain({
 
             tweens: [
 
-                // first bounce
                 {
                     targets: sprite,
-                    x: width * 0.25,
+                    x: width * 0.15,
                     y: groundY - 120,
                     duration: 300,
                     ease: 'Sine.Out',
@@ -566,12 +596,14 @@ export class AttackAnimations {
                     y: groundY,
                     duration: 250,
                     ease: 'Sine.In',
+                    onComplete: () => {
+                        this.playSound(attack);
+                    }
                 },
 
-                // second bounce
                 {
                     targets: sprite,
-                    x: width * 0.55,
+                    x: width * 0.45,
                     y: groundY - 80,
                     duration: 250,
                     ease: 'Sine.Out',
@@ -581,12 +613,13 @@ export class AttackAnimations {
                     y: groundY,
                     duration: 200,
                     ease: 'Sine.In',
+                    onComplete: () => {
+                        this.playSound(attack);
+                    }
                 },
-
-                // third bounce
                 {
                     targets: sprite,
-                    x: width * 0.8,
+                    x: width * 0.7,
                     y: groundY - 50,
                     duration: 200,
                     ease: 'Sine.Out',
@@ -602,7 +635,6 @@ export class AttackAnimations {
                     }
                 },
 
-                // exit screen right
                 {
                     targets: sprite,
                     x: endX,
@@ -619,19 +651,28 @@ export class AttackAnimations {
         });
     }
 
+    /*
+      ____             _ 
+     |  _ \ ___   ___ | |
+     | |_) / _ \ / _ \| |
+     |  __/ (_) | (_) | |
+     |_|   \___/ \___/|_|
+    */
     static pool(attack, callback, cleanup) {
 
         const { scene, sprite, width, height } = this.#context;
 
         const startX = -sprite.width;
-        const hoverX = width * 0.8;
+        const hoverX = width * 0.5;
         const hoverY = height * 0.2;
-        const endX = width + sprite.width;
 
         sprite
             .setPosition(startX, hoverY)
             .setRotation(0)
-            .setAlpha(1);
+            .setAlpha(1)
+            .setScale(.75)
+            .setOrigin(.5, .75)
+            .setDepth(DEPTHS.ATTACKS);
 
         scene.tweens.chain({
 
@@ -658,31 +699,296 @@ export class AttackAnimations {
 
                 {
                     targets: sprite,
+                    alpha: 1,
                     duration: 1000,
                 },
 
                 {
                     targets: sprite,
-                    x: endX,
+                    x: startX,
                     duration: 500,
                     ease: 'Quad.In',
 
                     onComplete: () => {
-                        sprite
-                            .setAlpha(0)
-                            .setAngle(0)
-                            .setFrame(0);
+                        sprite.setAngle(0);
 
-                        if (callback) {
-                            callback();
-                            cleanup();
-                        }
+                        callback();
+                        cleanup();
                     }
                 }
 
             ]
 
         });
+    }
+
+    /*
+       ____            _ _        _ 
+      / ___|__ _ _ __ (_) |_ __ _| |
+     | |   / _` | '_ \| | __/ _` | |
+     | |__| (_| | |_) | | || (_| | |
+      \____\__,_| .__/|_|\__\__,_|_|
+                |_|                 
+    */
+    static capital(attack, callback, cleanup) {
+
+        const { scene, sprite, width, height } = this.#context;
+
+        const startX = width * .3;
+        const groundY = height * 0.5;
+
+        const player = attack._player;
+
+        sprite
+            .setPosition(startX, -sprite.height)
+            .setAlpha(1)
+            .setAngle(0)
+            .setScale(.6)
+            .setDepth(DEPTHS.ATTACKS);
+
+        attack._scene.tweens.chain({
+
+            targets: sprite,
+
+            tweens: [
+
+                {
+                    y: groundY,
+                    duration: 300,
+                    ease: "Cubic.In",
+                    onComplete: () => {
+                        this.playSound(attack);
+                        player.playTakeDamageAnimation()
+                    }
+                },
+
+                {
+                    y: groundY - 25,
+                    duration: 120,
+                    ease: "Quad.Out",
+                    yoyo: true,
+                },
+
+                {
+                    duration: 500,
+                },
+
+                {
+                    alpha: 0,
+                    duration: 300,
+                },
+            ],
+
+            onComplete: () => {
+                callback();
+                cleanup();
+            },
+        });
+    }
+
+    /*
+      ____                 
+     | __ )  ___  ___  ___ 
+     |  _ \ / _ \/ _ \/ __|
+     | |_) |  __/  __/\__ \
+     |____/ \___|\___||___/
+    */
+    static bees(attack, callback, cleanup) {
+
+        const { scene, sprite, width, height } = this.#context;
+
+        sprite.setAlpha(0);
+
+        const beeCount = 5;
+        let finishedBees = 0;
+
+        const bees = [];
+
+        this.playSound(attack);
+
+        function buzz(bee, remainingMoves) {
+
+            if (remainingMoves <= 0) {
+
+                scene.tweens.add({
+                    targets: bee,
+                    x: -100,
+                    y: Phaser.Math.Between(0, height),
+                    angle: bee.angle + 360,
+                    duration: 400,
+                    ease: "Quad.In",
+                    onComplete: () => {
+
+                        bee.destroy();
+
+                        finishedBees++;
+
+                        if (finishedBees === beeCount) {
+                            callback();
+                            cleanup();
+                        }
+                    },
+                });
+
+                return;
+            }
+
+            scene.tweens.add({
+                targets: bee,
+
+                x: Phaser.Math.Between(
+                    width * 0.2,
+                    width * 0.8
+                ),
+
+                y: Phaser.Math.Between(
+                    height * 0.2,
+                    height * 0.8
+                ),
+
+                angle: Phaser.Math.Between(-45, 45),
+
+                duration: Phaser.Math.Between(150, 350),
+
+                ease: "Sine.InOut",
+
+                onComplete: () => {
+                    buzz(bee, remainingMoves - 1);
+                },
+            });
+        }
+
+        for (let i = 0; i < beeCount; i++) {
+
+            const bee = scene.add.sprite(
+                width + 50,
+                height * 0.5 + Phaser.Math.Between(-80, 80),
+                attack._spriteKey
+            );
+
+            bee
+                .setScale(0.4)
+                .setAlpha(1);
+
+            bees.push(bee);
+
+            scene.tweens.add({
+                targets: bee,
+
+                x: width * 0.3,
+
+                y: bee.y + Phaser.Math.Between(-50, 50),
+
+                duration: 400 + i * 50,
+
+                ease: "Quad.Out",
+
+                onComplete: () => {
+                    buzz(bee, 5);
+                },
+            });
+        }
+    }
+
+    /*
+      ____  _ _        
+     | __ )(_) | _____ 
+     |  _ \| | |/ / _ \
+     | |_) | |   <  __/
+     |____/|_|_|\_\___|
+    */
+    static bike(attack, callback, cleanup) {
+
+        const { scene, sprite, width, height } = this.#context;
+
+        const startX = width * 0.7;
+        const startY = height * 0.2;
+
+        const landX = -100;
+        const landY = height * 0.5;
+
+        sprite.setAlpha(0);
+
+        const radius = 250;
+        const path1 = new Phaser.Curves.Path(startX, startY);
+        path1.ellipseTo(
+            radius * 1.8,
+            radius,
+            270,
+            180,
+            true,
+            0
+        );
+        /*
+                scene.add.circle(startX, startY, 5, 0xff0000);
+           
+           const graphics = scene.add.graphics();
+           graphics.lineStyle(4, 0x00ff00, 1);
+           path1.draw(graphics);
+        */
+        const path2 = new Phaser.Curves.Path(startX - (radius * 1.8), landY + radius - 180);
+        path2.ellipseTo(
+            radius * 1.8,
+            radius,
+            0,
+            270,
+            true,
+            0
+        );
+        /*
+                scene.add.circle(startX - (radius * 1.8), landY + radius - 180, 5, 0xff0000);
+                        const graphics2 = scene.add.graphics();
+                        graphics2.lineStyle(4, 0x00ff00, 1);
+                        path2.draw(graphics2);
+        */
+        const follower = scene.add.follower(path1, startX, startY, attack._spriteKey);
+
+        follower
+            .setScale(.5)
+            .setOrigin(.5)
+            .setAlpha(0)
+            .setDepth(DEPTHS.ATTACKS);
+
+        follower.flipY = true;
+        follower.flipX = true;
+
+        scene.time.delayedCall(100, () => {
+            follower.setAlpha(1);
+        });
+
+        follower.startFollow({
+
+            duration: 700,
+            rotateToPath: true,
+            ease: 'Sine.In',
+            onComplete: () => {
+
+                this.playSound(attack);
+                follower.setPath(path2);
+                follower.flipX = false;
+                follower.flipY = false;
+
+                scene.tweens.add({
+                    targets: follower,
+                    rotation: -5,
+                    duration: 300,
+                });
+
+                follower.startFollow({
+                    duration: 300,
+                    onComplete: () => {
+
+                        follower.destroy();
+                        cleanup();
+                        callback();
+
+                    }
+                });
+
+            }
+
+        });
+
     }
 
 }
