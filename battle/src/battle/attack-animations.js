@@ -9,15 +9,17 @@ export class AttackAnimations {
             NANCY: this.nancy,
             STATUES: this.statues,
             SWAN: this.swan,
-            MUSHROOM: this.mushroom,
-            PORKCHOP: this.porkchop,
             CHUPA: this.chupa,
             POOL: this.pool,
             DIRTBIKE: this.dirtbike,
             CHICKEN: this.chicken,
+            HEMAN: this.heman,
+            MUSHROOM: this.mushroom,
+            PORKCHOP: this.porkchop,
             CAPITAL: this.capital,
             BEES: this.bees,
             BIKE: this.bike,
+            THROAT: this.throat,
         };
     }
 
@@ -72,10 +74,11 @@ export class AttackAnimations {
         const groundY = scene.scale.height * .3;
 
         sprite
-            .setScale(.5)
             .setPosition(-100, groundY)
             .setAlpha(1)
             .setDepth(DEPTHS.ATTACKS);
+
+        sprite.play(attack._spriteKey);
 
         scene.tweens.chain({
 
@@ -984,11 +987,69 @@ export class AttackAnimations {
 
                     }
                 });
-
             }
+        });
+    }
 
+    static heman(attack, callback, cleanup) {
+
+        const { scene, sprite, width, height } = this.#context;
+
+        sprite
+            .setPosition(-sprite.width, height * 0.4)
+            .setScale(0.4)
+            .setAlpha(1)
+            .setDepth(DEPTHS.ATTACKS);
+
+        scene.tweens.add({
+            targets: sprite,
+            x: width * 0.5,
+            duration: 700,
+            ease: "Sine.Out",
+            onComplete: () => {
+
+                scene.time.delayedCall(1000, () => {
+
+                    this.playSound(attack);
+
+                    scene.time.delayedCall(500, () => {
+                        sprite.play(attack._spriteKey);
+                        scene.tweens.add({
+                            targets: sprite,
+                            x: width + sprite.width,
+                            y: -sprite.height,
+                            rotation: 10,
+                            duration: 900,
+                            onComplete: () => {
+                                cleanup();
+                                callback();
+                            }
+                        });
+                    });
+                });
+            }
         });
 
+    }
+
+    static throat(attack, callback, cleanup) {
+
+        const { scene, sprite, width, height } = this.#context;
+
+        const sound = attack._scene.sound.add(attack._sound);
+
+        sprite
+            .setPosition(width * .7, height * .12)
+            .setScale(0.5)
+            .setAlpha(1)
+            .setDepth(DEPTHS.ATTACKS);
+
+        sprite.play({ key: attack._spriteKey, repeat: -1 });
+        sound.once("complete", () => {
+            cleanup();
+            callback();
+        });
+        sound.play();
     }
 
 }
