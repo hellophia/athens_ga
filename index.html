@@ -483,7 +483,6 @@ document.addEventListener("mouseout", function (e) {
 // end Harlowe Macro Framework</script><tw-tag name="footer" color="purple"></tw-tag><tw-tag name="labyrinth" color="blue"></tw-tag><tw-passagedata pid="1" name="start" tags="" position="100,25" size="100,100">{
 (display:&quot;variables&quot;)
 (display:&quot;items&quot;)
-(display:&quot;snacks&quot;)
 }
 
 [(transition-arrive:&quot;fade&quot;)+(transition-time:20s)(link-goto: &quot;ATHENS, GA&quot;,&quot;opening cutscene&quot;)]&lt;start|
@@ -568,20 +567,15 @@ document.addEventListener("mouseout", function (e) {
 (set:$music to &quot;athens&quot;)
 (display: &quot;music&quot;)
 
-}
-
-[[memphis&#39;s house-&gt;syfritt]]
-
-[[bizarro wuxtry]]</tw-passagedata><tw-passagedata pid="4" name="danny&#39;s room" tags="" position="250,275" size="100,100">{
+}</tw-passagedata><tw-passagedata pid="4" name="danny&#39;s room" tags="" position="250,275" size="100,100">{
 (display:&quot;window&quot;)
 
 (replace:?bgimg)[&lt;img src=&quot;img/bgs/117-danny.jpg&quot;&gt;]
 
 (replace:?text)[ [
-[[Say hi to fairies-&gt;fairies]]
-(if:$items&#39;s &quot;Mahmoo Dahdoos&quot;&#39;s &quot;found&quot; is false)[[[Look at Mahmoo Dahdoo figures-&gt;mmdd]]]
 [[Go to living room-&gt;living room]]
-]&lt;choices3|]
+(if:$items&#39;s &quot;Mahmoo Dahdoos&quot;&#39;s &quot;found&quot; is false)[[[Look at Mahmoo Dahdoo figures-&gt;mmdd]]]
+]&lt;choices2|]
 
 (set:$music to &quot;117&quot;)
 (display: &quot;music&quot;)
@@ -611,9 +605,8 @@ document.addEventListener("mouseout", function (e) {
 (replace:?text)[ [
 [[Go inside-&gt;living room]]
 [[Check the cold plunge tub-&gt;ice]]
-[[Check the garden-&gt;garden]]
 [[Go somewhere else-&gt;athens]]
-]&lt;choices4|]
+]&lt;choices3|]
 
 (set:$music to &quot;117&quot;)
 (display: &quot;music&quot;)
@@ -627,6 +620,9 @@ document.addEventListener("mouseout", function (e) {
 [[Knock on the door-&gt;knock]]
 [[Go somewhere else-&gt;athens]]
 ]&lt;choices2|]
+
+(set:$music to &quot;fu&quot;)
+(display: &quot;music&quot;)
 
 }</tw-passagedata><tw-passagedata pid="8" name="mack-steinberg" tags="" position="1000,625" size="100,100">get something from luther. soccer ball?
 
@@ -644,22 +640,61 @@ document.addEventListener("mouseout", function (e) {
 (set:$music to &quot;grass&quot;)
 (display: &quot;music&quot;)
 
-}</tw-passagedata><tw-passagedata pid="10" name="burks" tags="" position="1025,400" size="100,100">can you get anything here? maybe the principal is here and tells danny it&#39;s summer vacation?
+}</tw-passagedata><tw-passagedata pid="10" name="burks" tags="" position="1000,425" size="100,100">{
+(display:&quot;window&quot;)
 
-[[go somewhere else-&gt;athens]]
+(replace:?bgimg)[&lt;img src=&quot;img/bgs/burks.png&quot;&gt;]
+
+(if: $items&#39;s &quot;Frog&quot;&#39;s &quot;found&quot; is true)[
+(set: $dialoguetext to (a:
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;Nothing here. Boring.&quot;)
+))
+]
+(else:)[
+(set: $items&#39;s &quot;Frog&quot;&#39;s &quot;found&quot; to true)
+(set: $dialoguetext to (a:
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;happy&quot;,
+&quot;text&quot;,&quot;Ah... school...&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;determined&quot;,
+&quot;text&quot;,&quot;Wait... why am I here? It&#39;s summer&lt;br&gt; vacation.&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;Maybe there&#39;s something useful lying&lt;br&gt; around...&quot;),
+(dm:
+&quot;character&quot;,&quot;narrator&quot;,
+&quot;mood&quot;,&quot;none&quot;,
+&quot;text&quot;,&quot;Danny found a little plastic frog!&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;happy&quot;,
+&quot;text&quot;,&quot;I&#39;ll find my frog!!!&quot;)
+))
+]
+(set: $nextPassage to &quot;athens&quot;)
+
+(display: &quot;typewriter&quot;)
 
 (set:$music to &quot;burks&quot;)
-(display: &quot;music&quot;)</tw-passagedata><tw-passagedata pid="11" name="daily" tags="" position="800,625" size="100,100">{
+(display: &quot;music&quot;)
+
+}</tw-passagedata><tw-passagedata pid="11" name="daily" tags="" position="800,625" size="100,100">{
 (display:&quot;window&quot;)
 
 (replace:?bgimg)[&lt;img src=&quot;img/bgs/daily.jpg&quot;&gt;]
 
 (replace:?text)[ [
-[[Get snacks-&gt;get snacks]]
 [[Talk to dada-&gt;drew]]
 [[Talk to Ian-&gt;ian]]
 [[Go somewhere else-&gt;athens]]
-]&lt;choices4|]
+]&lt;choices3|]
 
 (set:$music to &quot;daily&quot;)
 (display: &quot;music&quot;)
@@ -754,7 +789,7 @@ document.addEventListener("mouseout", function (e) {
 (set:$music to &quot;mcbride&quot;)
 (display: &quot;music&quot;)
 
-}</tw-passagedata><tw-passagedata pid="13" name="syfritt" tags="" position="600,425" size="100,100">{
+}</tw-passagedata><tw-passagedata pid="13" name="syfritt" tags="" position="600,450" size="100,100">{
 (display:&quot;window&quot;)
 
 (replace:?bgimg)[&lt;img src=&quot;img/bgs/syfritt.png&quot;&gt;]
@@ -1038,7 +1073,11 @@ grass:./audio/music/Emahoy Tsege Mariam Gebru - The Mad Man&#39;s Laughter.mp3
 mcbride:./audio/music/utena - Hikarisasu Niwa.mp3
 intro:./audio/music/ff9 - bran bal.mp3
 labyrinth:./audio/music/ff7 - man in black.mp3
-hole:./audio/music/ff7 - mako reactor.mp3</tw-passagedata><tw-passagedata pid="20" name="opening cutscene" tags="" position="225,25" size="100,100">{
+hole:./audio/music/ff7 - mako reactor.mp3
+fu:./audio/music/dwarf fortress - strike the earth.mp3
+ode:./audio/music/piano - ode to joy.mp3
+graduation:./audio/music/piano - graduationparty.mp3
+pig:./audio/music/piano - pigdonald.mp3</tw-passagedata><tw-passagedata pid="20" name="opening cutscene" tags="" position="225,25" size="100,100">{
 (display:&quot;window&quot;)
 
 (replace:?bgimg)[&lt;img src=&quot;img/bgs/117-danny.jpg&quot;&gt;]
@@ -1059,7 +1098,7 @@ hole:./audio/music/ff7 - mako reactor.mp3</tw-passagedata><tw-passagedata pid="2
 (dm:
 &quot;character&quot;,&quot;mystery&quot;,
 &quot;mood&quot;,&quot;neutral&quot;,
-&quot;text&quot;,&quot;Danny... there is a great evil here in &lt;br&gt;Athens...&quot;),
+&quot;text&quot;,&quot;Danny... there is a great enemy here in &lt;br&gt;Athens...&quot;),
 (dm:
 &quot;character&quot;,&quot;mystery&quot;,
 &quot;mood&quot;,&quot;neutral&quot;,
@@ -1067,7 +1106,7 @@ hole:./audio/music/ff7 - mako reactor.mp3</tw-passagedata><tw-passagedata pid="2
 (dm:
 &quot;character&quot;,&quot;mystery&quot;,
 &quot;mood&quot;,&quot;neutral&quot;,
-&quot;text&quot;,&quot;Danny... are you brave enough to fight &lt;br&gt;against that evil...?&quot;),
+&quot;text&quot;,&quot;Danny... are you brave enough to fight &lt;br&gt;against this final boss...?&quot;),
 (dm:
 &quot;character&quot;,&quot;mystery&quot;,
 &quot;mood&quot;,&quot;neutral&quot;,
@@ -1082,7 +1121,7 @@ hole:./audio/music/ff7 - mako reactor.mp3</tw-passagedata><tw-passagedata pid="2
 &quot;text&quot;,&quot;.....&quot;),
 (dm:
 &quot;character&quot;,&quot;danny&quot;,
-&quot;mood&quot;,&quot;neutral&quot;,
+&quot;mood&quot;,&quot;determined&quot;,
 &quot;text&quot;,&quot;What the world?&quot;)
 ))
 
@@ -1316,13 +1355,73 @@ hole:./audio/music/ff7 - mako reactor.mp3</tw-passagedata><tw-passagedata pid="2
 (set: $typewriterPos to 1)
 (set: $dialogueIndex to 1)
 (hide:?portrait)
-}</tw-passagedata><tw-passagedata pid="26" name="photo" tags="" position="450,150" size="100,100">get ? from real aunt leta
+}</tw-passagedata><tw-passagedata pid="26" name="photo" tags="" position="450,150" size="100,100">{
+(display:&quot;window&quot;)
 
-get ? from maggie and jen
+(replace:?bgimg)[&lt;img src=&quot;img/bgs/photo.png&quot;&gt;]
 
-get ? from lacey
+(if: $items&#39;s &quot;Baby Ari&quot;&#39;s &quot;found&quot; is true)[
+(set: $dialoguetext to (a:
+(dm:
+&quot;character&quot;,&quot;leta&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;Ari, take care of your cousin Danny, OK?&quot;)
+))
+]
+(else:)[
+(set: $items&#39;s &quot;Baby Ari&quot;&#39;s &quot;found&quot; to true)
+(set: $dialoguetext to (a:
+(dm:
+&quot;character&quot;,&quot;leta&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;Hi Danny!&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;yelling&quot;,
+&quot;text&quot;,&quot;...!&quot;),
+(dm:
+&quot;character&quot;,&quot;leta&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;Surprised? This is some new technology!&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;happy&quot;,
+&quot;text&quot;,&quot;... cool!&quot;),
+(dm:
+&quot;character&quot;,&quot;leta&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;How&#39;s your day going?&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;It&#39;s OK except I think I have to fight a bad guy.&quot;),
+(dm:
+&quot;character&quot;,&quot;leta&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;Oh? Is someone trying to start something?&quot;),
+(dm:
+&quot;character&quot;,&quot;leta&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;Take Ari with you! He can back you up!&quot;),
+(dm:
+&quot;character&quot;,&quot;narrator&quot;,
+&quot;mood&quot;,&quot;none&quot;,
+&quot;text&quot;,&quot;Danny got baby Ari!&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;surprised&quot;,
+&quot;text&quot;,&quot;How is baby Ari here???&quot;),
+(dm:
+&quot;character&quot;,&quot;leta&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;Technology is getting more advanced every&lt;br&gt; day, Danny! OK have fun you kids!&quot;)
+))
+]
+(set: $nextPassage to &quot;living room&quot;)
 
-[[go back-&gt;living room]]</tw-passagedata><tw-passagedata pid="27" name="get snacks" tags="" position="800,900" size="100,100">you got some snacks.
+(display: &quot;typewriter&quot;)
+
+}</tw-passagedata><tw-passagedata pid="27" name="get snacks" tags="" position="800,900" size="100,100">you got some snacks.
 
 [[ok-&gt;daily]]</tw-passagedata><tw-passagedata pid="28" name="fish" tags="" position="1325,675" size="100,100">{
 (display:&quot;window&quot;)
@@ -1407,13 +1506,13 @@ you got some broccoli!
 
 &quot;Cell phone&quot;, (dm:
     &quot;found&quot;, false,
-    &quot;hint&quot;, &quot;I think I see Mem and Maggie playing outside, they probably wanna help you out!&quot;,
+    &quot;hint&quot;, &quot;I think I see Mem and Maggie playing&lt;br&gt; outside, they probably wanna help you out!&quot;,
     &quot;image&quot;, &quot;&quot;
 ),
 
 &quot;Feather&quot;, (dm:
     &quot;found&quot;, false,
-    &quot;hint&quot;, &quot;I bet Maggie&#39;s got a lot of weird stuff, maybe go ask her if you can borrow something?&quot;,
+    &quot;hint&quot;, &quot;I bet Maggie&#39;s got a lot of weird stuff,&lt;br&gt; maybe go ask her if you can borrow&lt;br&gt; something?&quot;,
     &quot;image&quot;, &quot;&quot;
 ),
 
@@ -1437,7 +1536,31 @@ you got some broccoli!
 
 &quot;Cold plunge pool&quot;, (dm:
     &quot;found&quot;, false,
-    &quot;hint&quot;, &quot;Someone just did a cold plunge but forgot to empty out all the ice water, maybe that&#39;d be useful?&quot;,
+    &quot;hint&quot;, &quot;Someone just did a cold plunge but forgot&lt;br&gt; to empty out all the ice water, maybe&lt;br&gt; that&#39;d be useful?&quot;,
+    &quot;image&quot;, &quot;&quot;
+),
+
+&quot;Baby Ari&quot;, (dm:
+    &quot;found&quot;, false,
+    &quot;hint&quot;, &quot;Go ask your real aunt Leta for some help! Look, there&#39;s a photo of her in the picture frame right now!&quot;,
+    &quot;image&quot;, &quot;&quot;
+),
+
+&quot;He-Man&quot;, (dm:
+    &quot;found&quot;, false,
+    &quot;hint&quot;, &quot;Uncle Jeremy probably wants to help out... if you play Minecraft I can call him on the phone and you can ask him!&quot;,
+    &quot;image&quot;, &quot;&quot;
+),
+
+&quot;Candy&quot;, (dm:
+    &quot;found&quot;, false,
+    &quot;hint&quot;, &quot;Why don&#39;t you ask uncleaunty Kate for some help? You can chat with them if you invite them to play some Minecraft!&quot;,
+    &quot;image&quot;, &quot;&quot;
+),
+
+&quot;Frog&quot;, (dm:
+    &quot;found&quot;, false,
+    &quot;hint&quot;, &quot;Maybe you should head on down to Burks and see if anyone can help you. I&#39;m pretty sure all the teachers live at school during summer vacation.&quot;,
     &quot;image&quot;, &quot;&quot;
 )
 
@@ -1465,7 +1588,7 @@ you got some broccoli!
 (dm:
 &quot;character&quot;,&quot;elo&quot;,
 &quot;mood&quot;,&quot;happy&quot;,
-&quot;text&quot;,&quot;No problem! Everyone needs a little help sometimes!&quot;),
+&quot;text&quot;,&quot;No problem! Everyone needs a little help&lt;br&gt; sometimes!&quot;),
 (dm:
 &quot;character&quot;,&quot;elo&quot;,
 &quot;mood&quot;,&quot;happy&quot;,
@@ -1513,12 +1636,25 @@ you got some broccoli!
 
 (replace:?bgimg)[&lt;img src=&quot;img/bgs/117-piano.jpg&quot;&gt;]
 
+(if: $pianogem is true)[
+
+(set:$dialoguetext to (a:
+(dm:
+&quot;character&quot;,&quot;elo&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;You already got a gem from playing piano,&lt;br&gt; bub!&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;determined&quot;,
+&quot;text&quot;,&quot;... oh yeah.&quot;)
+))
+
+]
+(else:)[
+
 (set:$stars to it+1)
 
-(if:$stars is 3)[
-(set:$gems to it+1)
-(set:$stars to 0)
-(set: $dialoguetext to (a:
+(set:$dialoguetext to (a:
 (dm:
 &quot;character&quot;,&quot;narrator&quot;,
 &quot;mood&quot;,&quot;none&quot;,
@@ -1530,42 +1666,181 @@ you got some broccoli!
 (dm:
 &quot;character&quot;,&quot;narrator&quot;,
 &quot;mood&quot;,&quot;none&quot;,
-&quot;text&quot;,&quot;You exchange your three stars for a gem.&quot;),
-(dm:
-&quot;character&quot;,&quot;narrator&quot;,
-&quot;mood&quot;,&quot;none&quot;,
-&quot;text&quot;,&quot;You have &quot;+(text: $gems)+&quot; gems.&quot;)
-))]
-(else:)[
-(set: $dialoguetext to (a:
-(dm:
-&quot;character&quot;,&quot;narrator&quot;,
-&quot;mood&quot;,&quot;none&quot;,
-&quot;text&quot;,&quot;You practice piano for a little while.&quot;),
-(dm:
-&quot;character&quot;,&quot;narrator&quot;,
-&quot;mood&quot;,&quot;none&quot;,
-&quot;text&quot;,&quot;You got a star!&quot;),
-(dm:
-&quot;character&quot;,&quot;narrator&quot;,
-&quot;mood&quot;,&quot;none&quot;,
-&quot;text&quot;,&quot;You have &quot;+(text: $stars)+&quot; stars.&quot;),
-(dm:
-&quot;character&quot;,&quot;narrator&quot;,
-&quot;mood&quot;,&quot;none&quot;,
-&quot;text&quot;,&quot;You have &quot;+(text: $gems)+&quot; gems.&quot;)
+&quot;text&quot;,&quot;You have &quot;+(text: $stars)+&quot; stars.&quot;)
 ))
+
+(if:$stars is 3)[
+
+(set:$gems to it + 1)
+(set:$pianogem to true)
+
+(set: $dialoguetext to it + (a:(dm:
+&quot;character&quot;,&quot;narrator&quot;,
+&quot;mood&quot;,&quot;none&quot;,
+&quot;text&quot;,&quot;You exchange your three stars for a gem.&quot;)))
+
+(set:$music to &quot;ode&quot;)
+](else-if:$stars is 2)[
+(set:$music to &quot;graduation&quot;)
+](else-if:$stars is 1)[
+(set:$music to &quot;pig&quot;)
+]
+
+(display: &quot;music&quot;)
+
 ]
 
 (set: $nextPassage to &quot;living room&quot;)
 
 (display: &quot;typewriter&quot;)
 
-}</tw-passagedata><tw-passagedata pid="34" name="videogames" tags="" position="300,450" size="100,100">get something from uncle jeremy?
-get something from uncleaunty kate?
-(when you play minecraft with them)
+}</tw-passagedata><tw-passagedata pid="34" name="videogames" tags="" position="300,450" size="100,100">{
+(display:&quot;window&quot;)
 
-[[OK-&gt;living room]]</tw-passagedata><tw-passagedata pid="35" name="knock" tags="" position="1125,275" size="100,100">{
+(replace:?bgimg)[&lt;img src=&quot;img/bgs/switch.png&quot;&gt;]
+
+(if: $items&#39;s &quot;Candy&quot;&#39;s &quot;found&quot; and $items&#39;s &quot;He-Man&quot;&#39;s &quot;found&quot;)[
+(set: $dialoguetext to (a:
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;I should probably stop playing videogames and go fight the actual bad guy who&#39;s out there somewhere.&quot;)
+))
+]
+(else-if: $items&#39;s &quot;Candy&quot;&#39;s &quot;found&quot; and $gems &gt;= 1)[
+(set: $items&#39;s &quot;He-Man&quot;&#39;s &quot;found&quot; to true)
+(set: $gems to it - 1)
+(set: $dialoguetext to (a:
+(dm:
+&quot;character&quot;,&quot;narrator&quot;,
+&quot;mood&quot;,&quot;none&quot;,
+&quot;text&quot;,&quot;Danny sits down to play Minecraft when the phone rings.&quot;),
+(dm:
+&quot;character&quot;,&quot;jeremy&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;Heeey Danny! Is it OK if I see your Minecraft world?&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;happy&quot;,
+&quot;text&quot;,&quot;Yeah! I just got done building the&lt;br&gt; Olympics.&quot;),
+(dm:
+&quot;character&quot;,&quot;jeremy&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;Wow, you made all this?&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;determined&quot;,
+&quot;text&quot;,&quot;Yes. I have to train for fighting an evil&lt;br&gt; guy later.&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;worried&quot;,
+&quot;text&quot;,&quot;That reminds me, umm... do you have any&lt;br&gt; useful stuff?&quot;),
+(dm:
+&quot;character&quot;,&quot;jeremy&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;For fighting an evil guy? Yeah, I know just&lt;br&gt; the thing!&quot;),
+(dm:
+&quot;character&quot;,&quot;jeremy&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;I&#39;m going to throw it really hard towards&lt;br&gt; your house, run outside and catch it, OK?&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;surprised&quot;,
+&quot;text&quot;,&quot;OK...??&quot;),
+(dm:
+&quot;character&quot;,&quot;narrator&quot;,
+&quot;mood&quot;,&quot;none&quot;,
+&quot;text&quot;,&quot;Danny got a He-Man action figure!&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;happy&quot;,
+&quot;text&quot;,&quot;Nice!! Thanks!&quot;)
+))
+]
+(else-if: $gems &gt;= 1)[
+(set: $items&#39;s &quot;Candy&quot;&#39;s &quot;found&quot; to true)
+(set: $gems to it - 1)
+(set: $dialoguetext to (a:
+(dm:
+&quot;character&quot;,&quot;narrator&quot;,
+&quot;mood&quot;,&quot;none&quot;,
+&quot;text&quot;,&quot;Danny sits down to play Minecraft when the phone rings.&quot;),
+(dm:
+&quot;character&quot;,&quot;kate&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;Hey Danny! Can I play in your Minecraft&lt;br&gt; world?&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;happy&quot;,
+&quot;text&quot;,&quot;Sure!&quot;),
+(dm:
+&quot;character&quot;,&quot;kate&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;Woah!!! What is this giant screen? And this&lt;br&gt; huge airport? And this upside down sheep?&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;That&#39;s just Dinnerbone.&quot;),
+(dm:
+&quot;character&quot;,&quot;kate&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;Thank you for letting me play in your&lt;br&gt; world! Are you gonna go do anything fun now?&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;determined&quot;,
+&quot;text&quot;,&quot;Well I do have to fight a final boss.&quot;),
+(dm:
+&quot;character&quot;,&quot;kate&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;In Minecraft?&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;No, in real life.&quot;),
+(dm:
+&quot;character&quot;,&quot;kate&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;In real life! That sounds stressful. Um,&lt;br&gt; maybe I can send you some supplies? I&#39;m&lt;br&gt; gonna teleport you a bunch of candy!&quot;),
+(dm:
+&quot;character&quot;,&quot;kate&quot;,
+&quot;mood&quot;,&quot;focus&quot;,
+&quot;text&quot;,&quot;Hang on... it takes some concentration...&quot;),
+(dm:
+&quot;character&quot;,&quot;narrator&quot;,
+&quot;mood&quot;,&quot;none&quot;,
+&quot;text&quot;,&quot;Danny got lots of homemade candy!&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;surprised&quot;,
+&quot;text&quot;,&quot;How did you do that?!&quot;),
+(dm:
+&quot;character&quot;,&quot;kate&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;Eh, it&#39;s no big deal!&quot;)
+))
+]
+(else:)[
+
+(set: $dialoguetext to (a:
+(dm:
+&quot;character&quot;,&quot;elo&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;Did you earn any gems, Danny?&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;determined&quot;,
+&quot;text&quot;,&quot;... no...&quot;),
+(dm:
+&quot;character&quot;,&quot;elo&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;No gems no games, kiddo! Them&#39;s the breaks!&quot;)
+))
+]
+(set: $nextPassage to &quot;living room&quot;)
+
+(display: &quot;typewriter&quot;)
+
+}</tw-passagedata><tw-passagedata pid="35" name="knock" tags="" position="1125,275" size="100,100">{
 (display:&quot;window&quot;)
 
 (replace:?bgimg)[&lt;img src=&quot;img/bgs/fu.png&quot;&gt;]
@@ -1672,6 +1947,8 @@ get something from uncleaunty kate?
 }</tw-passagedata><tw-passagedata pid="37" name="variables" tags="" position="1500,75" size="100,100">{
 (set:$stars to 0)
 (set:$gems to 0)
+(set:$pianogem to false)
+(set:$cmacgem to false)
 (set: $knock to (a:&quot;Where is that Aaron Fu?&quot;,&quot;I wonder what Aaron Fu does when he&#39;s not &lt;br&gt;at my house.&quot;,&quot;Maybe he&#39;s hibernating.&quot;))
 
 (set: $keys to (dm:
@@ -1697,25 +1974,7 @@ get something from uncleaunty kate?
 
 (set:$jumpscared to false)
 
-}</tw-passagedata><tw-passagedata pid="38" name="snacks" tags="" position="1625,75" size="100,100">{
-(set: $dailysnacks to (a:
-&quot;wasa&quot;,
-&quot;nori&quot;,
-&quot;apple&quot;,
-&quot;pocky&quot;,
-&quot;salt and vinegar chips&quot;
-))
-
-(set: $gardensnacks to (a:
-&quot;broccoli&quot;,
-&quot;kale&quot;,
-&quot;strawberries&quot;,
-&quot;tomatoes&quot;,
-&quot;cucumbers&quot;
-))
-
-(set: $ownedsnacks to (a:))
-}</tw-passagedata><tw-passagedata pid="39" name="riddle1" tags="" position="1525,600" size="100,100">{
+}</tw-passagedata><tw-passagedata pid="38" name="riddle1" tags="" position="1525,600" size="100,100">{
 (display:&quot;window&quot;)
 
 (replace:?bgimg)[&lt;img src=&quot;img/labyrinth/5-5-E.png&quot;&gt;]
@@ -1736,7 +1995,7 @@ get something from uncleaunty kate?
 [(link-rerun:&quot;Answer&quot;)[_if]]&lt;if|
 &lt;/div&gt;&lt;/div&gt;
 ]
-}</tw-passagedata><tw-passagedata pid="40" name="riddle2" tags="" position="1650,600" size="100,100">{
+}</tw-passagedata><tw-passagedata pid="39" name="riddle2" tags="" position="1650,600" size="100,100">{
 (display:&quot;window&quot;)
 
 (replace:?bgimg)[&lt;img src=&quot;img/labyrinth/3-2-E.png&quot;&gt;]
@@ -1757,7 +2016,7 @@ get something from uncleaunty kate?
 [(link-rerun:&quot;Answer&quot;)[_if]]&lt;if|
 &lt;/div&gt;&lt;/div&gt;
 ]
-}</tw-passagedata><tw-passagedata pid="41" name="riddle3" tags="" position="1775,600" size="100,100">{
+}</tw-passagedata><tw-passagedata pid="40" name="riddle3" tags="" position="1775,600" size="100,100">{
 (display:&quot;window&quot;)
 
 (replace:?bgimg)[&lt;img src=&quot;img/labyrinth/5-4-S.png&quot;&gt;]
@@ -1778,7 +2037,7 @@ get something from uncleaunty kate?
 [(link-rerun:&quot;Answer&quot;)[_if]]&lt;if|
 &lt;/div&gt;&lt;/div&gt;
 ]
-}</tw-passagedata><tw-passagedata pid="42" name="labyrinth" tags="" position="1575,350" size="100,100">{
+}</tw-passagedata><tw-passagedata pid="41" name="labyrinth" tags="" position="1575,350" size="100,100">{
 [
 [[]&lt;bgimg|]&lt;environment|
 [
@@ -2074,9 +2333,9 @@ updateDisplay();
 
 &lt;/script&gt;
 
-}</tw-passagedata><tw-passagedata pid="43" name="fairies" tags="" position="100,175" size="100,100">get something from the fairies?
+}</tw-passagedata><tw-passagedata pid="42" name="fairies" tags="" position="100,175" size="100,100">get something from the fairies?
 
-[[OK-&gt;danny&#39;s room]]</tw-passagedata><tw-passagedata pid="44" name="end" tags="" position="1950,325" size="100,100">(goto-url: &quot;battle/index.html&quot;)</tw-passagedata><tw-passagedata pid="45" name="skeleton" tags="" position="1500,475" size="100,100">{
+[[OK-&gt;danny&#39;s room]]</tw-passagedata><tw-passagedata pid="43" name="end" tags="" position="1950,325" size="100,100">(goto-url: &quot;battle/index.html&quot;)</tw-passagedata><tw-passagedata pid="44" name="skeleton" tags="" position="1500,475" size="100,100">{
 (display:&quot;window&quot;)
 
 (replace:?bgimg)[&lt;img src=&quot;img/labyrinth/5-5-E.png&quot;&gt;]
@@ -2167,7 +2426,7 @@ updateDisplay();
 
 (display: &quot;typewriter&quot;)
 
-}</tw-passagedata><tw-passagedata pid="46" name="creeper" tags="" position="1625,475" size="100,100">{
+}</tw-passagedata><tw-passagedata pid="45" name="creeper" tags="" position="1625,475" size="100,100">{
 (display:&quot;window&quot;)
 
 (replace:?bgimg)[&lt;img src=&quot;img/labyrinth/3-2-E.png&quot;&gt;]
@@ -2246,7 +2505,7 @@ updateDisplay();
 
 (display: &quot;typewriter&quot;)
 
-}</tw-passagedata><tw-passagedata pid="47" name="chicken" tags="" position="1750,475" size="100,100">{
+}</tw-passagedata><tw-passagedata pid="46" name="chicken" tags="" position="1750,475" size="100,100">{
 (display:&quot;window&quot;)
 
 (replace:?bgimg)[&lt;img src=&quot;img/labyrinth/5-4-S.png&quot;&gt;]
@@ -2341,7 +2600,7 @@ updateDisplay();
 
 (display: &quot;typewriter&quot;)
 
-}</tw-passagedata><tw-passagedata pid="48" name="labyrinth entrance" tags="" position="1425,325" size="100,100">{
+}</tw-passagedata><tw-passagedata pid="47" name="labyrinth entrance" tags="" position="1425,325" size="100,100">{
 (display:&quot;window&quot;)
 
 (replace:?bgimg)[&lt;img src=&quot;img/labyrinth/entrance.png&quot;&gt;]
@@ -2380,7 +2639,7 @@ updateDisplay();
 (set:$music to &quot;labyrinth&quot;)
 (display: &quot;music&quot;)
 
-}</tw-passagedata><tw-passagedata pid="49" name="locked door" tags="" position="1825,325" size="100,100">{
+}</tw-passagedata><tw-passagedata pid="48" name="locked door" tags="" position="1825,325" size="100,100">{
 (display:&quot;window&quot;)
 
 (replace:?bgimg)[&lt;img src=&quot;img/labyrinth/3-1-N.png&quot;&gt;]
