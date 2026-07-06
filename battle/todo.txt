@@ -1,5 +1,7 @@
 TODO phaser
 
+serato on battle intro to remove demon sounds
+
 fix enemy sus animation?
 bug where player can interact too early?
 
@@ -10,8 +12,7 @@ danny idle animation
 
 enemy dead animation
 
-add new attacks
-change positioning for attacks
+bike has cached/wrong sfx?
 
 throat singing
 
