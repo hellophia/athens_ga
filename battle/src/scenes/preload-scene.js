@@ -4,6 +4,9 @@ import { SCENE_KEYS } from './scene-keys.js';
 import * as WebFontLoader from '../lib/webfontloader.js';
 
 export class PreloadScene extends Phaser.Scene {
+    #progressBox;
+    #progressBar;
+
     constructor() {
         super({
             key: SCENE_KEYS.PRELOAD_SCENE,
@@ -24,20 +27,15 @@ export class PreloadScene extends Phaser.Scene {
         const barwidth = 600;
 
         this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0x000000).setOrigin(0).setPosition(0, 0);
-        let progressBox = this.add.graphics();
-        let progressBar = this.add.graphics();
-        progressBox.fillStyle(0x322b30, 1);
-        progressBox.fillRect(this.scale.width / 2 - (barwidth / 2), this.scale.height / 2 - (barheight / 2), barwidth, barheight);
+        this.#progressBox = this.add.graphics();
+        this.#progressBar = this.add.graphics();
+        this.#progressBox.fillStyle(0x322b30, 1);
+        this.#progressBox.fillRect(this.scale.width / 2 - (barwidth / 2), this.scale.height / 2 - (barheight / 2), barwidth, barheight);
 
         this.load.on('progress', (value) => {
-            progressBar.clear();
-            progressBar.fillStyle(0xb89100, 1);
-            progressBar.fillRect(this.scale.width / 2 - (barwidth / 2), this.scale.height / 2 - (barheight / 2), barwidth * value, barheight);
-        });
-
-        this.load.on('complete', () => {
-            progressBar.destroy();
-            progressBox.destroy();
+            this.#progressBar.clear();
+            this.#progressBar.fillStyle(0xb89100, 1);
+            this.#progressBar.fillRect(this.scale.width / 2 - (barwidth / 2), this.scale.height / 2 - (barheight / 2), barwidth * value, barheight);
         });
 
         this.load.audio(MUSIC_KEYS.INTRO_MUSIC, 'assets/music/intro.mp3');
@@ -99,18 +97,36 @@ export class PreloadScene extends Phaser.Scene {
     }
 
     create() {
-        console.log("preload create");
-        WebFontLoader.default.load({
-            custom: {
-                families: ['VT323'],
-            },
-            active: () => {
-                this.scene.start(SCENE_KEYS.INTRO_SCENE);
-                //this.scene.start(SCENE_KEYS.BATTLE_SCENE);
-                //this.scene.start(SCENE_KEYS.OUTRO_SCENE);
-                //this.scene.start(SCENE_KEYS.CREDITS_SCENE);
-            },
-        });
+
+        this.#progressBar.destroy();
+        this.#progressBox.destroy();
+
+        const arrow = this.add.text(
+            this.scale.width / 2,
+            this.scale.height / 2,
+            "→",
+            {
+                fontFamily: "VT323",
+                fontSize: "72px",
+                color: "#b89100",
+            }
+        )
+            .setOrigin(.5)
+            .setInteractive({ useHandCursor: true });
+
+        arrow.on("pointerdown", () => {
+            WebFontLoader.default.load({
+                custom: {
+                    families: ['VT323'],
+                },
+                active: () => {
+                    this.scene.start(SCENE_KEYS.INTRO_SCENE);
+                    //this.scene.start(SCENE_KEYS.BATTLE_SCENE);
+                    //this.scene.start(SCENE_KEYS.OUTRO_SCENE);
+                    //this.scene.start(SCENE_KEYS.CREDITS_SCENE);
+                },
+            });
+        })
     }
 
 }
