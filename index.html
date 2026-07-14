@@ -237,6 +237,13 @@ tw-hook[name="mcbride"] {
   transform: translate(-50%, -50%);
 }
 
+tw-hook[name="cmac"] {
+	position: absolute;
+	left: 19%;
+	top: 84%;
+  transform: translate(-50%, -50%);
+}
+
 tw-hook[name="mack"] {
 	position: absolute;
 	left: 39%;
@@ -258,8 +265,8 @@ tw-hook[name="grass"] {
   transform: translate(-50%, -50%);
 }
 
-tw-hook[name="117"], tw-hook[name="syfritt"], tw-hook[name="fu"], tw-hook[name="daily"], tw-hook[name="mcbride"], tw-hook[name="mack"], tw-hook[name="burks"], tw-hook[name="grass"] {
-font-size: 3rem;
+tw-hook[name="117"], tw-hook[name="syfritt"], tw-hook[name="fu"], tw-hook[name="daily"], tw-hook[name="mcbride"], tw-hook[name="mack"], tw-hook[name="burks"], tw-hook[name="grass"], tw-hook[name="cmac"] {
+	font-size: 3rem;
     z-index: 100; 
 }
 
@@ -433,7 +440,8 @@ document.addEventListener("mouseover", function (e) {
         "mack": "Luther's House",
         "burks": "Burks",
       "grass": "Angie's House",
-      "syfritt": "Maggie and Memphis's House"
+      "syfritt": "Maggie and Memphis's House",
+      "cmac": "CMAC"
     };
 
     const hook = e.target.closest("tw-hook");
@@ -511,8 +519,8 @@ document.addEventListener("mouseout", function (e) {
   ]
   
   (set: $currentLine to $dialoguetext&#39;s $dialogueIndex&#39;s text)
-  
-  (live: 20ms)[
+  &lt;!-- change back to 20ms --&gt;
+  (live: 5ms)[
 	(append: ?dialoguetext)[(if:$currentLine&#39;s $typewriterPos is &quot;&lt;&quot;)[&lt;br&gt;(set: $typewriterPos to it + 4)](else:)[(print: $currentLine&#39;s $typewriterPos)(set: $typewriterPos to it + 1)]]
 
 	(if: $typewriterPos &gt; $currentLine&#39;s length)[
@@ -550,6 +558,7 @@ document.addEventListener("mouseout", function (e) {
 [(link-goto:&#39;✸&#39;,&#39;mack-steinberg&#39;)]&lt;mack|
 [(link-goto:&#39;✸&#39;,&#39;burks&#39;)]&lt;burks|
 [(link-goto:&#39;✸&#39;,&#39;grass&#39;)]&lt;grass|
+[(link-goto:&#39;✸&#39;,&#39;cmac&#39;)]&lt;cmac|
 
 []&lt;bgimg|]&lt;environment|
 [[[
@@ -624,9 +633,64 @@ document.addEventListener("mouseout", function (e) {
 (set:$music to &quot;fu&quot;)
 (display: &quot;music&quot;)
 
-}</tw-passagedata><tw-passagedata pid="8" name="mack-steinberg" tags="" position="1000,625" size="100,100">get something from luther. soccer ball?
+}</tw-passagedata><tw-passagedata pid="8" name="mack-steinberg" tags="" position="1000,625" size="100,100">{
+(display:&quot;window&quot;)
 
-[[go somewhere else-&gt;athens]]</tw-passagedata><tw-passagedata pid="9" name="grass" tags="" position="1200,625" size="100,100">{
+(replace:?bgimg)[&lt;img src=&quot;img/bgs/mack.png&quot;&gt;]
+
+(if: $items&#39;s &quot;Soccer ball&quot;&#39;s &quot;found&quot; is true)[
+(set: $dialoguetext to (a:
+(dm:
+&quot;character&quot;,&quot;luther&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;I asked my dad if he had to fight an evil guy on his 7th birthday but he said he wasn&#39;t allowed to talk about it.&quot;)
+))
+]
+(else:)[
+(set: $items&#39;s &quot;Soccer ball&quot;&#39;s &quot;found&quot; to true)
+(set: $dialoguetext to (a:
+(dm:
+&quot;character&quot;,&quot;luther&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;Hey Danny!&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;happy&quot;,
+&quot;text&quot;,&quot;Oh hi Luther!&quot;),
+(dm:
+&quot;character&quot;,&quot;luther&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;Lemme guess, you need an item to fight a&lt;br&gt; final boss.&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;worried&quot;,
+&quot;text&quot;,&quot;How the heck... did you know that.&quot;),
+(dm:
+&quot;character&quot;,&quot;luther&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;I had to do it on my 7th birthday too. It&#39;s normal. Here, take my soccer ball!&quot;),
+(dm:
+&quot;character&quot;,&quot;narrator&quot;,
+&quot;mood&quot;,&quot;none&quot;,
+&quot;text&quot;,&quot;Danny got a soccer ball!&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;surprised&quot;,
+&quot;text&quot;,&quot;Wait... so did you win?&quot;),
+(dm:
+&quot;character&quot;,&quot;luther&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;Obviously yeah.&quot;)
+))
+]
+(set: $nextPassage to &quot;athens&quot;)
+
+(display: &quot;typewriter&quot;)
+
+(set:$music to &quot;mack&quot;)
+(display: &quot;music&quot;)
+
+}</tw-passagedata><tw-passagedata pid="9" name="grass" tags="" position="1200,625" size="100,100">{
 (display:&quot;window&quot;)
 
 (replace:?bgimg)[&lt;img src=&quot;img/bgs/grass.jpg&quot;&gt;]
@@ -718,7 +782,7 @@ document.addEventListener("mouseout", function (e) {
 ]
 (else:)[
 (set: $items&#39;s &quot;Willow&quot;&#39;s &quot;found&quot; to true)
-(set: $items&#39;s &quot;Mermin book&quot;&#39;s &quot;found&quot; to true)
+(set: $items&#39;s &quot;Godzilla&quot;&#39;s &quot;found&quot; to true)
 (set: $dialoguetext to (a:
 (dm:
 &quot;character&quot;,&quot;melissa&quot;,
@@ -767,11 +831,11 @@ document.addEventListener("mouseout", function (e) {
 (dm:
 &quot;character&quot;,&quot;joey&quot;,
 &quot;mood&quot;,&quot;neutral&quot;,
-&quot;text&quot;,&quot;I uh... I don&#39;t have any sticks, but maybe &lt;br&gt;the pen is mightier than the sword?&quot;),
+&quot;text&quot;,&quot;I uh... I don&#39;t have any sticks, but I&lt;br&gt; think this guy is pretty strong?&quot;),
 (dm:
 &quot;character&quot;,&quot;narrator&quot;,
 &quot;mood&quot;,&quot;none&quot;,
-&quot;text&quot;,&quot;Danny got a Mermin comic book!&quot;),
+&quot;text&quot;,&quot;Danny got a Godzilla!&quot;),
 (dm:
 &quot;character&quot;,&quot;joey&quot;,
 &quot;mood&quot;,&quot;neutral&quot;,
@@ -1077,7 +1141,9 @@ hole:./audio/music/ff7 - mako reactor.mp3
 fu:./audio/music/dwarf fortress - strike the earth.mp3
 ode:./audio/music/piano - ode to joy.mp3
 graduation:./audio/music/piano - graduationparty.mp3
-pig:./audio/music/piano - pigdonald.mp3</tw-passagedata><tw-passagedata pid="20" name="opening cutscene" tags="" position="225,25" size="100,100">{
+pig:./audio/music/piano - pigdonald.mp3
+cmac:./audio/music/livealive.mp3
+mack:./audio/music/ymo-behind the mask.mp3</tw-passagedata><tw-passagedata pid="20" name="opening cutscene" tags="" position="225,25" size="100,100">{
 (display:&quot;window&quot;)
 
 (replace:?bgimg)[&lt;img src=&quot;img/bgs/117-danny.jpg&quot;&gt;]
@@ -1522,7 +1588,7 @@ you got some broccoli!
     &quot;image&quot;, &quot;&quot;
 ),
 
-&quot;Mermin book&quot;, (dm:
+&quot;Godzilla&quot;, (dm:
     &quot;found&quot;, false,
     &quot;hint&quot;, &quot;Joey and Melissa have a lot of cool stuff at their house, and I&#39;m sure they&#39;d give you some.&quot;,
     &quot;image&quot;, &quot;&quot;
@@ -1530,7 +1596,7 @@ you got some broccoli!
 
 &quot;Chupa chups lollipop&quot;, (dm:
     &quot;found&quot;, false,
-    &quot;hint&quot;, &quot;Your auntie Angie has loads of cool things, go ask her if she can share!&quot;,
+    &quot;hint&quot;, &quot;Your auntie Angie has loads of useful things, go ask her if she can share!&quot;,
     &quot;image&quot;, &quot;&quot;
 ),
 
@@ -1561,6 +1627,12 @@ you got some broccoli!
 &quot;Frog&quot;, (dm:
     &quot;found&quot;, false,
     &quot;hint&quot;, &quot;Maybe you should head on down to Burks and see if anyone can help you. I&#39;m pretty sure all the teachers live at school during summer vacation.&quot;,
+    &quot;image&quot;, &quot;&quot;
+),
+
+&quot;Soccer ball&quot;, (dm:
+    &quot;found&quot;, false,
+    &quot;hint&quot;, &quot;Oh! How about asking Luther? He&#39;s a cool kid, and he&#39;s helpful too!&quot;,
     &quot;image&quot;, &quot;&quot;
 )
 
@@ -1718,7 +1790,7 @@ you got some broccoli!
 (dm:
 &quot;character&quot;,&quot;jeremy&quot;,
 &quot;mood&quot;,&quot;neutral&quot;,
-&quot;text&quot;,&quot;Heeey Danny! Is it OK if I see your Minecraft world?&quot;),
+&quot;text&quot;,&quot;Heeey Danny! Is it OK if I see your&lt;br&gt; Minecraft world?&quot;),
 (dm:
 &quot;character&quot;,&quot;danny&quot;,
 &quot;mood&quot;,&quot;happy&quot;,
@@ -1784,7 +1856,7 @@ you got some broccoli!
 (dm:
 &quot;character&quot;,&quot;kate&quot;,
 &quot;mood&quot;,&quot;neutral&quot;,
-&quot;text&quot;,&quot;Thank you for letting me play in your&lt;br&gt; world! Are you gonna go do anything fun now?&quot;),
+&quot;text&quot;,&quot;Thank you for letting me play in your&lt;br&gt; world! Are you gonna go do anything fun&lt;br&gt; now?&quot;),
 (dm:
 &quot;character&quot;,&quot;danny&quot;,
 &quot;mood&quot;,&quot;determined&quot;,
@@ -2743,7 +2815,81 @@ updateDisplay();
 
 (display: &quot;typewriter&quot;)
 
-}</tw-passagedata></tw-storydata>
+}</tw-passagedata><tw-passagedata pid="49" name="cmac" tags="" position="450,700" size="100,100">{
+(display:&quot;window&quot;)
+
+(replace:?bgimg)[&lt;img src=&quot;img/bgs/cmac.png&quot;&gt;]
+
+(if: $cmacgem is true)[
+(set: $dialoguetext to (a:
+(dm:
+&quot;character&quot;,&quot;cmac&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;KIAI!!!&quot;)
+))
+]
+(else:)[
+(set: $cmacgem to true)
+(set:$gems to it + 1)
+(set: $dialoguetext to (a:
+(dm:
+&quot;character&quot;,&quot;cmac&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;Welcome to CMAC, Daniel!&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;determined&quot;,
+&quot;text&quot;,&quot;Yes chef!!&quot;),
+(dm:
+&quot;character&quot;,&quot;cmac&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;...?&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;happy&quot;,
+&quot;text&quot;,&quot;I mean, yes sensei!&quot;),
+(dm:
+&quot;character&quot;,&quot;cmac&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;Are you ready to train?!&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;yelling&quot;,
+&quot;text&quot;,&quot;YES, SANDWICH!&quot;),
+(dm:
+&quot;character&quot;,&quot;cmac&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;...&quot;),
+(dm:
+&quot;character&quot;,&quot;narrator&quot;,
+&quot;mood&quot;,&quot;none&quot;,
+&quot;text&quot;,&quot;And so Danny trained hard at taekwondo.&quot;),
+(dm:
+&quot;character&quot;,&quot;cmac&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;Well done, Daniel. You have earned a gem.&quot;),
+(dm:
+&quot;character&quot;,&quot;narrator&quot;,
+&quot;mood&quot;,&quot;none&quot;,
+&quot;text&quot;,&quot;Danny got a gem!&quot;),
+(dm:
+&quot;character&quot;,&quot;danny&quot;,
+&quot;mood&quot;,&quot;surprised&quot;,
+&quot;text&quot;,&quot;Wait, how come you know about gems??&quot;),
+(dm:
+&quot;character&quot;,&quot;cmac&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
+&quot;text&quot;,&quot;Train hard and you too will learn many&lt;br&gt; things!&quot;)
+))
+]
+(set: $nextPassage to &quot;athens&quot;)
+
+(display: &quot;typewriter&quot;)
+
+(set:$music to &quot;cmac&quot;)
+(display: &quot;music&quot;)
+
+}</tw-passagedata><tw-passagedata pid="50" name="hal.config" tags="" position="1625,75" size="100,100">showControls: false</tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
 var require,define;!function(){var e={},r={};require=function(i){var n=e[i];return n&&(r[i]=n[1].apply(void 0,n[0].map(require)),e[i]=void 0),r[i]},(define=function(r,i,n){if("function"==typeof r)return r();e[r]=[i,n]}).amd=!0}();/*!
  * https://github.com/paulmillr/es6-shim

@@ -1,6 +1,14 @@
 TODO phaser
 
-serato on battle intro to remove demon sounds
+add attacks: baby ari, homemade candy, rat, frog
+
+sfx for hitting
+
+make sure all attacks have cues for player/enemy hit animation
+
+remove demon sounds from battle intro
+
+cut aaron stealing snacks
 
 fix enemy sus animation?
 bug where player can interact too early?
@@ -11,8 +19,6 @@ tweak input cursor?
 danny idle animation
 
 enemy dead animation
-
-bike has cached/wrong sfx?
 
 throat singing
 
