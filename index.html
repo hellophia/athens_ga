@@ -28,16 +28,7 @@ tw-story {
 
 tw-hook[name="start"] {
 	font-size:2em;
-  animation: cycleColors 4s infinite linear;
   font-weight: bold;
-}
-
-@keyframes cycleColors {
-  0%   { color: #ff4b5c; } /* Red */
-  25%  { color: #00bfff; } /* Blue */
-  50%  { color: #00ff7f; } /* Green */
-  75%  { color: #ffdd57; } /* Yellow */
-  100% { color: #ff4b5c; } /* Loop back to Red smoothly */
 }
 
 /*
@@ -111,6 +102,7 @@ tw-hook[name="text"] {
 	align-items: flex-start;
 	box-sizing: border-box;
   	border: 8px solid #aec2a8;
+  width:100%;
 }
 
 tw-hook[name="next"] {
@@ -149,14 +141,14 @@ tw-hook.empty {
 CHOICES STYLING
 */
 
-tw-hook[name="choices2"],tw-hook[name="choices3"],tw-hook[name="choices4"],tw-hook[name="choices5"],tw-hook[name="choices6"] {
+tw-hook[name="choices1"],tw-hook[name="choices2"],tw-hook[name="choices3"],tw-hook[name="choices4"],tw-hook[name="choices5"],tw-hook[name="choices6"] {
 	display: flex;
 	flex-wrap: wrap;
 	width: 100%;
 	height: 100%;
 }
 
-tw-hook[name="choices2"] tw-link,tw-hook[name="choices3"] tw-link,tw-hook[name="choices4"] tw-link,tw-hook[name="choices5"] tw-link,tw-hook[name="choices6"] tw-link {
+tw-hook[name="choices1"] tw-link,tw-hook[name="choices2"] tw-link,tw-hook[name="choices3"] tw-link,tw-hook[name="choices4"] tw-link,tw-hook[name="choices5"] tw-link,tw-hook[name="choices6"] tw-link {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -189,6 +181,19 @@ tw-hook[name="choices6"] tw-expression {
 tw-hook[name="choices5"] tw-expression(4),
 tw-hook[name="choices5"] tw-expression(5) {
 	width: 50%;
+}
+
+tw-hook[name="choices1"] {
+	align-items: center;
+	justify-content: center;
+}
+
+tw-hook[name="choices1"] tw-expression {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 /*
@@ -493,7 +498,7 @@ document.addEventListener("mouseout", function (e) {
 (display:&quot;items&quot;)
 }
 
-[(transition-arrive:&quot;fade&quot;)+(transition-time:20s)(link-goto: &quot;ATHENS, GA&quot;,&quot;opening cutscene&quot;)]&lt;start|
+(transition: &quot;fade&quot;) + (transition-time: 5s)[(transition-arrive:&quot;fade&quot;)+(transition-time:10s)(link-goto: &quot;ATHENS, GA&quot;,&quot;opening cutscene&quot;)]&lt;start|
 
 
 
@@ -502,7 +507,7 @@ document.addEventListener("mouseout", function (e) {
 
 
 
-
+&lt;span style=&quot;color:black&quot;&gt; [[danny&#39;s room]] &lt;/style&gt;
 &lt;span style=&quot;color:black&quot;&gt; [[labyrinth entrance]] &lt;/style&gt;
 &lt;span style=&quot;color:black&quot;&gt; [[end]] &lt;/style&gt;</tw-passagedata><tw-passagedata pid="2" name="typewriter" tags="" position="1250,75" size="100,100">{
 	(after:1s)[
@@ -581,10 +586,15 @@ document.addEventListener("mouseout", function (e) {
 
 (replace:?bgimg)[&lt;img src=&quot;img/bgs/117-danny.jpg&quot;&gt;]
 
+(if:$items&#39;s &quot;Mahmoo Dahdoos&quot;&#39;s &quot;found&quot; is false)[(replace:?text)[ [
+[[Go to living room-&gt;living room]]
+[[Look at Mahmoo Dahdoo figures-&gt;mmdd]]
+]&lt;choices2|]]
+(else:)[
 (replace:?text)[ [
 [[Go to living room-&gt;living room]]
-(if:$items&#39;s &quot;Mahmoo Dahdoos&quot;&#39;s &quot;found&quot; is false)[[[Look at Mahmoo Dahdoo figures-&gt;mmdd]]]
-]&lt;choices2|]
+]&lt;choices1|]
+]
 
 (set:$music to &quot;117&quot;)
 (display: &quot;music&quot;)
@@ -611,11 +621,15 @@ document.addEventListener("mouseout", function (e) {
 
 (replace:?bgimg)[&lt;img src=&quot;img/bgs/117-outside.jpg&quot;&gt;]
 
-(replace:?text)[ [
+(if:$items&#39;s &quot;Cold plunge pool&quot;&#39;s &quot;found&quot; is false)[(replace:?text)[ [
 [[Go inside-&gt;living room]]
 [[Check the cold plunge tub-&gt;ice]]
-[[Go somewhere else-&gt;athens]]
-]&lt;choices3|]
+[[Go somewhere else-&gt;athens]]]&lt;choices3|]]
+(else:)[
+(replace:?text)[ [
+[[Go inside-&gt;living room]]
+[[Go somewhere else-&gt;athens]]]&lt;choices2|]
+]
 
 (set:$music to &quot;117&quot;)
 (display: &quot;music&quot;)
@@ -936,9 +950,9 @@ document.addEventListener("mouseout", function (e) {
 
 (replace:?bgimg)[&lt;img src=&quot;img/bgs/117-living.jpg&quot;&gt;]
 
-(if: $items&#39;s &quot;D20&quot;&#39;s &quot;found&quot; is true)[(display:&quot;elo hints&quot;)]
+(if: $items&#39;s &quot;Snacks&quot;&#39;s &quot;found&quot; is true)[(display:&quot;elo hints&quot;)]
 (else:)[
-(set: $items&#39;s &quot;D20&quot;&#39;s &quot;found&quot; to true)
+(set: $items&#39;s &quot;Snacks&quot;&#39;s &quot;found&quot; to true)
 (set: $dialoguetext to (a:
 (dm:
 &quot;character&quot;,&quot;elo&quot;,
@@ -971,11 +985,11 @@ document.addEventListener("mouseout", function (e) {
 (dm:
 &quot;character&quot;,&quot;elo&quot;,
 &quot;mood&quot;,&quot;happy&quot;,
-&quot;text&quot;,&quot;Why dontcha take this? It&#39;s a magic D20 &lt;br&gt;and I think it could really come &lt;br&gt;in handy!&quot;),
+&quot;text&quot;,&quot;Here, let me pack you up some snacks.&lt;br&gt;I&#39;ll put them in this bag of holding so you can&lt;br&gt; take a whole bunch.&quot;),
 (dm:
 &quot;character&quot;,&quot;narrator&quot;,
 &quot;mood&quot;,&quot;none&quot;,
-&quot;text&quot;,&quot;Danny got the magic D20!&quot;),
+&quot;text&quot;,&quot;Danny got a bag of holding filled with snacks!&quot;),
 (dm:
 &quot;character&quot;,&quot;danny&quot;,
 &quot;mood&quot;,&quot;happy&quot;,
@@ -1193,16 +1207,30 @@ mack:./audio/music/ymo-behind the mask.mp3</tw-passagedata><tw-passagedata pid="
 
 (set: $nextPassage to &quot;danny&#39;s room&quot;)
 
+(hide:?dialogue)
+
+(after:5s)[
+(show:?dialogue)
 (display: &quot;typewriter&quot;)
+]
 
 (set:$music to &quot;intro&quot;)
 (display: &quot;music&quot;)
 
-}</tw-passagedata><tw-passagedata pid="21" name="music" tags="" position="1000,75" size="100,100">(unless: (track: $music, &#39;isplaying&#39;))[
-	(group: &#39;playing&#39;, &#39;stop&#39;)
+}</tw-passagedata><tw-passagedata pid="21" name="music" tags="" position="1000,75" size="100,100">(if:$currentmusic is not &quot;&quot;)[
+     (if: $currentmusic is not $music)[
+
+    (track: $currentmusic, &#39;fadeout&#39;, 1)
+    
+    (after:1s)[(group: &#39;playing&#39;, &#39;stop&#39;)
     (track: $music, &#39;loop&#39;, true)
     (track: $music, &#39;play&#39;)
-]</tw-passagedata><tw-passagedata pid="22" name="angie" tags="" position="1325,550" size="100,100">{
+        (set:$currentmusic to $music)]
+    ]]
+    (else:)[
+        (track: $music, &#39;loop&#39;, true)
+    (track: $music, &#39;play&#39;)
+    (set:$currentmusic to $music)]</tw-passagedata><tw-passagedata pid="22" name="angie" tags="" position="1325,550" size="100,100">{
 (display:&quot;window&quot;)
 
 (replace:?bgimg)[&lt;img src=&quot;img/bgs/grass.jpg&quot;&gt;]
@@ -1510,15 +1538,6 @@ mack:./audio/music/ymo-behind the mask.mp3</tw-passagedata><tw-passagedata pid="
 
 (replace:?bgimg)[&lt;img src=&quot;img/bgs/cold-plunge.jpg&quot;&gt;]
 
-(if: $items&#39;s &quot;Cold plunge pool&quot;&#39;s &quot;found&quot; is true)[
-(set: $dialoguetext to (a:
-(dm:
-&quot;character&quot;,&quot;narrator&quot;,
-&quot;mood&quot;,&quot;none&quot;,
-&quot;text&quot;,&quot;There was a cold plunge pool here, but now it&#39;s gone.&quot;)
-))
-]
-(else:)[
 (set: $items&#39;s &quot;Cold plunge pool&quot;&#39;s &quot;found&quot; to true)
 (set: $dialoguetext to (a:
 (dm:
@@ -1534,7 +1553,7 @@ mack:./audio/music/ymo-behind the mask.mp3</tw-passagedata><tw-passagedata pid="
 &quot;mood&quot;,&quot;happy&quot;,
 &quot;text&quot;,&quot;It&#39;s so lucky that I have such a big &lt;br&gt;backpack.&quot;)
 ))
-]
+
 (set: $nextPassage to &quot;davis-weing&quot;)
 
 (display: &quot;typewriter&quot;)
@@ -1546,7 +1565,7 @@ you got some broccoli!
 [[OK-&gt;davis-weing]]</tw-passagedata><tw-passagedata pid="31" name="items" tags="" position="1375,75" size="100,100">{
 (set: $items to (dm:
 
-&quot;D20&quot;, (dm:
+&quot;Snacks&quot;, (dm:
     &quot;found&quot;, false,
     &quot;hint&quot;, &quot;&quot;,
     &quot;image&quot;, &quot;&quot;
@@ -2021,6 +2040,9 @@ you got some broccoli!
 (set:$gems to 0)
 (set:$pianogem to false)
 (set:$cmacgem to false)
+
+(set:$currentmusic to &quot;&quot;)
+
 (set: $knock to (a:&quot;Where is that Aaron Fu?&quot;,&quot;I wonder what Aaron Fu does when he&#39;s not &lt;br&gt;at my house.&quot;,&quot;Maybe he&#39;s hibernating.&quot;))
 
 (set: $keys to (dm:
