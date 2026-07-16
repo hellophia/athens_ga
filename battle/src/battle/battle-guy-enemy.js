@@ -81,8 +81,47 @@ export class EnemyBattleGuy extends BattleGuy {
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.ENEMY,
         {
-          start: 4,
-          end: 4,
+          start: 14,
+          end: 14,
+        }
+      ),
+      frameRate: 6,
+      repeat: 0,
+    });
+
+        this._scene.anims.create({
+      key: 'enemy-hurt-2',
+      frames: this._scene.anims.generateFrameNumbers(
+        FIGHTER_ASSET_KEYS.ENEMY,
+        {
+          start: 15,
+          end: 15,
+        }
+      ),
+      frameRate: 6,
+      repeat: 0,
+    });
+
+        this._scene.anims.create({
+      key: 'enemy-hurt-3',
+      frames: this._scene.anims.generateFrameNumbers(
+        FIGHTER_ASSET_KEYS.ENEMY,
+        {
+          start: 16,
+          end: 16,
+        }
+      ),
+      frameRate: 6,
+      repeat: 0,
+    });
+
+        this._scene.anims.create({
+      key: 'enemy-hurt-4',
+      frames: this._scene.anims.generateFrameNumbers(
+        FIGHTER_ASSET_KEYS.ENEMY,
+        {
+          start: 17,
+          end: 17,
         }
       ),
       frameRate: 6,
@@ -94,8 +133,47 @@ export class EnemyBattleGuy extends BattleGuy {
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.ENEMY,
         {
-          start: 5,
-          end: 5,
+          start: 10,
+          end: 10,
+        }
+      ),
+      frameRate: 6,
+      repeat: 0,
+    });
+
+        this._scene.anims.create({
+      key: 'enemy-attack-2',
+      frames: this._scene.anims.generateFrameNumbers(
+        FIGHTER_ASSET_KEYS.ENEMY,
+        {
+          start: 11,
+          end: 11,
+        }
+      ),
+      frameRate: 6,
+      repeat: 0,
+    });
+
+        this._scene.anims.create({
+      key: 'enemy-attack-3',
+      frames: this._scene.anims.generateFrameNumbers(
+        FIGHTER_ASSET_KEYS.ENEMY,
+        {
+          start: 12,
+          end: 12,
+        }
+      ),
+      frameRate: 6,
+      repeat: 0,
+    });
+
+        this._scene.anims.create({
+      key: 'enemy-attack-4',
+      frames: this._scene.anims.generateFrameNumbers(
+        FIGHTER_ASSET_KEYS.ENEMY,
+        {
+          start: 13,
+          end: 13,
         }
       ),
       frameRate: 6,
@@ -107,8 +185,47 @@ export class EnemyBattleGuy extends BattleGuy {
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.ENEMY,
         {
+          start: 4,
+          end: 4,
+        }
+      ),
+      frameRate: .5,
+      repeat: 0,
+    });
+
+        this._scene.anims.create({
+      key: 'enemy-pranked-2',
+      frames: this._scene.anims.generateFrameNumbers(
+        FIGHTER_ASSET_KEYS.ENEMY,
+        {
+          start: 5,
+          end: 5,
+        }
+      ),
+      frameRate: .5,
+      repeat: 0,
+    });
+
+        this._scene.anims.create({
+      key: 'enemy-pranked-3',
+      frames: this._scene.anims.generateFrameNumbers(
+        FIGHTER_ASSET_KEYS.ENEMY,
+        {
           start: 6,
-          end: 8,
+          end: 6,
+        }
+      ),
+      frameRate: .5,
+      repeat: 0,
+    });
+
+    this._scene.anims.create({
+      key: 'enemy-pranked-4',
+      frames: this._scene.anims.generateFrameNumbers(
+        FIGHTER_ASSET_KEYS.ENEMY,
+        {
+          start: 7,
+          end: 7,
         }
       ),
       frameRate: .5,
@@ -120,8 +237,8 @@ export class EnemyBattleGuy extends BattleGuy {
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.ENEMY,
         {
-          start: 9,
-          end: 9,
+          start: 8,
+          end: 8,
         }
       ),
       frameRate: 3,
@@ -133,26 +250,14 @@ export class EnemyBattleGuy extends BattleGuy {
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.ENEMY,
         {
-          start: 10,
-          end: 10,
+          start: 9,
+          end: 9,
         }
       ),
       frameRate: 3,
       repeat: 0,
     });
 
-    this._scene.anims.create({
-      key: 'enemy-wet',
-      frames: this._scene.anims.generateFrameNumbers(
-        FIGHTER_ASSET_KEYS.ENEMY,
-        {
-          start: 11,
-          end: 14,
-        }
-      ),
-      frameRate: 2,
-      repeat: 0,
-    });
   }
 
   get isStunned() {
@@ -256,8 +361,8 @@ export class EnemyBattleGuy extends BattleGuy {
   playSulkAnimation() {
     this._guyGameSprite.play("enemy-sulk");
     this._scene.time.delayedCall(1000, () => {
-      this._guyGameSprite.play('enemy-pranked');
-      this._guyGameSprite.anims.setProgress(1);
+      this._guyGameSprite.play('enemy-pranked-4');
+      //this._guyGameSprite.anims.setProgress(1);
       //this._guyGameSprite.anims.get('enemy-pranked').getLastFrame();
     });
   };
@@ -277,7 +382,7 @@ export class EnemyBattleGuy extends BattleGuy {
   };
 
   playWetAnimation() {
-    this._guyGameSprite.play("enemy-wet");
+    //this._guyGameSprite.play("enemy-wet");
     this._scene.time.delayedCall(1000, () => {
       this.playIdleAnimation();
     });
