@@ -258,7 +258,7 @@ export class AttackAnimations {
                     const startLaserY = sprite.y - (sprite.height / 4);
 
                     let { x: endLaserX, y: endLaserY } = this.getEnemyLocation();
-                    endLaserX += 50;
+                    endLaserX += 60;
 
                     laser.beginPath();
                     laser.moveTo(startLaserX, startLaserY);
@@ -1206,7 +1206,7 @@ export class AttackAnimations {
                     const startLaserY = sprite.y - (sprite.height / 4);
 
                     let { x: endLaserX, y: endLaserY } = this.getEnemyLocation();
-                    endLaserX += 65;
+                    endLaserX += 75;
                     endLaserY -= 20;
 
                     laser.beginPath();

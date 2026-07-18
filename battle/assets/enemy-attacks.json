@@ -53,7 +53,7 @@
         "frameHeight": 245,
         "sound": "MONSTER",
         "soundurl": "assets/sfx/enemy-attacks/monster.wav",
-        "animation": "",
+        "animation": true,
         "position": {
             "x": 300,
             "y": 400
@@ -138,12 +138,12 @@
         "id": 10,
         "name": "eye guy",
         "spriteKey": "EYE",
-        "url": "assets/images/enemy-attacks/attack-capital.png",
+        "url": "assets/images/enemy-attacks/attack-eyeguy.png",
         "frameWidth": 300,
         "frameHeight": 300,
         "sound": "EYE",
-        "soundurl": "assets/sfx/enemy-attacks/capital.wav",
-        "animation": "",
+        "soundurl": "assets/sfx/enemy-attacks/eyeguy.wav",
+        "animation": true,
         "position": {
             "x": 300,
             "y": 400

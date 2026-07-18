@@ -50,7 +50,8 @@ export class OutroScene extends Phaser.Scene {
             {
                 character: "danny",
                 mood: "neutral",
-                text: "...",
+                text: ".....",
+                characterDelay: 100,
             },
             {
                 character: "af",
@@ -68,6 +69,7 @@ export class OutroScene extends Phaser.Scene {
                 character: "danny",
                 mood: "surprised",
                 text: "...???",
+                characterDelay: 75,
             },
             {
                 character: "af",
@@ -78,7 +80,8 @@ export class OutroScene extends Phaser.Scene {
             {
                 character: "danny",
                 mood: "yelling",
-                text: "?????",
+                text: "???????????????",
+                
             },
             {
                 character: "af",
@@ -130,7 +133,7 @@ export class OutroScene extends Phaser.Scene {
         //black bg
         this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0x000000).setOrigin(0).setPosition(0, 0);
 
-        this.#textMenu = new TextMenu(this,"af");
+        this.#textMenu = new TextMenu(this, "af");
         this.time.delayedCall(500, () => {
             this.playLine(0);
         })
@@ -165,7 +168,7 @@ export class OutroScene extends Phaser.Scene {
                 }
             });
 
-            this.cameras.main.fadeOut(2000, 0, 0, 0);
+            this.cameras.main.fadeOut(1000, 0, 0, 0);
 
             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
                 this.time.delayedCall(1000, () => {
