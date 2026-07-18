@@ -46,21 +46,6 @@
     },
     {
         "id": 4,
-        "name": "Potato",
-        "spriteKey": "POTATO",
-        "url": "assets/images/player-attacks/attack-potato.png",
-        "frameWidth": 375,
-        "frameHeight": 500,
-        "sound": "POTATO",
-        "soundurl": "assets/sfx/player-attacks/nancy.wav",
-        "animation": true,
-        "position": {
-            "x": 745,
-            "y": 140
-        }
-    },
-    {
-        "id": 5,
         "name": "Cell phone",
         "spriteKey": "DIRTBIKE",
         "url": "assets/images/player-attacks/attack-dirtbike.png",
@@ -75,7 +60,7 @@
         }
     },
     {
-        "id": 6,
+        "id": 5,
         "name": "Feather",
         "spriteKey": "CHICKEN",
         "url": "assets/images/player-attacks/attack-chicken.png",
@@ -90,7 +75,7 @@
         }
     },
     {
-        "id": 7,
+        "id": 6,
         "name": "Willow",
         "spriteKey": "SWAN",
         "url": "assets/images/player-attacks/attack-swan.png",
@@ -98,6 +83,21 @@
         "frameHeight": 500,
         "sound": "SWAN",
         "soundurl": "assets/sfx/player-attacks/swan.wav",
+        "animation": true,
+        "position": {
+            "x": 745,
+            "y": 140
+        }
+    },
+    {
+        "id": 7,
+        "name": "Potato",
+        "spriteKey": "POTATO",
+        "url": "assets/images/player-attacks/attack-potato.png",
+        "frameWidth": 375,
+        "frameHeight": 500,
+        "sound": "POTATO",
+        "soundurl": "assets/sfx/player-attacks/nancy.wav",
         "animation": true,
         "position": {
             "x": 745,
@@ -121,14 +121,14 @@
     },
     {
         "id": 9,
-        "name": "Mermin book",
-        "spriteKey": "MERMIN",
-        "url": "assets/images/player-attacks/attack-chupa.png",
-        "frameWidth": 300,
-        "frameHeight": 325,
-        "sound": "MERMIN",
-        "soundurl": "assets/sfx/player-attacks/chupa.wav",
-        "animation": "",
+        "name": "He-Man figurine",
+        "spriteKey": "HEMAN",
+        "url": "assets/images/player-attacks/attack-heman.png",
+        "frameWidth": 524,
+        "frameHeight": 764,
+        "sound": "HEMAN",
+        "soundurl": "assets/sfx/player-attacks/heman.wav",
+        "animation": true,
         "position": {
             "x": 745,
             "y": 140
@@ -136,13 +136,73 @@
     },
     {
         "id": 10,
-        "name": "He-Man figurine",
-        "spriteKey": "HEMAN",
-        "url": "assets/images/player-attacks/attack-heman.png",
-        "frameWidth": 524,
-        "frameHeight": 764,
-        "sound": "HEMAN",
-        "soundurl": "assets/sfx/player-attacks/chupa.wav",
+        "name": "Baby Ari",
+        "spriteKey": "ARI",
+        "url": "assets/images/player-attacks/attack-ari.png",
+        "frameWidth": 400,
+        "frameHeight": 932,
+        "sound": "ARI",
+        "soundurl": "assets/sfx/player-attacks/ari.mp3",
+        "animation": true,
+        "position": {
+            "x": 745,
+            "y": 140
+        }
+    },
+    {
+        "id": 11,
+        "name": "Homemade Candy",
+        "spriteKey": "CANDY",
+        "url": "assets/images/player-attacks/attack-candy.png",
+        "frameWidth": 800,
+        "frameHeight": 800,
+        "sound": "CANDY",
+        "soundurl": "assets/sfx/player-attacks/candy.wav",
+        "animation": true,
+        "position": {
+            "x": 745,
+            "y": 140
+        }
+    },
+    {
+        "id": 12,
+        "name": "Soccer ball",
+        "spriteKey": "SOCCER",
+        "url": "assets/images/player-attacks/attack-soccer.png",
+        "frameWidth": 300,
+        "frameHeight": 300,
+        "sound": "SOCCER",
+        "soundurl": "assets/sfx/player-attacks/soccer.wav",
+        "animation": true,
+        "position": {
+            "x": 745,
+            "y": 140
+        }
+    },
+    {
+        "id": 13,
+        "name": "Frog",
+        "spriteKey": "FROG",
+        "url": "assets/images/player-attacks/attack-frog.png",
+        "frameWidth": 320,
+        "frameHeight": 200,
+        "sound": "FROG",
+        "soundurl": "assets/sfx/player-attacks/frog.wav",
+        "animation": true,
+        "position": {
+            "x": 745,
+            "y": 140
+        }
+    },
+    {
+        "id": 14,
+        "name": "Godzilla",
+        "spriteKey": "GODZILLA",
+        "url": "assets/images/player-attacks/attack-godzilla.png",
+        "frameWidth": 300,
+        "frameHeight": 420,
+        "sound": "GODZILLA",
+        "soundurl": "assets/sfx/player-attacks/godzilla.mp3",
         "animation": true,
         "position": {
             "x": 745,

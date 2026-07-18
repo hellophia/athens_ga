@@ -89,11 +89,11 @@ export class BattleScene extends Phaser.Scene {
     this.#cursorKeys = this.input.keyboard.createCursorKeys();
 
     this.cameras.main.fadeIn(2000);
-
-    /*this.time.delayedCall(1000, () => {
-      this.#attackManager.playAttackAnimation("THROAT", () => { })
-    });*/
-
+    /*
+        this.time.delayedCall(1000, () => {
+          this.#attackManager.playAttackAnimation("ARI", () => { })
+        });
+    */
   }
 
   update() {
@@ -139,8 +139,7 @@ export class BattleScene extends Phaser.Scene {
           this.#battleMenu.updateMessageWaitForInput(`It's not time to use POTATO yet!`, () => {
             console.log("the callback in updateMessageWaitForInput is firing, switching back to main battle menu");
             this.#battleMenu.switchToMainBattleMenu();
-          }
-          );
+          });
           return;
         }
 
@@ -165,6 +164,18 @@ export class BattleScene extends Phaser.Scene {
 
       }
       else if (battleMenuChoice === BATTLE_MENU_OPTIONS.SNACK) {
+
+        const playerMissing =
+          this.#activePlayerGuy.maxHealth -
+          this.#activePlayerGuy.currentHealth;
+
+        if (playerMissing <= 0) {
+          this.#battleMenu.updateMessageWaitForInput(`${this.#activePlayerGuy.name.toUpperCase()} isn't feeling hungry!`, () => {
+            console.log("the callback in updateMessageWaitForInput is firing, switching back to main battle menu");
+            this.#battleMenu.switchToMainBattleMenu();
+          });
+          return;
+        }
 
         this.#battleMenu.hideAttackMenu();
         this.#pendingPlayerAction = BATTLE_MENU_OPTIONS.SNACK;
@@ -322,19 +333,6 @@ export class BattleScene extends Phaser.Scene {
         });
     };
 
-    const playerMissing =
-      this.#activePlayerGuy.maxHealth -
-      this.#activePlayerGuy.currentHealth;
-
-    if (playerMissing <= 0) {
-      this.#battleMenu.updateMessageWaitForInput(`${this.#activePlayerGuy.name.toUpperCase()} isn't feeling hungry!`, () => {
-        this.time.delayedCall(1000, () => {
-          this.#battleStateMachine.setState(BATTLE_STATES.POST_ATTACK_CHECK);
-        });
-      })
-      return;
-    }
-
     this.#attackManager.increment('SNACK');
 
     if (this.#attackManager.timesSnackUsed === 1) {
@@ -386,14 +384,17 @@ export class BattleScene extends Phaser.Scene {
               `${this.#activeEnemyGuy.name.toUpperCase()} got GOT GOOD!`,
               () => {
                 this.time.delayedCall(1000, () => {
+                  this.#activeEnemyGuy.playPrankedAnimation();
                   this.#battleMenu.updateMessageNoInputRequired(
                     `${this.#activeEnemyGuy.name.toUpperCase()} is EMBARRASSED!`,
                     () => {
                       this.time.delayedCall(1000, () => {
+                        this.#activeEnemyGuy.playPrankedAnimation();
                         this.#battleMenu.updateMessageNoInputRequired(
                           `${this.#activeEnemyGuy.name.toUpperCase()} is SULKING!`,
                           () => {
                             this.time.delayedCall(1000, () => {
+                              this.#activeEnemyGuy.playPrankedAnimation();
                               this.#battleStateMachine.setState(BATTLE_STATES.POST_ATTACK_CHECK);
                             });
                           });
@@ -513,6 +514,7 @@ export class BattleScene extends Phaser.Scene {
           this.#attackManager.playAttackAnimation(
             this.#activeEnemyGuy.attacks[0].spriteKey,
             () => {
+              this.#activePlayerGuy.playTakeDamageAnimation();
               this.#activePlayerGuy.takeDamage(damage, () => {
                 this.#battleStateMachine.setState(BATTLE_STATES.POST_ATTACK_CHECK);
               });

@@ -609,8 +609,8 @@ document.addEventListener("mouseout", function (e) {
 (replace:?bgimg)[&lt;img src=&quot;img/bgs/117-living.jpg&quot;&gt;]
 
 (replace:?text)[ [
-[[Talk to mama-&gt;elo]]
 [[Look at the photo frame-&gt;photo]]
+[[Talk to mama-&gt;elo]]
 [[Go to Danny&#39;s room-&gt;danny&#39;s room]]
 [[Practice piano-&gt;piano]]
 [[Play videogames-&gt;videogames]]
@@ -661,7 +661,7 @@ document.addEventListener("mouseout", function (e) {
 (dm:
 &quot;character&quot;,&quot;luther&quot;,
 &quot;mood&quot;,&quot;neutral&quot;,
-&quot;text&quot;,&quot;I asked my dad if he had to fight an evil guy on his 7th birthday but he said he wasn&#39;t allowed to talk about it.&quot;)
+&quot;text&quot;,&quot;I asked my dad if he had to fight an evil&lt;br&gt; guy on his 7th birthday but he said he&lt;br&gt; wasn&#39;t allowed to talk about it.&quot;)
 ))
 ]
 (else:)[
@@ -784,7 +784,7 @@ document.addEventListener("mouseout", function (e) {
 }</tw-passagedata><tw-passagedata pid="12" name="mcbride-weiser" tags="" position="600,625" size="100,100">{
 (display:&quot;window&quot;)
 
-(replace:?bgimg)[&lt;img src=&quot;img/bgs/joeymelissa.png&quot;&gt;]
+(replace:?bgimg)[&lt;img src=&quot;img/bgs/joeymelissa.jpg&quot;&gt;]
 
 (if: $items&#39;s &quot;Willow&quot;&#39;s &quot;found&quot; is true)[
 (set: $dialoguetext to (a:
@@ -989,7 +989,7 @@ document.addEventListener("mouseout", function (e) {
 (dm:
 &quot;character&quot;,&quot;elo&quot;,
 &quot;mood&quot;,&quot;happy&quot;,
-&quot;text&quot;,&quot;Here, let me pack you up some snacks.&lt;br&gt;I&#39;ll put them in this bag of holding so you can&lt;br&gt; take a whole bunch.&quot;),
+&quot;text&quot;,&quot;Here, let me pack you up some snacks.&lt;br&gt;I&#39;ll put them in this bag of holding so&lt;br&gt; you can take a whole bunch.&quot;),
 (dm:
 &quot;character&quot;,&quot;narrator&quot;,
 &quot;mood&quot;,&quot;none&quot;,
@@ -1272,7 +1272,7 @@ mack:./audio/music/ymo-behind the mask.mp3</tw-passagedata><tw-passagedata pid="
 &quot;text&quot;,&quot;I heard you&#39;re gonna do battle with a great &lt;br&gt;evil or something?&quot;),
 (dm:
 &quot;character&quot;,&quot;danny&quot;,
-&quot;mood&quot;,&quot;neutral&quot;,
+&quot;mood&quot;,&quot;surprised&quot;,
 &quot;text&quot;,&quot;Yeah, but I don&#39;t know what his weaknesses &lt;br&gt;are!!&quot;),
 (dm:
 &quot;character&quot;,&quot;angie&quot;,
@@ -1619,7 +1619,7 @@ you got some broccoli!
 
 &quot;Chupa chups lollipop&quot;, (dm:
     &quot;found&quot;, false,
-    &quot;hint&quot;, &quot;Your auntie Angie has loads of useful things, go ask her if she can share!&quot;,
+    &quot;hint&quot;, &quot;Your auntie Angie has loads of useful&lt;br&gt; things, go ask her if she can share!&quot;,
     &quot;image&quot;, &quot;&quot;
 ),
 
@@ -1655,7 +1655,7 @@ you got some broccoli!
 
 &quot;Soccer ball&quot;, (dm:
     &quot;found&quot;, false,
-    &quot;hint&quot;, &quot;Oh! How about asking Luther? He&#39;s a cool kid, and he&#39;s helpful too!&quot;,
+    &quot;hint&quot;, &quot;Oh! How about asking Luther? He&#39;s a cool&lt;br&gt; kid, and he&#39;s helpful too!&quot;,
     &quot;image&quot;, &quot;&quot;
 )
 
@@ -2433,20 +2433,20 @@ updateDisplay();
 
 }</tw-passagedata><tw-passagedata pid="42" name="fairies" tags="" position="100,175" size="100,100">get something from the fairies?
 
-[[OK-&gt;danny&#39;s room]]</tw-passagedata><tw-passagedata pid="43" name="end" tags="" position="1950,325" size="100,100">(goto-url: &quot;battle/index.html&quot;)</tw-passagedata><tw-passagedata pid="44" name="skeleton" tags="" position="1500,475" size="100,100">{
+[[OK-&gt;danny&#39;s room]]</tw-passagedata><tw-passagedata pid="43" name="end" tags="" position="2075,325" size="100,100">(goto-url: &quot;battle/index.html&quot;)</tw-passagedata><tw-passagedata pid="44" name="skeleton" tags="" position="1500,475" size="100,100">{
 (display:&quot;window&quot;)
 
 (replace:?bgimg)[&lt;img src=&quot;img/labyrinth/5-5-E.png&quot;&gt;]
-
-(if: $keys&#39;s &quot;bronze&quot;&#39;s &quot;found&quot; is true)[
-(set: $nextPassage to &quot;labyrinth&quot;)
-(if: (history:)&#39;s last is &quot;riddle1&quot;)[
 
 (set: $labyrinth to (dm:
 	&quot;x&quot;, 5,
 	&quot;y&quot;, 5,
 	&quot;facing&quot;, &quot;E&quot;,
 ))
+
+(if: $keys&#39;s &quot;bronze&quot;&#39;s &quot;found&quot; is true)[
+(set: $nextPassage to &quot;labyrinth&quot;)
+(if: (history:)&#39;s last is &quot;riddle1&quot;)[
 
 (set: $dialoguetext to (a:
 (dm:
@@ -2529,15 +2529,15 @@ updateDisplay();
 
 (replace:?bgimg)[&lt;img src=&quot;img/labyrinth/3-2-E.png&quot;&gt;]
 
-(if: $keys&#39;s &quot;silver&quot;&#39;s &quot;found&quot; is true)[
-(set: $nextPassage to &quot;labyrinth&quot;)
-(if: (history:)&#39;s last is &quot;riddle2&quot;)[
-
 (set: $labyrinth to (dm:
 	&quot;x&quot;, 3,
 	&quot;y&quot;, 2,
 	&quot;facing&quot;, &quot;E&quot;,
 ))
+
+(if: $keys&#39;s &quot;silver&quot;&#39;s &quot;found&quot; is true)[
+(set: $nextPassage to &quot;labyrinth&quot;)
+(if: (history:)&#39;s last is &quot;riddle2&quot;)[
 
 (set: $dialoguetext to (a:
 (dm:
@@ -2551,7 +2551,7 @@ updateDisplay();
 (dm:
 &quot;character&quot;,&quot;creeper&quot;,
 &quot;mood&quot;,&quot;neutral&quot;,
-&quot;text&quot;,&quot;yEaH i LiKe LiViNg In ThE lAbYrInTh. ExCePt WhEn I rUn InTo SkElEtOn, ThAt GuY iS sO aNnOyInG.&quot;)
+&quot;text&quot;,&quot;yEaH i LiKe LiViNg In ThE lAbYrInTh. ExCePt WhEn I rUn InTo SkElEtOn, ThAt GuY iS sO&lt;br&gt; aNnOyInG.&quot;)
 ))
 ]]
 (else:)[
@@ -2608,15 +2608,15 @@ updateDisplay();
 
 (replace:?bgimg)[&lt;img src=&quot;img/labyrinth/5-4-S.png&quot;&gt;]
 
-(if: $keys&#39;s &quot;gold&quot;&#39;s &quot;found&quot; is true)[
-(set: $nextPassage to &quot;labyrinth&quot;)
-(if: (history:)&#39;s last is &quot;riddle3&quot;)[
-
 (set: $labyrinth to (dm:
 	&quot;x&quot;, 5,
 	&quot;y&quot;, 4,
 	&quot;facing&quot;, &quot;S&quot;,
 ))
+
+(if: $keys&#39;s &quot;gold&quot;&#39;s &quot;found&quot; is true)[
+(set: $nextPassage to &quot;labyrinth&quot;)
+(if: (history:)&#39;s last is &quot;riddle3&quot;)[
 
 (set: $dialoguetext to (a:
 (dm:
@@ -2791,20 +2791,12 @@ updateDisplay();
 ]
 
 (if: _usedCount is 3)[
-(set: $nextPassage to &quot;end&quot;)
+(set: $nextPassage to &quot;darkness&quot;)
 (set: $dialoguetext to (a:
 (dm:
 &quot;character&quot;,&quot;narrator&quot;,
 &quot;mood&quot;,&quot;none&quot;,
-&quot;text&quot;,&quot;The door opened!&quot;),
-(dm:
-&quot;character&quot;,&quot;narrator&quot;,
-&quot;mood&quot;,&quot;none&quot;,
-&quot;text&quot;,&quot;There is total darkness beyond!&quot;),
-(dm:
-&quot;character&quot;,&quot;narrator&quot;,
-&quot;mood&quot;,&quot;none&quot;,
-&quot;text&quot;,&quot;Danny went INTO THE DARKNESS!!!&quot;)
+&quot;text&quot;,&quot;The door opened!&quot;)
 ))
 ]
 (else:)[
@@ -2915,7 +2907,27 @@ updateDisplay();
 (set:$music to &quot;cmac&quot;)
 (display: &quot;music&quot;)
 
-}</tw-passagedata><tw-passagedata pid="50" name="hal.config" tags="" position="1625,75" size="100,100">showControls: false</tw-passagedata></tw-storydata>
+}</tw-passagedata><tw-passagedata pid="50" name="hal.config" tags="" position="1625,75" size="100,100">showControls: false</tw-passagedata><tw-passagedata pid="51" name="darkness" tags="" position="1950,325" size="100,100">{
+(display:&quot;window&quot;)
+
+(replace:?bgimg)[&lt;img src=&quot;img/labyrinth/3-1-N-open.png&quot;&gt;]
+
+(set: $dialoguetext to (a:
+(dm:
+&quot;character&quot;,&quot;narrator&quot;,
+&quot;mood&quot;,&quot;none&quot;,
+&quot;text&quot;,&quot;There is total darkness beyond!&quot;),
+(dm:
+&quot;character&quot;,&quot;narrator&quot;,
+&quot;mood&quot;,&quot;none&quot;,
+&quot;text&quot;,&quot;Danny went INTO THE DARKNESS!!!&quot;)
+))
+
+(set: $nextPassage to &quot;end&quot;)
+
+(display: &quot;typewriter&quot;)
+
+}</tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
 var require,define;!function(){var e={},r={};require=function(i){var n=e[i];return n&&(r[i]=n[1].apply(void 0,n[0].map(require)),e[i]=void 0),r[i]},(define=function(r,i,n){if("function"==typeof r)return r();e[r]=[i,n]}).amd=!0}();/*!
  * https://github.com/paulmillr/es6-shim

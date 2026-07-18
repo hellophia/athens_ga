@@ -20,6 +20,11 @@ export class AttackAnimations {
             BEES: this.bees,
             BIKE: this.bike,
             THROAT: this.throat,
+            ARI: this.ari,
+            CANDY: this.candy,
+            SOCCER: this.soccer,
+            FROG: this.frog,
+            GODZILLA: this.godzilla,
         };
     }
 
@@ -28,6 +33,8 @@ export class AttackAnimations {
         sprite: null,
         width: 0,
         height: 0,
+        player: null,
+        enemy: null,
     };
 
     /**
@@ -45,6 +52,8 @@ export class AttackAnimations {
         this.#context.sprite = sprite;
         this.#context.width = scene.scale.width;
         this.#context.height = scene.scale.height;
+        this.#context.player = attack._player;
+        this.#context.enemy = attack._enemy;
 
         const fn = this.registry[key] || this.default;
         fn.call(this, attack, callback, cleanup);
@@ -57,6 +66,18 @@ export class AttackAnimations {
 
     static playSound(attack) {
         attack._scene.sound.play(attack._sound);
+    }
+
+    static getEnemyLocation() {
+        const { width, height, enemy } = this.#context;
+        const percent = enemy.currentHealth / enemy.maxHealth;
+
+        if (percent >= 0.75) { return { x: width * 0.63, y: height * 0.15, } };
+        if (percent >= 0.5) { return { x: width * 0.62, y: height * 0.12, } };
+        if (percent >= 0.25) { return { x: width * 0.63, y: height * 0.15, } };
+        return {
+            x: width * 0.65, y: height * 0.21,
+        }
     }
 
     /*
@@ -236,8 +257,8 @@ export class AttackAnimations {
                     const startLaserX = sprite.x - (sprite.width / 4);
                     const startLaserY = sprite.y - (sprite.height / 4);
 
-                    const endLaserX = scene.scale.width * 0.70;
-                    const endLaserY = scene.scale.height * 0.15;
+                    let { x: endLaserX, y: endLaserY } = this.getEnemyLocation();
+                    endLaserX += 50;
 
                     laser.beginPath();
                     laser.moveTo(startLaserX, startLaserY);
@@ -279,17 +300,15 @@ export class AttackAnimations {
     */
     static mushroom(attack, callback, cleanup) {
 
-        const { scene, sprite, width, height } = this.#context;
+        const { scene, sprite, width, height, player } = this.#context;
         const key = attack._spriteKey;
-        const player = attack._player;
 
         sprite.setAlpha(0);
 
-        const startX = scene.scale.width * 0.65;
-        const startY = scene.scale.height * 0.18;
+        const { x: startX, y: startY } = this.getEnemyLocation();
 
-        const targetX = scene.scale.width * 0.25;
-        const targetY = scene.scale.height * 0.45;
+        const targetX = width * 0.25;
+        const targetY = height * 0.45;
 
         let finished = 0;
 
@@ -316,7 +335,7 @@ export class AttackAnimations {
                     onComplete: () => {
 
                         if (frame === 0) {
-                            player.playTakeDamageAnimation()
+                            callback();
                         }
 
                         const angle =
@@ -350,7 +369,6 @@ export class AttackAnimations {
 
                                 if (finished === 5) {
                                     cleanup();
-                                    callback();
                                 }
                             }
                         });
@@ -370,9 +388,8 @@ export class AttackAnimations {
     */
     static porkchop(attack, callback, cleanup) {
 
-        const { scene, sprite, width, height } = this.#context;
+        const { scene, sprite, width, height, player } = this.#context;
         const key = attack._spriteKey;
-        const player = attack._player;
 
         sprite.setAlpha(0);
 
@@ -381,8 +398,7 @@ export class AttackAnimations {
         let finished = 0;
 
         scene.time.delayedCall(500, () => {
-            player.playTakeDamageAnimation()
-
+            callback();
         })
 
         for (let i = 0; i < 15; i++) {
@@ -438,7 +454,6 @@ export class AttackAnimations {
 
                     if (finished === 15) {
                         cleanup();
-                        callback();
                     }
                 },
             });
@@ -488,9 +503,12 @@ export class AttackAnimations {
 
             jumps++;
 
+            if (jumps === 4) {
+                callback();
+            }
+
             if (jumps >= 7) {
                 cleanup();
-                callback();
                 return;
             }
 
@@ -526,6 +544,8 @@ export class AttackAnimations {
             .setScale(.5)
             .setDepth(DEPTHS.ATTACKS);
 
+        this.playSound(attack);
+
         scene.tweens.add({
             targets: sprite,
             x: stopX,
@@ -535,8 +555,8 @@ export class AttackAnimations {
             onComplete: () => {
 
                 sprite.play(attack._spriteKey);
+
                 scene.time.delayedCall(500, () => {
-                    this.playSound(attack);
                     callback();
                 });
 
@@ -695,6 +715,7 @@ export class AttackAnimations {
 
                     onStart: () => {
                         this.playSound(attack);
+                        callback();
                         attack._enemy.playWetAnimation();
                         sprite.play(attack._spriteKey);
                     }
@@ -715,7 +736,6 @@ export class AttackAnimations {
                     onComplete: () => {
                         sprite.setAngle(0);
 
-                        callback();
                         cleanup();
                     }
                 }
@@ -735,12 +755,10 @@ export class AttackAnimations {
     */
     static capital(attack, callback, cleanup) {
 
-        const { scene, sprite, width, height } = this.#context;
+        const { scene, sprite, width, height, player } = this.#context;
 
         const startX = width * .3;
         const groundY = height * 0.5;
-
-        const player = attack._player;
 
         sprite
             .setPosition(startX, -sprite.height)
@@ -761,7 +779,7 @@ export class AttackAnimations {
                     ease: "Cubic.In",
                     onComplete: () => {
                         this.playSound(attack);
-                        player.playTakeDamageAnimation()
+                        callback();
                     }
                 },
 
@@ -783,7 +801,6 @@ export class AttackAnimations {
             ],
 
             onComplete: () => {
-                callback();
                 cleanup();
             },
         });
@@ -907,7 +924,6 @@ export class AttackAnimations {
         const startX = width * 0.7;
         const startY = height * 0.2;
 
-        const landX = -100;
         const landY = height * 0.5;
 
         sprite.setAlpha(0);
@@ -966,6 +982,7 @@ export class AttackAnimations {
             ease: 'Sine.In',
             onComplete: () => {
 
+                callback();
                 this.playSound(attack);
                 follower.setPath(path2);
                 follower.flipX = false;
@@ -983,7 +1000,6 @@ export class AttackAnimations {
 
                         follower.destroy();
                         cleanup();
-                        callback();
 
                     }
                 });
@@ -1008,12 +1024,14 @@ export class AttackAnimations {
             ease: "Sine.Out",
             onComplete: () => {
 
-                scene.time.delayedCall(1000, () => {
+                scene.time.delayedCall(500, () => {
 
-                    this.playSound(attack);
+                    sprite.play(attack._spriteKey);
 
                     scene.time.delayedCall(500, () => {
-                        sprite.play(attack._spriteKey);
+
+                        this.playSound(attack);
+
                         scene.tweens.add({
                             targets: sprite,
                             x: width + sprite.width,
@@ -1021,15 +1039,17 @@ export class AttackAnimations {
                             rotation: 10,
                             duration: 900,
                             onComplete: () => {
-                                cleanup();
                                 callback();
                             }
                         });
-                    });
+
+                        scene.time.delayedCall(500, () => {
+                            cleanup();
+                        });
+                    })
                 });
             }
         });
-
     }
 
     static throat(attack, callback, cleanup) {
@@ -1045,11 +1065,371 @@ export class AttackAnimations {
             .setDepth(DEPTHS.ATTACKS);
 
         sprite.play({ key: attack._spriteKey, repeat: -1 });
+
+        scene.time.delayedCall(1000, () => {
+            callback();
+        })
+
+
         sound.once("complete", () => {
             cleanup();
-            callback();
         });
         sound.play();
+    }
+
+    static ari(attack, callback, cleanup) {
+
+        const { scene, sprite, width, height } = this.#context;
+
+        const startX = width * 0.28;
+        const startY = height * 0.4;
+
+        const landY = height * 0.5;
+
+        sprite.setAlpha(0);
+
+        const radius = 120;
+        const path1 = new Phaser.Curves.Path(startX, startY);
+        path1.ellipseTo(
+            radius * 1.8,
+            radius,
+            180,
+            360,
+            false,
+            0
+        );
+        /*
+                scene.add.circle(startX, startY, 5, 0xff0000);
+                const graphics = scene.add.graphics();
+                graphics.lineStyle(4, 0x00ff00, 1);
+                path1.draw(graphics);
+        */
+        const path2 = new Phaser.Curves.Path(startX + (2 * (radius * 1.8)), startY);
+        path2.ellipseTo(
+            radius * 1.8,
+            radius,
+            180,
+            360,
+            false,
+            0
+        );
+        /*
+                scene.add.circle(startX + (2 * (radius * 1.8)), startY, 5, 0xff0000);
+                const graphics2 = scene.add.graphics();
+                graphics2.lineStyle(4, 0x00ff00, 1);
+                path2.draw(graphics2);
+        */
+        const follower = scene.add.follower(path1, startX, startY, attack._spriteKey);
+
+        follower
+            .setScale(.35)
+            .setOrigin(.5)
+            .setAlpha(0)
+            .setDepth(DEPTHS.ATTACKS);
+
+        follower.flipY = false;
+        follower.flipX = false;
+
+        scene.time.delayedCall(100, () => {
+            follower.setAlpha(1);
+        });
+
+        scene.tweens.add({
+            targets: follower,
+            angle: 180,
+            ease: 'Sine.In',
+            duration: 800,
+        });
+
+        follower.startFollow({
+
+            duration: 800,
+            ease: 'Sine.In',
+            onComplete: () => {
+
+                this.playSound(attack);
+                callback();
+                follower.setPath(path2);
+                follower.flipX = false;
+                follower.flipY = false;
+
+                scene.tweens.add({
+                    targets: follower,
+                    angle: 360,
+                    duration: 400,
+                });
+
+                follower.startFollow({
+                    duration: 400,
+                    onComplete: () => {
+
+                        follower.destroy();
+                        cleanup();
+
+                    }
+                });
+            }
+        });
+    }
+
+    static godzilla(attack, callback, cleanup) {
+
+        const { scene, sprite, width, height } = this.#context;
+
+        const startX = -sprite.width;
+        const centerX = scene.scale.width * .42;
+        const startY = (height * .6) - (sprite.width / 2);
+
+        sprite
+            .setPosition(startX, startY)
+            .setDepth(DEPTHS.ATTACKS)
+            .setAlpha(1)
+            .setScale(.8);
+
+        scene.tweens.add({
+            targets: sprite,
+            x: centerX,
+            duration: 1000,
+            ease: 'Sine.Out',
+
+            onComplete: () => {
+
+                scene.time.delayedCall(500, () => {
+
+                    this.playSound(attack);
+
+                    const laser = scene.add.graphics().setDepth(DEPTHS.ATTACKS);
+
+                    laser.lineStyle(20, 0x7ca7e8);
+
+                    const startLaserX = sprite.x + (sprite.width / 8);
+                    const startLaserY = sprite.y - (sprite.height / 4);
+
+                    let { x: endLaserX, y: endLaserY } = this.getEnemyLocation();
+                    endLaserX += 65;
+                    endLaserY -= 20;
+
+                    laser.beginPath();
+                    laser.moveTo(startLaserX, startLaserY);
+                    laser.lineTo(endLaserX, endLaserY);
+                    laser.strokePath();
+
+                    scene.tweens.add({
+                        targets: laser,
+                        alpha: 0,
+                        duration: 250,
+                        onComplete: () => {
+                            laser.destroy();
+                            callback();
+                        }
+                    });
+
+                    scene.time.delayedCall(500, () => {
+                        scene.tweens.add({
+                            targets: sprite,
+                            x: startX,
+                            duration: 1000,
+                            ease: 'Sine.In',
+                            onComplete: cleanup
+                        });
+                    });
+
+                });
+
+            },
+        });
+    }
+
+    static frog(attack, callback, cleanup) {
+
+        const { scene, sprite, width, height } = this.#context;
+
+        const startX = -sprite.width;
+        const endX = width + sprite.width;
+
+        const groundY = height * 0.35;
+
+        sprite
+            .setPosition(startX, groundY)
+            .setAlpha(1)
+            .setScale(.5)
+            .setDepth(DEPTHS.ATTACKS);
+
+        scene.tweens.chain({
+
+            tweens: [
+
+                {
+                    targets: sprite,
+                    x: width * 0.15,
+                    y: groundY - 200,
+                    duration: 300,
+                    ease: 'Sine.Out',
+                },
+                {
+                    targets: sprite,
+                    y: groundY,
+                    duration: 250,
+                    ease: 'Sine.In',
+                    onComplete: () => {
+                        this.playSound(attack);
+                    }
+                },
+
+                {
+                    targets: sprite,
+                    x: width * 0.45,
+                    y: groundY - 150,
+                    duration: 250,
+                    ease: 'Sine.Out',
+                },
+                {
+                    targets: sprite,
+                    y: groundY,
+                    duration: 200,
+                    ease: 'Sine.In',
+                    onComplete: () => {
+                        this.playSound(attack);
+                    }
+                },
+                {
+                    targets: sprite,
+                    x: width * 0.7,
+                    y: groundY - 100,
+                    duration: 200,
+                    ease: 'Sine.Out',
+                },
+                {
+                    targets: sprite,
+                    y: groundY,
+                    duration: 150,
+                    ease: 'Sine.In',
+                    onComplete: () => {
+                        this.playSound(attack);
+                        callback();
+                    }
+                },
+
+                {
+                    targets: sprite,
+                    x: endX,
+                    duration: 300,
+                    ease: 'Sine.In',
+                },
+
+            ],
+
+            onComplete: () => {
+                cleanup();
+            }
+
+        });
+    }
+
+    static candy(attack, callback, cleanup) {
+
+        const { scene, sprite, width, height } = this.#context;
+
+        const anim = attack._animation;
+        const totalFrames = scene.anims.get(attack._spriteKey).getTotalFrames();
+
+        let currentFrame = 0;
+
+        const marginX = sprite.width / 2;
+        const marginY = sprite.height / 2;
+
+        let jumps = 0;
+
+        sprite
+            .setDepth(DEPTHS.TOP)
+            .setScale(.5)
+            .setAlpha(1);
+
+        const teleport = () => {
+
+            this.playSound(attack);
+
+            const x = Phaser.Math.Between(
+                marginX,
+                scene.scale.width - marginX
+            );
+
+            const y = Phaser.Math.Between(
+                marginY,
+                scene.scale.height - marginY
+            );
+
+            sprite.setPosition(x, y);
+
+            sprite.setFrame(currentFrame);
+            currentFrame = (currentFrame + 1) % totalFrames;
+
+            sprite.setAngle(
+                Phaser.Math.Between(-30, 30)
+            );
+
+            jumps++;
+
+            if (jumps === 5) {
+                callback();
+            }
+
+            if (jumps >= 7) {
+                cleanup();
+                return;
+            }
+
+            scene.time.delayedCall(
+                250,
+                teleport
+            );
+        };
+
+        teleport();
+    }
+
+    static soccer(attack, callback, cleanup) {
+
+        const { scene, sprite, width, height } = this.#context;
+
+        const impactX = width * 0.70;
+        const impactY = height * 0.18;
+
+        sprite
+            .setPosition(-sprite.width, height * .6)
+            .setScale(0.45)
+            .setAlpha(1)
+            .setDepth(DEPTHS.ATTACKS);
+
+        scene.tweens.add({
+            targets: sprite,
+            x: impactX,
+            y: impactY,
+            angle: 720,
+            duration: 700,
+            ease: "Quad.In",
+
+            onComplete: () => {
+
+                callback();
+                this.playSound(attack);
+
+                scene.tweens.add({
+                    targets: sprite,
+                    x: -sprite.width,
+                    y: impactY - 70,
+                    angle: 1800,
+                    scale: 0.35,
+                    duration: 400,
+                    ease: "Quad.Out",
+
+                    onComplete: () => {
+                        cleanup();
+                    }
+                });
+            }
+        });
+
     }
 
 }

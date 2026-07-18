@@ -12,6 +12,8 @@ const ENEMY_POSITION = Object.freeze({
 export class EnemyBattleGuy extends BattleGuy {
   /** @protected @type {boolean} */
   _isStunned;
+  /** @type {number} */
+  #prankedFrameIndex;
 
   /**
    *
@@ -22,6 +24,7 @@ export class EnemyBattleGuy extends BattleGuy {
     this._guyGameSprite.setDepth(DEPTHS.ENEMY);
     this._loadAttacksFromCache(DATA_ASSET_KEYS.ENEMY_ATTACKS);
     this._isStunned = false;
+    this.#prankedFrameIndex = 0;
     this._guyGameSprite.setScale(.22);
 
     this._scene.anims.create({
@@ -77,7 +80,7 @@ export class EnemyBattleGuy extends BattleGuy {
     });
 
     this._scene.anims.create({
-      key: 'enemy-hurt',
+      key: 'enemy-hurt-1',
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.ENEMY,
         {
@@ -89,7 +92,7 @@ export class EnemyBattleGuy extends BattleGuy {
       repeat: 0,
     });
 
-        this._scene.anims.create({
+    this._scene.anims.create({
       key: 'enemy-hurt-2',
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.ENEMY,
@@ -102,7 +105,7 @@ export class EnemyBattleGuy extends BattleGuy {
       repeat: 0,
     });
 
-        this._scene.anims.create({
+    this._scene.anims.create({
       key: 'enemy-hurt-3',
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.ENEMY,
@@ -115,7 +118,7 @@ export class EnemyBattleGuy extends BattleGuy {
       repeat: 0,
     });
 
-        this._scene.anims.create({
+    this._scene.anims.create({
       key: 'enemy-hurt-4',
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.ENEMY,
@@ -129,7 +132,7 @@ export class EnemyBattleGuy extends BattleGuy {
     });
 
     this._scene.anims.create({
-      key: 'enemy-attack',
+      key: 'enemy-attack-1',
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.ENEMY,
         {
@@ -141,7 +144,7 @@ export class EnemyBattleGuy extends BattleGuy {
       repeat: 0,
     });
 
-        this._scene.anims.create({
+    this._scene.anims.create({
       key: 'enemy-attack-2',
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.ENEMY,
@@ -154,7 +157,7 @@ export class EnemyBattleGuy extends BattleGuy {
       repeat: 0,
     });
 
-        this._scene.anims.create({
+    this._scene.anims.create({
       key: 'enemy-attack-3',
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.ENEMY,
@@ -167,7 +170,7 @@ export class EnemyBattleGuy extends BattleGuy {
       repeat: 0,
     });
 
-        this._scene.anims.create({
+    this._scene.anims.create({
       key: 'enemy-attack-4',
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.ENEMY,
@@ -186,45 +189,6 @@ export class EnemyBattleGuy extends BattleGuy {
         FIGHTER_ASSET_KEYS.ENEMY,
         {
           start: 4,
-          end: 4,
-        }
-      ),
-      frameRate: .5,
-      repeat: 0,
-    });
-
-        this._scene.anims.create({
-      key: 'enemy-pranked-2',
-      frames: this._scene.anims.generateFrameNumbers(
-        FIGHTER_ASSET_KEYS.ENEMY,
-        {
-          start: 5,
-          end: 5,
-        }
-      ),
-      frameRate: .5,
-      repeat: 0,
-    });
-
-        this._scene.anims.create({
-      key: 'enemy-pranked-3',
-      frames: this._scene.anims.generateFrameNumbers(
-        FIGHTER_ASSET_KEYS.ENEMY,
-        {
-          start: 6,
-          end: 6,
-        }
-      ),
-      frameRate: .5,
-      repeat: 0,
-    });
-
-    this._scene.anims.create({
-      key: 'enemy-pranked-4',
-      frames: this._scene.anims.generateFrameNumbers(
-        FIGHTER_ASSET_KEYS.ENEMY,
-        {
-          start: 7,
           end: 7,
         }
       ),
@@ -341,29 +305,61 @@ export class EnemyBattleGuy extends BattleGuy {
   }
 
   playTakeDamageAnimation() {
-    this._guyGameSprite.play("enemy-hurt");
+    if (this._currentHealth >= 75) {
+      this._guyGameSprite.play("enemy-hurt-1");
+    } else if (this._currentHealth >= 50) {
+      this._guyGameSprite.play("enemy-hurt-2");
+    } else if (this._currentHealth >= 25) {
+      this._guyGameSprite.play("enemy-hurt-3");
+    } else {
+      this._guyGameSprite.play("enemy-hurt-4");
+    }
     this._scene.time.delayedCall(1000, () => {
       this.playIdleAnimation();
     });
   }
 
   playAttackAnimation() {
-    this._guyGameSprite.play("enemy-attack");
+    if (this._currentHealth >= 75) {
+      this._guyGameSprite.play("enemy-attack-1");
+    } else if (this._currentHealth >= 50) {
+      this._guyGameSprite.play("enemy-attack-2");
+    } else if (this._currentHealth >= 25) {
+      this._guyGameSprite.play("enemy-attack-3");
+    } else {
+      this._guyGameSprite.play("enemy-attack-4");
+    }
     this._scene.time.delayedCall(1000, () => {
       this.playIdleAnimation();
     });
   };
 
   playPrankedAnimation() {
-    this._guyGameSprite.play("enemy-pranked");
-  };
+
+    this._guyGameSprite.stop();
+
+    const anim = this._scene.anims.get("enemy-pranked");
+    const frame = anim.frames[this.#prankedFrameIndex];
+
+    console.log(frame);
+
+    this._guyGameSprite.setFrame(frame.textureFrame);
+
+    if (this.#prankedFrameIndex < anim.frames.length - 1) {
+      this.#prankedFrameIndex++;
+    }
+
+  }
 
   playSulkAnimation() {
+
     this._guyGameSprite.play("enemy-sulk");
     this._scene.time.delayedCall(1000, () => {
-      this._guyGameSprite.play('enemy-pranked-4');
-      //this._guyGameSprite.anims.setProgress(1);
-      //this._guyGameSprite.anims.get('enemy-pranked').getLastFrame();
+      this._guyGameSprite.stop();
+      const anim = this._scene.anims.get("enemy-pranked");
+      const frame = anim.frames[this.#prankedFrameIndex];
+      this._guyGameSprite.setFrame(frame.textureFrame);
+      this.#prankedFrameIndex = 0;
     });
   };
 

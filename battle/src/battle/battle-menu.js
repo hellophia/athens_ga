@@ -166,6 +166,8 @@ export class BattleMenu {
     */
   handlePlayerInput(input) {
 
+    console.log("handling player input... "+input+"waiting for input? "+this.#waitingForPlayerInput)
+
     if (this._messagePlaying) {
       console.log("handleplayerinput: message is playing, return");
       return;
