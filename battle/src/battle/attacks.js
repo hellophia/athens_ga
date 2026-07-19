@@ -39,7 +39,7 @@ export class Attack {
     this._position = config.position;
     this._frameRate = config.frameRate ?? 8;
     this._scale = config.scale ?? 1;
-    this._sound = config.sound ?? null;
+    this._sound = config.spriteKey ?? null;
     this._animation = config.animation ?? null
     this._player = player;
     this._enemy = enemy;

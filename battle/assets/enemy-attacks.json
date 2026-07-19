@@ -6,13 +6,10 @@
         "url": "assets/images/enemy-attacks/attack-mushroom.png",
         "frameWidth": 420,
         "frameHeight": 325,
-        "sound": "MUSHROOM",
+        "frameRate": 8,
         "soundurl": "assets/sfx/enemy-attacks/mushroom.wav",
         "animation": true,
-        "position": {
-            "x": 300,
-            "y": 400
-        }
+        "position": {}
     },
     {
         "id": 2,
@@ -21,43 +18,34 @@
         "url": "assets/images/enemy-attacks/attack-porkchop.png",
         "frameWidth": 300,
         "frameHeight": 230,
-        "sound": "PORKCHOP",
+        "frameRate": 8,
         "soundurl": "assets/sfx/enemy-attacks/porkchop.wav",
         "animation": true,
-        "position": {
-            "x": 300,
-            "y": 400
-        }
+        "position": {}
     },
     {
         "id": 3,
         "name": "dwarf fortress",
         "spriteKey": "DWARF",
-        "url": "assets/images/enemy-attacks/attack-slash.png",
-        "frameWidth": 300,
-        "frameHeight": 300,
-        "sound": "DWARF",
-        "soundurl": "assets/sfx/enemy-attacks/porkchop.wav",
-        "animation": "",
-        "position": {
-            "x": 300,
-            "y": 400
-        }
+        "url": "assets/images/enemy-attacks/attack-df.png",
+        "frameWidth": 986,
+        "frameHeight": 1015,
+        "frameRate": 8,
+        "soundurl": "assets/sfx/enemy-attacks/dwarf.wav",
+        "animation": true,
+        "position": {}
     },
     {
         "id": 4,
         "name": "land of monsters",
         "spriteKey": "MONSTER",
         "url": "assets/images/enemy-attacks/attack-monster.png",
-        "frameWidth": 350,
-        "frameHeight": 245,
-        "sound": "MONSTER",
+        "frameWidth": 800,
+        "frameHeight": 859,
+        "frameRate": 3,
         "soundurl": "assets/sfx/enemy-attacks/monster.wav",
         "animation": true,
-        "position": {
-            "x": 300,
-            "y": 400
-        }
+        "position": {}
     },
     {
         "id": 5,
@@ -66,13 +54,10 @@
         "url": "assets/images/enemy-attacks/attack-capital.png",
         "frameWidth": 770,
         "frameHeight": 500,
-        "sound": "CAPITAL",
+        "frameRate": 8,
         "soundurl": "assets/sfx/enemy-attacks/capital.wav",
         "animation": true,
-        "position": {
-            "x": 300,
-            "y": 400
-        }
+        "position": {}
     },
     {
         "id": 6,
@@ -81,72 +66,45 @@
         "url": "assets/images/enemy-attacks/attack-singing.png",
         "frameWidth": 700,
         "frameHeight": 700,
-        "sound": "THROAT",
+        "frameRate": 12,
         "soundurl": "assets/sfx/enemy-attacks/throatsinging.mp3",
         "animation": true,
-        "position": {
-            "x": 300,
-            "y": 400
-        }
+        "position": {}
     },
     {
         "id": 7,
-        "name": "eyes nor hand",
-        "spriteKey": "BIRD",
-        "url": "assets/images/enemy-attacks/attack-bird.png",
-        "frameWidth": 275,
-        "frameHeight": 300,
-        "sound": "BIRD",
-        "soundurl": "assets/sfx/enemy-attacks/bird.wav",
-        "animation": "",
-        "position": {
-            "x": 300,
-            "y": 400
-        }
-    },
-    {
-        "id": 8,
         "name": "beessert",
         "spriteKey": "BEES",
         "url": "assets/images/enemy-attacks/attack-bees.png",
         "frameWidth": 348,
         "frameHeight": 261,
-        "sound": "BEES",
+        "frameRate": 8,
         "soundurl": "assets/sfx/enemy-attacks/bees.wav",
         "animation": true,
-        "position": {
-            "x": 300,
-            "y": 400
-        }
+        "position": {}
     },
     {
-        "id": 9,
+        "id": 8,
         "name": "bicycle",
         "spriteKey": "BIKE",
         "url": "assets/images/enemy-attacks/attack-bicycle.png",
         "frameWidth": 625,
         "frameHeight": 425,
-        "sound": "BIKE",
+        "frameRate": 8,
         "soundurl": "assets/sfx/enemy-attacks/bike.wav",
         "animation": true,
-        "position": {
-            "x": 300,
-            "y": 400
-        }
+        "position": {}
     },
     {
-        "id": 10,
+        "id": 9,
         "name": "eye guy",
         "spriteKey": "EYE",
         "url": "assets/images/enemy-attacks/attack-eyeguy.png",
-        "frameWidth": 300,
-        "frameHeight": 300,
-        "sound": "EYE",
+        "frameWidth": 500,
+        "frameHeight": 551,
+        "frameRate": 8,
         "soundurl": "assets/sfx/enemy-attacks/eyeguy.wav",
         "animation": true,
-        "position": {
-            "x": 300,
-            "y": 400
-        }
+        "position": {}
     }
 ]

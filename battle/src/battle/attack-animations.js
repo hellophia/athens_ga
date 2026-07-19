@@ -25,6 +25,9 @@ export class AttackAnimations {
             SOCCER: this.soccer,
             FROG: this.frog,
             GODZILLA: this.godzilla,
+            MONSTER: this.monster,
+            EYE: this.eye,
+            DWARF: this.dwarf,
         };
     }
 
@@ -251,8 +254,10 @@ export class AttackAnimations {
                     this.playSound(attack);
 
                     const laser = scene.add.graphics().setDepth(DEPTHS.ATTACKS);
+                    const laser2 = scene.add.graphics().setDepth(DEPTHS.ATTACKS);
 
                     laser.lineStyle(6, 0xff0000);
+                    laser2.lineStyle(6, 0xff0000);
 
                     const startLaserX = sprite.x - (sprite.width / 4);
                     const startLaserY = sprite.y - (sprite.height / 4);
@@ -265,6 +270,11 @@ export class AttackAnimations {
                     laser.lineTo(endLaserX, endLaserY);
                     laser.strokePath();
 
+                    laser2.beginPath();
+                    laser2.moveTo(startLaserX + 160, startLaserY + 28);
+                    laser2.lineTo(endLaserX, endLaserY);
+                    laser2.strokePath();
+
                     scene.tweens.add({
                         targets: laser,
                         alpha: 0,
@@ -273,6 +283,12 @@ export class AttackAnimations {
                             laser.destroy();
                             callback();
                         }
+                    });
+
+                    scene.tweens.add({
+                        targets: laser2,
+                        alpha: 0,
+                        duration: 250,
                     });
 
                     scene.time.delayedCall(500, () => {
@@ -707,7 +723,11 @@ export class AttackAnimations {
                     duration: 700,
                     ease: 'Sine.Out',
                 },
-
+                {
+                    targets: sprite,
+                    alpha: 1,
+                    duration: 250,
+                },
                 {
                     targets: sprite,
                     angle: 180,
@@ -720,13 +740,11 @@ export class AttackAnimations {
                         sprite.play(attack._spriteKey);
                     }
                 },
-
                 {
                     targets: sprite,
                     alpha: 1,
-                    duration: 1000,
+                    duration: 250,
                 },
-
                 {
                     targets: sprite,
                     x: startX,
@@ -1019,7 +1037,7 @@ export class AttackAnimations {
 
         scene.tweens.add({
             targets: sprite,
-            x: width * 0.5,
+            x: width * 0.45,
             duration: 700,
             ease: "Sine.Out",
             onComplete: () => {
@@ -1066,14 +1084,17 @@ export class AttackAnimations {
 
         sprite.play({ key: attack._spriteKey, repeat: -1 });
 
-        scene.time.delayedCall(1000, () => {
+        scene.time.delayedCall(2000, () => {
             callback();
+            cleanup();
         })
 
-
+        /*
         sound.once("complete", () => {
-            cleanup();
+            
         });
+        */
+
         sound.play();
     }
 
@@ -1198,9 +1219,8 @@ export class AttackAnimations {
 
                     this.playSound(attack);
 
-                    const laser = scene.add.graphics().setDepth(DEPTHS.ATTACKS);
-
-                    laser.lineStyle(20, 0x7ca7e8);
+                    const laser = scene.add.graphics()
+                        .setDepth(DEPTHS.ATTACKS);
 
                     const startLaserX = sprite.x + (sprite.width / 8);
                     const startLaserY = sprite.y - (sprite.height / 4);
@@ -1209,22 +1229,66 @@ export class AttackAnimations {
                     endLaserX += 75;
                     endLaserY -= 20;
 
-                    laser.beginPath();
-                    laser.moveTo(startLaserX, startLaserY);
-                    laser.lineTo(endLaserX, endLaserY);
-                    laser.strokePath();
+                    const dx = endLaserX - startLaserX;
+                    const dy = endLaserY - startLaserY;
+                    const length = Math.hypot(dx, dy);
 
-                    scene.tweens.add({
-                        targets: laser,
-                        alpha: 0,
-                        duration: 250,
-                        onComplete: () => {
-                            laser.destroy();
-                            callback();
+                    const perpX = -dy / length;
+                    const perpY = dx / length;
+
+                    const redrawBeam = () => {
+
+                        laser.clear();
+                        laser.lineStyle(20, 0x7ca7e8);
+
+                        laser.beginPath();
+                        laser.moveTo(startLaserX, startLaserY);
+
+                        const segments = 6;
+
+                        for (let i = 1; i < segments; i++) {
+
+                            const t = i / segments;
+
+                            const x = Phaser.Math.Linear(
+                                startLaserX,
+                                endLaserX,
+                                t
+                            );
+
+                            const y = Phaser.Math.Linear(
+                                startLaserY,
+                                endLaserY,
+                                t
+                            );
+
+                            const offset = Phaser.Math.Between(-18, 18);
+
+                            laser.lineTo(
+                                x + perpX * offset,
+                                y + perpY * offset
+                            );
                         }
+
+                        laser.lineTo(endLaserX, endLaserY);
+                        laser.strokePath();
+                    };
+
+                    redrawBeam();
+
+                    const beamTimer = scene.time.addEvent({
+                        delay: 70,
+                        loop: true,
+                        callback: redrawBeam,
                     });
 
-                    scene.time.delayedCall(500, () => {
+                    callback();
+
+                    scene.time.delayedCall(1000, () => {
+
+                        beamTimer.remove();
+                        laser.destroy();
+
                         scene.tweens.add({
                             targets: sprite,
                             x: startX,
@@ -1232,10 +1296,9 @@ export class AttackAnimations {
                             ease: 'Sine.In',
                             onComplete: cleanup
                         });
-                    });
 
+                    })
                 });
-
             },
         });
     }
@@ -1330,7 +1393,6 @@ export class AttackAnimations {
 
         const { scene, sprite, width, height } = this.#context;
 
-        const anim = attack._animation;
         const totalFrames = scene.anims.get(attack._spriteKey).getTotalFrames();
 
         let currentFrame = 0;
@@ -1430,6 +1492,102 @@ export class AttackAnimations {
             }
         });
 
+    }
+
+    static monster(attack, callback, cleanup) {
+
+        const { scene, sprite, width, height } = this.#context;
+
+        const { x: startX, y: startY } = this.getEnemyLocation();
+
+        sprite
+            .setPosition(startX, startY)
+            .setScale(0.5)
+            .setDepth(DEPTHS.TOP)
+            .setAlpha(1);
+
+        sprite.play(attack._spriteKey);
+
+        this.playSound(attack);
+
+        scene.tweens.add({
+            targets: sprite,
+            x: width * 0.25,
+            y: height * 0.75,
+            scale: .8,
+            duration: 2000,
+            onComplete: () => {
+                cleanup();
+                callback();
+            }
+        });
+    }
+
+    static eye(attack, callback, cleanup) {
+
+        const { scene, sprite, width, height } = this.#context;
+        const groundY = height * 0.40;
+
+        sprite
+            .setPosition(width * 0.45, -sprite.height)
+            .setScale(0.5)
+            .setDepth(DEPTHS.ATTACKS)
+            .setAlpha(1);
+
+        scene.tweens.add({
+            targets: sprite,
+            y: groundY,
+            duration: 650,
+            ease: "Bounce",
+            onComplete: () => {
+
+                sprite.setFrame(1);
+
+                scene.time.delayedCall(750, () => {
+
+                    sprite.setFrame(2);
+
+                    scene.time.delayedCall(750, () => {
+
+                        sprite.setFrame(3);
+
+                        this.playSound(attack);
+
+                        scene.tweens.add({
+                            targets: sprite,
+                            x: -sprite.width,
+                            y: height*.6,
+                            duration: 500,
+                            ease: "Quad.In",
+                            onComplete: () => {
+                                cleanup();
+                                callback();
+                            }
+                        });
+                    })
+                })
+            }
+        });
+    }
+
+    static dwarf(attack, callback, cleanup) {
+
+        const { scene, sprite, width, height } = this.#context;
+
+        sprite
+            .setPosition(width * .28, height * .60)
+            .setAlpha(1)
+            .setScale(.5)
+            .setDepth(DEPTHS.TOP);
+
+        this.playSound(attack);
+
+        sprite.play(attack._spriteKey);
+
+        sprite.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + attack._spriteKey, () => {
+            callback();
+            cleanup();
+        });
     }
 
 }

@@ -91,7 +91,7 @@ export class PreloadScene extends Phaser.Scene {
                 frameWidth: config.frameWidth,
                 frameHeight: config.frameHeight,
             });
-            this.load.audio(config.sound, config.soundurl);
+            this.load.audio(config.spriteKey, config.soundurl);
         });
 
     }

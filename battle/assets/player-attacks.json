@@ -6,13 +6,10 @@
         "url": "assets/images/player-attacks/attack-nancy.png",
         "frameWidth": 302,
         "frameHeight": 360,
-        "sound": "NANCY",
+        "frameRate": 8,
         "soundurl": "assets/sfx/player-attacks/nancy.wav",
         "animation": true,
-        "position": {
-            "x": 745,
-            "y": 140
-        }
+        "position": {}
     },
     {
         "id": 2,
@@ -21,13 +18,10 @@
         "url": "assets/images/player-attacks/attack-statues.png",
         "frameWidth": 300,
         "frameHeight": 390,
-        "sound": "STATUES",
+        "frameRate": 8,
         "soundurl": "assets/sfx/player-attacks/statues.wav",
         "animation": true,
-        "position": {
-            "x": 745,
-            "y": 140
-        }
+        "position": {}
     },
     {
         "id": 3,
@@ -36,13 +30,10 @@
         "url": "assets/images/player-attacks/attack-pool.png",
         "frameWidth": 400,
         "frameHeight": 450,
-        "sound": "POOL",
+        "frameRate": 8,
         "soundurl": "assets/sfx/player-attacks/bucket.wav",
         "animation": true,
-        "position": {
-            "x": 745,
-            "y": 140
-        }
+        "position": {}
     },
     {
         "id": 4,
@@ -51,13 +42,10 @@
         "url": "assets/images/player-attacks/attack-dirtbike.png",
         "frameWidth": 400,
         "frameHeight": 400,
-        "sound": "DIRTBIKE",
+        "frameRate": 8,
         "soundurl": "assets/sfx/player-attacks/dirtbike.wav",
         "animation": true,
-        "position": {
-            "x": 745,
-            "y": 140
-        }
+        "position": {}
     },
     {
         "id": 5,
@@ -66,13 +54,10 @@
         "url": "assets/images/player-attacks/attack-chicken.png",
         "frameWidth": 300,
         "frameHeight": 300,
-        "sound": "CHICKEN",
+        "frameRate": 8,
         "soundurl": "assets/sfx/player-attacks/chicken.wav",
         "animation": true,
-        "position": {
-            "x": 745,
-            "y": 140
-        }
+        "position": {}
     },
     {
         "id": 6,
@@ -81,13 +66,10 @@
         "url": "assets/images/player-attacks/attack-swan.png",
         "frameWidth": 250,
         "frameHeight": 500,
-        "sound": "SWAN",
+        "frameRate": 8,
         "soundurl": "assets/sfx/player-attacks/swan.wav",
         "animation": true,
-        "position": {
-            "x": 745,
-            "y": 140
-        }
+        "position": {}
     },
     {
         "id": 7,
@@ -96,13 +78,10 @@
         "url": "assets/images/player-attacks/attack-potato.png",
         "frameWidth": 375,
         "frameHeight": 500,
-        "sound": "POTATO",
+        "frameRate": 8,
         "soundurl": "assets/sfx/player-attacks/nancy.wav",
         "animation": true,
-        "position": {
-            "x": 745,
-            "y": 140
-        }
+        "position": {}
     },
     {
         "id": 8,
@@ -111,13 +90,10 @@
         "url": "assets/images/player-attacks/attack-chupa.png",
         "frameWidth": 300,
         "frameHeight": 325,
-        "sound": "CHUPA",
+        "frameRate": 8,
         "soundurl": "assets/sfx/player-attacks/chupa.wav",
         "animation": true,
-        "position": {
-            "x": 745,
-            "y": 140
-        }
+        "position": {}
     },
     {
         "id": 9,
@@ -126,13 +102,10 @@
         "url": "assets/images/player-attacks/attack-heman.png",
         "frameWidth": 524,
         "frameHeight": 764,
-        "sound": "HEMAN",
+        "frameRate": 8,
         "soundurl": "assets/sfx/player-attacks/heman.wav",
         "animation": true,
-        "position": {
-            "x": 745,
-            "y": 140
-        }
+        "position": {}
     },
     {
         "id": 10,
@@ -141,13 +114,10 @@
         "url": "assets/images/player-attacks/attack-ari.png",
         "frameWidth": 400,
         "frameHeight": 932,
-        "sound": "ARI",
+        "frameRate": 8,
         "soundurl": "assets/sfx/player-attacks/ari.mp3",
         "animation": true,
-        "position": {
-            "x": 745,
-            "y": 140
-        }
+        "position": {}
     },
     {
         "id": 11,
@@ -156,13 +126,10 @@
         "url": "assets/images/player-attacks/attack-candy.png",
         "frameWidth": 800,
         "frameHeight": 800,
-        "sound": "CANDY",
+        "frameRate": 8,
         "soundurl": "assets/sfx/player-attacks/candy.wav",
         "animation": true,
-        "position": {
-            "x": 745,
-            "y": 140
-        }
+        "position": {}
     },
     {
         "id": 12,
@@ -171,13 +138,10 @@
         "url": "assets/images/player-attacks/attack-soccer.png",
         "frameWidth": 300,
         "frameHeight": 300,
-        "sound": "SOCCER",
+        "frameRate": 8,
         "soundurl": "assets/sfx/player-attacks/soccer.wav",
         "animation": true,
-        "position": {
-            "x": 745,
-            "y": 140
-        }
+        "position": {}
     },
     {
         "id": 13,
@@ -186,13 +150,10 @@
         "url": "assets/images/player-attacks/attack-frog.png",
         "frameWidth": 320,
         "frameHeight": 200,
-        "sound": "FROG",
+        "frameRate": 8,
         "soundurl": "assets/sfx/player-attacks/frog.wav",
         "animation": true,
-        "position": {
-            "x": 745,
-            "y": 140
-        }
+        "position": {}
     },
     {
         "id": 14,
@@ -201,12 +162,9 @@
         "url": "assets/images/player-attacks/attack-godzilla.png",
         "frameWidth": 300,
         "frameHeight": 420,
-        "sound": "GODZILLA",
+        "frameRate": 8,
         "soundurl": "assets/sfx/player-attacks/godzilla.mp3",
         "animation": true,
-        "position": {
-            "x": 745,
-            "y": 140
-        }
+        "position": {}
     }
 ]

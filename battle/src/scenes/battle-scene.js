@@ -89,27 +89,28 @@ export class BattleScene extends Phaser.Scene {
     this.#cursorKeys = this.input.keyboard.createCursorKeys();
 
     this.cameras.main.fadeIn(2000);
-    /*
-        this.time.delayedCall(1000, () => {
-          this.#attackManager.playAttackAnimation("ARI", () => { })
-        });
-    */
+/*
+    this.time.delayedCall(1000, () => {
+      this.#attackManager.playAttackAnimation("MONSTER", () => { })
+    });
+*/
   }
 
   update() {
+
     this.#battleStateMachine.update();
 
     const wasSpaceKeyPressed = Phaser.Input.Keyboard.JustDown(this.#cursorKeys.space);
 
-    //uncomment if we need to advance dialogue in prebattle or post attack check
-    /*if (
-      wasSpaceKeyPressed &&
-      (this.#battleStateMachine.currentStateName === BATTLE_STATES.PRE_BATTLE ||
-        this.#battleStateMachine.currentStateName === BATTLE_STATES.POST_ATTACK_CHECK)
-    ) {
+    //if we're in battle state and need to advance dialogue
+    if (wasSpaceKeyPressed && (this.#battleStateMachine.currentStateName === BATTLE_STATES.BATTLE)) {
+      if (this.#battleMenu.isMessagePlaying) {
+        console.log("returning from battlescene update loop because message is still playing");
+        return;
+      }
       this.#battleMenu.handlePlayerInput('OK');
       return;
-    }*/
+    }
 
     if (this.#battleStateMachine.currentStateName !== BATTLE_STATES.PLAYER_INPUT) {
       return;
@@ -374,37 +375,29 @@ export class BattleScene extends Phaser.Scene {
   #playerPrank() {
 
     const prank = () => {
-      this.#battleMenu.updateMessageNoInputRequired(
+      this.#battleMenu.updateMessageWaitForInput(
         `${this.#activePlayerGuy.name.toUpperCase()} pranked ${this.#activeEnemyGuy.name.toUpperCase()}!`,
         () => {
           this.#activePlayerGuy.playPrankAnimation();
-          this.time.delayedCall(1000, () => {
-            this.#activeEnemyGuy.playPrankedAnimation();
-            this.#battleMenu.updateMessageNoInputRequired(
-              `${this.#activeEnemyGuy.name.toUpperCase()} got GOT GOOD!`,
-              () => {
-                this.time.delayedCall(1000, () => {
+          this.#activeEnemyGuy.playPrankedAnimation();
+          this.#battleMenu.updateMessageWaitForInput(
+            `${this.#activeEnemyGuy.name.toUpperCase()} got GOT GOOD!`,
+            () => {
+              this.#activeEnemyGuy.playPrankedAnimation();
+              this.#battleMenu.updateMessageWaitForInput(
+                `${this.#activeEnemyGuy.name.toUpperCase()} is EMBARRASSED!`,
+                () => {
                   this.#activeEnemyGuy.playPrankedAnimation();
-                  this.#battleMenu.updateMessageNoInputRequired(
-                    `${this.#activeEnemyGuy.name.toUpperCase()} is EMBARRASSED!`,
+                  this.#battleMenu.updateMessageWaitForInput(
+                    `${this.#activeEnemyGuy.name.toUpperCase()} is SULKING!`,
                     () => {
-                      this.time.delayedCall(1000, () => {
-                        this.#activeEnemyGuy.playPrankedAnimation();
-                        this.#battleMenu.updateMessageNoInputRequired(
-                          `${this.#activeEnemyGuy.name.toUpperCase()} is SULKING!`,
-                          () => {
-                            this.time.delayedCall(1000, () => {
-                              this.#activeEnemyGuy.playPrankedAnimation();
-                              this.#battleStateMachine.setState(BATTLE_STATES.POST_ATTACK_CHECK);
-                            });
-                          });
-                      });
+                      this.#activeEnemyGuy.playPrankedAnimation();
+                      this.#battleStateMachine.setState(BATTLE_STATES.POST_ATTACK_CHECK);
                     });
                 });
-              });
-          });
+            });
         });
-    };
+    }
 
     const failPrank = () => {
       this.#battleMenu.updateMessageNoInputRequired(
