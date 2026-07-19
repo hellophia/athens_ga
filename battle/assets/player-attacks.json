@@ -76,7 +76,7 @@
         "name": "Potato",
         "spriteKey": "POTATO",
         "url": "assets/images/player-attacks/attack-potato.png",
-        "frameWidth": 375,
+        "frameWidth": 800,
         "frameHeight": 500,
         "frameRate": 8,
         "soundurl": "assets/sfx/player-attacks/nancy.wav",

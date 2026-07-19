@@ -94,6 +94,15 @@ export class PreloadScene extends Phaser.Scene {
             this.load.audio(config.spriteKey, config.soundurl);
         });
 
+        this.load.spritesheet(BATTLE_ASSET_KEYS.IAN, `${AssetPath}/ian.png`, {
+            frameWidth: 1259,
+            frameHeight: 1523,
+        });
+        this.load.spritesheet(BATTLE_ASSET_KEYS.INNOVATION, `${AssetPath}/player-attacks/innovation.png`, {
+            frameWidth: 200,
+            frameHeight: 155,
+        });
+
     }
 
     create() {

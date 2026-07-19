@@ -9,6 +9,8 @@ export const FIGHTER_ASSET_KEYS = Object.freeze({
 
 export const BATTLE_ASSET_KEYS = Object.freeze({
   HEALTH_BAR_BACKGROUND: 'HEALTH_BAR_BACKGROUND',
+  IAN:'IAN',
+  INNOVATION:'INNOVATION',
 });
 
 export const UI_ASSET_KEYS = Object.freeze({

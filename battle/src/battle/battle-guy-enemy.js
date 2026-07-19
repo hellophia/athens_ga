@@ -304,7 +304,7 @@ export class EnemyBattleGuy extends BattleGuy {
     }
   }
 
-  playTakeDamageAnimation() {
+  playTakeDamageAnimation(duration = 1000) {
     if (this._currentHealth >= 75) {
       this._guyGameSprite.play("enemy-hurt-1");
     } else if (this._currentHealth >= 50) {
@@ -314,7 +314,7 @@ export class EnemyBattleGuy extends BattleGuy {
     } else {
       this._guyGameSprite.play("enemy-hurt-4");
     }
-    this._scene.time.delayedCall(1000, () => {
+    this._scene.time.delayedCall(duration, () => {
       this.playIdleAnimation();
     });
   }

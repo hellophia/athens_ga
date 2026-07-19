@@ -1,5 +1,5 @@
 import Phaser from '../lib/phaser.js';
-import { DEPTHS } from '../misc/asset-keys.js';
+import { BATTLE_ASSET_KEYS, DEPTHS } from '../misc/asset-keys.js';
 import { Attack } from './attacks.js';
 
 export class AttackAnimations {
@@ -28,6 +28,7 @@ export class AttackAnimations {
             MONSTER: this.monster,
             EYE: this.eye,
             DWARF: this.dwarf,
+            POTATO: this.potato,
         };
     }
 
@@ -1057,12 +1058,12 @@ export class AttackAnimations {
                             rotation: 10,
                             duration: 900,
                             onComplete: () => {
-                                callback();
+                                cleanup();
                             }
                         });
 
                         scene.time.delayedCall(500, () => {
-                            cleanup();
+                            callback();
                         });
                     })
                 });
@@ -1515,7 +1516,7 @@ export class AttackAnimations {
             x: width * 0.25,
             y: height * 0.75,
             scale: .8,
-            duration: 2000,
+            duration: 1500,
             onComplete: () => {
                 cleanup();
                 callback();
@@ -1556,7 +1557,7 @@ export class AttackAnimations {
                         scene.tweens.add({
                             targets: sprite,
                             x: -sprite.width,
-                            y: height*.6,
+                            y: height * .8,
                             duration: 500,
                             ease: "Quad.In",
                             onComplete: () => {
@@ -1590,4 +1591,228 @@ export class AttackAnimations {
         });
     }
 
+    static potato(attack, callback, cleanup) {
+
+        const { scene, sprite, width, height } = this.#context;
+
+        const endX = width * .4;
+        const endY = height * .3;
+
+        const ian = scene.add.sprite(0, 0, BATTLE_ASSET_KEYS.IAN)
+            .setAlpha(0)
+            .setPosition(endX, endY)
+            .setScale(.22)
+            .setDepth(DEPTHS.ATTACKS);
+
+        scene.anims.create({
+            key: "ian",
+            frames: scene.anims.generateFrameNumbers(
+                BATTLE_ASSET_KEYS.IAN,
+                {
+                    start: 1,
+                    end: 4,
+                }
+            ),
+            frameRate: 1,
+            repeat: 0,
+        });
+
+        const left = scene.add.sprite(0, 0, attack._spriteKey, 1)
+            .setAlpha(0)
+            .setScale(0.5)
+            .setPosition(endX, endY)
+            .setDepth(DEPTHS.ATTACKS);
+
+        const right = scene.add.sprite(0, 0, attack._spriteKey, 2)
+            .setAlpha(0)
+            .setScale(0.5)
+            .setPosition(endX, endY)
+            .setDepth(DEPTHS.ATTACKS);
+
+        this.#potatoRoll(endX, endY, (data) => {
+            this.#potatoSplit(data, ian, left, right, () => {
+                this.#potatoReveal(scene, ian, () => {
+                    this.#potatoCards(ian, () => {
+                        this.#potatoExit(ian, () => {
+
+                            cleanup();
+                            callback();
+
+                        });
+                    });
+                });
+            });
+        });
+    }
+
+    static #potatoRoll(endX, endY, callback) {
+
+        const { scene, sprite, width, height } = this.#context;
+
+        sprite
+            .setScale(0.5)
+            .setPosition(-sprite.width, endY)
+            .setDepth(DEPTHS.ATTACKS)
+            .setAlpha(1);
+
+        const container = scene.add.container(sprite.x, sprite.y, [sprite]);
+
+        scene.tweens.add({
+            targets: container,
+            x: endX,
+            duration: 1800,
+            ease: "Sine.Out",
+            onUpdate: () => {
+                sprite.angle += 10;
+                const r = Phaser.Math.DegToRad(sprite.angle);
+                sprite.y = Math.abs(Math.sin(r)) * 5;
+                sprite.x = Math.cos(r) * 4;
+            },
+            onComplete: () => {
+                scene.time.delayedCall(800, () => {
+                    callback({
+                        container
+                    });
+                })
+            }
+        });
+    }
+
+    static #potatoSplit(data, ian, left, right, callback) {
+
+        const { sprite, scene, width, height } = this.#context;
+
+        const x = data.container.x;
+        const y = data.container.y;
+
+        data.container.destroy();
+
+        ian.setFrame(0);
+
+        left.setAlpha(1);
+        right.setAlpha(1);
+        ian.setAlpha(1);
+
+        scene.tweens.add({
+            targets: left,
+            x: -100,
+            y: height * .5,
+            angle: -120,
+            duration: 700,
+        });
+
+        scene.tweens.add({
+            targets: right,
+            x: width + 100,
+            y: height * .3,
+            angle: 120,
+            duration: 700,
+            onComplete: () => {
+                left.destroy();
+                right.destroy();
+                callback(ian);
+            }
+        });
+
+    }
+
+    static #potatoReveal(scene, ian, callback) {
+
+        console.log("potato reveal");
+
+        scene.time.delayedCall(500, () => {
+
+            ian.play("ian");
+
+            scene.time.delayedCall(2000, () => {
+                callback();
+            })
+        })
+    }
+
+    static #potatoCards(ian, callback) {
+
+        const { enemy, scene } = this.#context;
+
+        let emitted = 0;
+
+scene.time.delayedCall(500,()=>{
+    enemy.playTakeDamageAnimation(2000);
+})
+
+        const timer = scene.time.addEvent({
+
+            delay: 100,
+            repeat: 29,
+
+            callback: () => {
+
+                this.#emitCard(ian, emitted);
+                emitted++;
+                if (emitted === 30) {
+                    scene.time.delayedCall(500, callback);
+                }
+            }
+        });
+    }
+
+    static #emitCard(ian, emitted) {
+
+        const { scene, width, height } = this.#context;
+
+        const card = scene.add.sprite(
+            ian.x + 105,
+            ian.y - 60,
+            BATTLE_ASSET_KEYS.INNOVATION,
+            emitted
+        );
+
+        card
+            .setDepth(DEPTHS.ATTACKS)
+            .setScale(.6);
+
+        const launchAngle = Phaser.Math.Between(0, 30);
+        const radians = Phaser.Math.DegToRad(launchAngle);
+
+        const distance = width * .6;
+
+        const targetX = card.x + Math.cos(radians) * distance;
+        const targetY = card.y + Math.sin(radians) * distance;
+
+        card.setAngle(launchAngle);
+
+        scene.tweens.add({
+            targets: card,
+            x: targetX,
+            y: targetY,
+            duration: Phaser.Math.Between(400, 600),
+            onComplete: () => {
+                card.destroy();
+            }
+        });
+    }
+
+    static #potatoExit(ian, callback) {
+
+        console.log("potato exit");
+
+        const { scene } = this.#context;
+
+        ian.setFrame(1);
+
+        scene.time.delayedCall(600, () => {
+            scene.tweens.add({
+                targets: ian,
+                x: -ian.width,
+                duration: 1500,
+                ease: "Sine.In",
+                onComplete: () => {
+                    ian.destroy();
+                    callback();
+                }
+            });
+        })
+
+
+    }
 }
