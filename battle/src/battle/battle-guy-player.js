@@ -120,7 +120,7 @@ export class PlayerBattleGuy extends BattleGuy {
     this._guyGameSprite.setPosition(startXPos, PLAYER_POSITION.y + 50).setScale(.75);
     this._guyGameSprite.setAlpha(1);
 
-    this._scene.time.delayedCall(1500, ()=> {
+    this._scene.time.delayedCall(1500, () => {
       this._guyGameSprite.play("player-spin");
       this._scene.tweens.add({
         duration: 1500,
@@ -146,6 +146,12 @@ export class PlayerBattleGuy extends BattleGuy {
           callback();
         },
       });
+      this._scene.tweens.add({
+        targets: this._scene._background,
+        x: 0,
+        duration: 1500,
+        ease: 'Sine.easeInOut',
+      });
     })
 
   }
@@ -161,6 +167,7 @@ export class PlayerBattleGuy extends BattleGuy {
 
   playTakeDamageAnimation() {
     this._guyGameSprite.play("player-hurt");
+    this.damageTween();
     this._scene.time.delayedCall(1000, () => {
       this._guyGameSprite.play("player-idle");
     });

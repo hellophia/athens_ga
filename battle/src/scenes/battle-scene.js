@@ -40,6 +40,8 @@ export class BattleScene extends Phaser.Scene {
   #attackManager;
   /** @type {import('../battle/battle-menu-options.js').BattleMenuOptions} */
   #pendingPlayerAction
+  /** @protected @type {Phaser.GameObjects.Image} */
+  _background;
 
   constructor() {
     super({
@@ -59,7 +61,12 @@ export class BattleScene extends Phaser.Scene {
     });
 
     this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0xffffff).setOrigin(0, 0).setPosition(0, 0).setDepth(DEPTHS.BACKGROUND);
-    //this.add.image(0, 0, BATTLE_BACKGROUND_ASSET_KEYS.CAVE).setOrigin(0).setAlpha(.5).setDepth(DEPTHS.BACKGROUND);
+    this._background = this.add.image(0, 0, BATTLE_BACKGROUND_ASSET_KEYS.CAVE)
+      .setOrigin(0)
+      .setAlpha(.25)
+      .setDepth(DEPTHS.BACKGROUND);
+
+      this._background.setPosition(-(this._background.width-this.scale.width),0);
 
     this.#activeEnemyGuy = new EnemyBattleGuy({
       scene: this,
@@ -89,11 +96,11 @@ export class BattleScene extends Phaser.Scene {
     this.#cursorKeys = this.input.keyboard.createCursorKeys();
 
     this.cameras.main.fadeIn(2000);
-/*
-    this.time.delayedCall(1000, () => {
-      this.#attackManager.playAttackAnimation("POTATO", () => { })
-    });
-*/
+    /*
+        this.time.delayedCall(1000, () => {
+          this.#attackManager.playAttackAnimation("POTATO", () => { })
+        });
+    */
   }
 
   update() {

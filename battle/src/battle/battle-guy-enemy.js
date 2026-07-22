@@ -250,7 +250,7 @@ export class EnemyBattleGuy extends BattleGuy {
     this._scene.time.delayedCall(2200, () => {
       this._scene.tweens.add({
         delay: 0,
-        duration: 1800,
+        duration: 1000,
         x: {
           from: startXPos,
           start: startXPos,
@@ -314,6 +314,7 @@ export class EnemyBattleGuy extends BattleGuy {
     } else {
       this._guyGameSprite.play("enemy-hurt-4");
     }
+    this.damageTween();
     this._scene.time.delayedCall(duration, () => {
       this.playIdleAnimation();
     });

@@ -1527,10 +1527,10 @@ export class AttackAnimations {
     static eye(attack, callback, cleanup) {
 
         const { scene, sprite, width, height } = this.#context;
-        const groundY = height * 0.40;
+        const groundY = height * 0.38;
 
         sprite
-            .setPosition(width * 0.45, -sprite.height)
+            .setPosition(width * 0.44, -sprite.height)
             .setScale(0.5)
             .setDepth(DEPTHS.ATTACKS)
             .setAlpha(1);
@@ -1610,7 +1610,7 @@ export class AttackAnimations {
                 BATTLE_ASSET_KEYS.IAN,
                 {
                     start: 1,
-                    end: 4,
+                    end: 3,
                 }
             ),
             frameRate: 1,
@@ -1736,13 +1736,13 @@ export class AttackAnimations {
 
         let emitted = 0;
 
-scene.time.delayedCall(500,()=>{
-    enemy.playTakeDamageAnimation(2000);
-})
+        scene.time.delayedCall(500, () => {
+            enemy.playTakeDamageAnimation(2000);
+        })
 
         const timer = scene.time.addEvent({
 
-            delay: 100,
+            delay: 75,
             repeat: 29,
 
             callback: () => {
@@ -1796,23 +1796,25 @@ scene.time.delayedCall(500,()=>{
 
         console.log("potato exit");
 
-        const { scene } = this.#context;
+        const { scene, width, height } = this.#context;
 
-        ian.setFrame(1);
+        scene.time.delayedCall(500, () => {
+            const { scene } = this.#context;
 
-        scene.time.delayedCall(600, () => {
-            scene.tweens.add({
-                targets: ian,
-                x: -ian.width,
-                duration: 1500,
-                ease: "Sine.In",
-                onComplete: () => {
-                    ian.destroy();
-                    callback();
-                }
-            });
+            ian.setFrame(4);
+
+            scene.time.delayedCall(800, () => {
+                scene.tweens.add({
+                    targets: ian,
+                    x: -ian.width,
+                    duration: 1500,
+                    ease: "Sine.In",
+                    onComplete: () => {
+                        ian.destroy();
+                        callback();
+                    }
+                });
+            })
         })
-
-
     }
 }
