@@ -85,13 +85,14 @@ export class BattleGuy {
   }
 
   /**
- * @param {() => void} [callback]
- */
-  heal(callback) {
+   * @param {number} amount
+   * @param {() => void} [callback]
+   */
+  heal(amount, callback) {
     console.log("heal called. current health " + this._currentHealth + "max health " + this._maxHealth);
     console.log("healing...");
     const healAmount = Math.min(
-      this.maxHealth * 0.20,
+      this.maxHealth * amount,
       this.maxHealth - this._currentHealth
     );
     console.log("heal amount " + healAmount);
@@ -128,21 +129,21 @@ export class BattleGuy {
     const originalX = this._guyGameSprite.x;
 
     const offset = this._guyGameSprite.x < this._scene.scale.width / 2
-    ? -30
-    : 30;
+      ? -30
+      : 30;
 
     this._scene.tweens.add({
-        targets: this._guyGameSprite,
-        x: originalX - offset,
-        duration: 50,
-        ease: "Linear",
-        yoyo: true,
-        onComplete: () => {
-            this._guyGameSprite.x = originalX;
-        }
+      targets: this._guyGameSprite,
+      x: originalX - offset,
+      duration: 50,
+      ease: "Linear",
+      yoyo: true,
+      onComplete: () => {
+        this._guyGameSprite.x = originalX;
+      }
     });
 
-}
+  }
 
   /**
    * @param {() => void} callback

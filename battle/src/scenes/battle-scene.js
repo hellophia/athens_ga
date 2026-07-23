@@ -315,7 +315,7 @@ export class BattleScene extends Phaser.Scene {
         `${this.#activePlayerGuy.name.toUpperCase()} ate a yummy snack!`,
         () => {
           this.time.delayedCall(500, () => {
-            this.#activePlayerGuy.heal(() => {
+            this.#activePlayerGuy.heal(.2,() => {
               this.#enemyAttack();
             });
           });
@@ -332,7 +332,7 @@ export class BattleScene extends Phaser.Scene {
               `${this.#activeEnemyGuy.name.toUpperCase()} stole ${this.#activePlayerGuy.name.toUpperCase()}'s snack and ate it!!!`,
               () => {
                 this.time.delayedCall(500, () => {
-                  this.#activeEnemyGuy.heal(() => {
+                  this.#activeEnemyGuy.heal(.1,() => {
                     this.#enemyAttack();
                   });
                 });

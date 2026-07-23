@@ -104,11 +104,10 @@ export class IntroScene extends Phaser.Scene {
         console.log("intro create");
 
         const introMusic = this.sound.add(MUSIC_KEYS.INTRO_MUSIC);
+        introMusic.play();
 
         //black bg
         this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0x000000).setOrigin(0).setPosition(0, 0);
-
-        introMusic.play();
 
         this.time.delayedCall(3000, () => {
             this.#textMenu = new TextMenu(this,"danny");

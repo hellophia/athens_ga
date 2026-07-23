@@ -1,5 +1,5 @@
 import Phaser from '../lib/phaser.js';
-import { BATTLE_ASSET_KEYS, DEPTHS } from '../misc/asset-keys.js';
+import { BATTLE_ASSET_KEYS, DEPTHS, SFX_KEYS } from '../misc/asset-keys.js';
 import { Attack } from './attacks.js';
 
 export class AttackAnimations {
@@ -1075,8 +1075,6 @@ export class AttackAnimations {
 
         const { scene, sprite, width, height } = this.#context;
 
-        const sound = attack._scene.sound.add(attack._sound);
-
         sprite
             .setPosition(width * .7, height * .12)
             .setScale(0.5)
@@ -1090,13 +1088,7 @@ export class AttackAnimations {
             cleanup();
         })
 
-        /*
-        sound.once("complete", () => {
-            
-        });
-        */
-
-        sound.play();
+        this.playSound(attack);
     }
 
     static ari(attack, callback, cleanup) {
@@ -1655,7 +1647,8 @@ export class AttackAnimations {
             .setDepth(DEPTHS.ATTACKS)
             .setAlpha(1);
 
-        const container = scene.add.container(sprite.x, sprite.y, [sprite]);
+        const container = scene.add.container(sprite.x, sprite.y, [sprite])
+            .setDepth(DEPTHS.ATTACKS);
 
         scene.tweens.add({
             targets: container,
@@ -1692,6 +1685,9 @@ export class AttackAnimations {
         left.setAlpha(1);
         right.setAlpha(1);
         ian.setAlpha(1);
+
+        scene.sound.stopAll();
+        scene.sound.play(SFX_KEYS.POTATO);
 
         scene.tweens.add({
             targets: left,
@@ -1780,6 +1776,8 @@ export class AttackAnimations {
         const targetY = card.y + Math.sin(radians) * distance;
 
         card.setAngle(launchAngle);
+
+        scene.sound.play(SFX_KEYS.CARDS);
 
         scene.tweens.add({
             targets: card,

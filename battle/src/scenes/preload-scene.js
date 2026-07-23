@@ -1,4 +1,4 @@
-import { BATTLE_ASSET_KEYS, BATTLE_BACKGROUND_ASSET_KEYS, DATA_ASSET_KEYS, FIGHTER_ASSET_KEYS, UI_ASSET_KEYS, MUSIC_KEYS } from '../misc/asset-keys.js';
+import { BATTLE_ASSET_KEYS, BATTLE_BACKGROUND_ASSET_KEYS, DATA_ASSET_KEYS, FIGHTER_ASSET_KEYS, UI_ASSET_KEYS, MUSIC_KEYS, SFX_KEYS } from '../misc/asset-keys.js';
 import Phaser from '../lib/phaser.js'
 import { SCENE_KEYS } from './scene-keys.js';
 import * as WebFontLoader from '../lib/webfontloader.js';
@@ -42,6 +42,9 @@ export class PreloadScene extends Phaser.Scene {
         this.load.audio(MUSIC_KEYS.BATTLE_MUSIC, 'assets/music/finalbattle.mp3');
         this.load.audio(MUSIC_KEYS.OUTRO_MUSIC, 'assets/music/internationale.m4a');
         this.load.audio(MUSIC_KEYS.CREDITS_MUSIC, 'assets/music/happyghast.m4a');
+
+        this.load.audio(SFX_KEYS.POTATO, 'assets/sfx/player-attacks/potato.wav');
+        this.load.audio(SFX_KEYS.CARDS, 'assets/sfx/player-attacks/cards.wav');
 
         const AssetPath = "assets/images"
 

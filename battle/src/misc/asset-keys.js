@@ -40,6 +40,11 @@ export const MUSIC_KEYS = Object.freeze({
   CREDITS_MUSIC: 'CREDITS_MUSIC',
 });
 
+export const SFX_KEYS = Object.freeze({
+  POTATO: 'POTATO',
+  CARDS: 'CARDS',
+});
+
 export const DEPTHS = Object.freeze({
     BACKGROUND: 0,
     ENEMY: 100,
