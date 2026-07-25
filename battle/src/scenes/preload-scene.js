@@ -53,8 +53,8 @@ export class PreloadScene extends Phaser.Scene {
         this.load.image(BATTLE_ASSET_KEYS.HEALTH_BAR_BACKGROUND, `${AssetPath}/ui/healthbar-bg.png`);
 
         this.load.spritesheet(FIGHTER_ASSET_KEYS.PLAYER, `${AssetPath}/danny.png`, {
-            frameWidth: 894,
-            frameHeight: 1055,
+            frameWidth: 946,
+            frameHeight: 1096,
         });
         this.load.spritesheet(FIGHTER_ASSET_KEYS.ENEMY, `${AssetPath}/af.png`, {
             frameWidth: 1259,

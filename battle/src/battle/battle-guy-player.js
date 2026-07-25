@@ -23,12 +23,12 @@ export class PlayerBattleGuy extends BattleGuy {
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.PLAYER,
         {
-          start: 8,
-          end: 8,
+          start: 26,
+          end: 26,
         }
       ),
-      frameRate: 6,
-      repeat: -1,
+      frameRate: 8,
+      repeat: 0,
     });
 
     this._scene.anims.create({
@@ -36,8 +36,8 @@ export class PlayerBattleGuy extends BattleGuy {
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.PLAYER,
         {
-          start: 0,
-          end: 8,
+          start: 17,
+          end: 26,
         }
       ),
       frameRate: 6,
@@ -49,8 +49,8 @@ export class PlayerBattleGuy extends BattleGuy {
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.PLAYER,
         {
-          start: 9,
-          end: 9,
+          start: 16,
+          end: 16,
         }
       ),
       frameRate: 6,
@@ -59,6 +59,45 @@ export class PlayerBattleGuy extends BattleGuy {
 
     this._scene.anims.create({
       key: 'player-attack',
+      frames: this._scene.anims.generateFrameNumbers(
+        FIGHTER_ASSET_KEYS.PLAYER,
+        {
+          start: 0,
+          end: 1,
+        }
+      ),
+      frameRate: 3,
+      repeat: 0,
+    });
+
+    this._scene.anims.create({
+      key: 'player-snack',
+      frames: this._scene.anims.generateFrameNumbers(
+        FIGHTER_ASSET_KEYS.PLAYER,
+        {
+          start: 2,
+          end: 4,
+        }
+      ),
+      frameRate: 3,
+      repeat: 0,
+    });
+
+    this._scene.anims.create({
+      key: 'player-prank',
+      frames: this._scene.anims.generateFrameNumbers(
+        FIGHTER_ASSET_KEYS.PLAYER,
+        {
+          start: 5,
+          end: 9,
+        }
+      ),
+      frameRate: 3,
+      repeat: 0,
+    });
+
+    this._scene.anims.create({
+      key: 'player-hit',
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.PLAYER,
         {
@@ -71,42 +110,16 @@ export class PlayerBattleGuy extends BattleGuy {
     });
 
     this._scene.anims.create({
-      key: 'player-snack',
+      key: 'player-ready',
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.PLAYER,
         {
           start: 12,
-          end: 14,
+          end: 15,
         }
       ),
-      frameRate: 3,
-      repeat: 0,
-    });
-
-    this._scene.anims.create({
-      key: 'player-prank',
-      frames: this._scene.anims.generateFrameNumbers(
-        FIGHTER_ASSET_KEYS.PLAYER,
-        {
-          start: 15,
-          end: 16,
-        }
-      ),
-      frameRate: 3,
-      repeat: 0,
-    });
-
-    this._scene.anims.create({
-      key: 'player-hit',
-      frames: this._scene.anims.generateFrameNumbers(
-        FIGHTER_ASSET_KEYS.PLAYER,
-        {
-          start: 17,
-          end: 18,
-        }
-      ),
-      frameRate: 3,
-      repeat: 0,
+      frameRate: 4,
+      repeat: -1,
     });
 
   }
@@ -117,8 +130,11 @@ export class PlayerBattleGuy extends BattleGuy {
    */
   playGuyAppearAnimation(callback) {
     const startXPos = this._scene.scale.width / 2;
-    this._guyGameSprite.setPosition(startXPos, PLAYER_POSITION.y + 50).setScale(.75);
-    this._guyGameSprite.setAlpha(1);
+    this._guyGameSprite
+      .setPosition(startXPos, PLAYER_POSITION.y + 50)
+      .setScale(.75)
+      .setAlpha(1)
+      .setFrame(17);
 
     this._scene.time.delayedCall(1500, () => {
       this._guyGameSprite.play("player-spin");
@@ -195,11 +211,18 @@ export class PlayerBattleGuy extends BattleGuy {
   };
 
   playHitAnimation() {
-    console.log("hit animation");
     this._guyGameSprite.play("player-hit");
     this._scene.time.delayedCall(1000, () => {
       this._guyGameSprite.play("player-idle");
     });
+  };
+
+  playReadyAnimation() {
+    this._guyGameSprite.play("player-ready");
+  };
+
+  playIdleAnimation() {
+    this._guyGameSprite.play("player-idle");
   };
 
   /**

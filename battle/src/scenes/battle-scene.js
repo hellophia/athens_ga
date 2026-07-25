@@ -62,11 +62,12 @@ export class BattleScene extends Phaser.Scene {
 
     this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0xffffff).setOrigin(0, 0).setPosition(0, 0).setDepth(DEPTHS.BACKGROUND);
     this._background = this.add.image(0, 0, BATTLE_BACKGROUND_ASSET_KEYS.CAVE)
+      .setScale(0.576)
       .setOrigin(0)
-      .setAlpha(.25)
+      .setAlpha(.15)
       .setDepth(DEPTHS.BACKGROUND);
 
-      this._background.setPosition(-(this._background.width-this.scale.width),0);
+    this._background.setPosition(this.scale.width - this._background.displayWidth, 0);
 
     this.#activeEnemyGuy = new EnemyBattleGuy({
       scene: this,
@@ -315,7 +316,7 @@ export class BattleScene extends Phaser.Scene {
         `${this.#activePlayerGuy.name.toUpperCase()} ate a yummy snack!`,
         () => {
           this.time.delayedCall(500, () => {
-            this.#activePlayerGuy.heal(.2,() => {
+            this.#activePlayerGuy.heal(.2, () => {
               this.#enemyAttack();
             });
           });
@@ -324,6 +325,7 @@ export class BattleScene extends Phaser.Scene {
     };
 
     const healEnemy = () => {
+      this.#activePlayerGuy.playIdleAnimation();
       this.#battleMenu.updateMessageNoInputRequired(
         `${this.#activePlayerGuy.name.toUpperCase()} was about to eat a yummy snack...`,
         () => {
@@ -332,7 +334,7 @@ export class BattleScene extends Phaser.Scene {
               `${this.#activeEnemyGuy.name.toUpperCase()} stole ${this.#activePlayerGuy.name.toUpperCase()}'s snack and ate it!!!`,
               () => {
                 this.time.delayedCall(500, () => {
-                  this.#activeEnemyGuy.heal(.1,() => {
+                  this.#activeEnemyGuy.heal(.1, () => {
                     this.#enemyAttack();
                   });
                 });
@@ -382,10 +384,10 @@ export class BattleScene extends Phaser.Scene {
   #playerPrank() {
 
     const prank = () => {
+      this.#activePlayerGuy.playPrankAnimation();
       this.#battleMenu.updateMessageWaitForInput(
         `${this.#activePlayerGuy.name.toUpperCase()} pranked ${this.#activeEnemyGuy.name.toUpperCase()}!`,
         () => {
-          this.#activePlayerGuy.playPrankAnimation();
           this.#activeEnemyGuy.playPrankedAnimation();
           this.#battleMenu.updateMessageWaitForInput(
             `${this.#activeEnemyGuy.name.toUpperCase()} got GOT GOOD!`,
@@ -601,6 +603,9 @@ export class BattleScene extends Phaser.Scene {
       onEnter: () => {
         this.#battleMenu.showTextWindow();
         this.#battleMenu.showMainBattleMenu();
+        this.time.delayedCall(1000, () => {
+          this.#activePlayerGuy.playReadyAnimation();
+        })
       },
     });
 

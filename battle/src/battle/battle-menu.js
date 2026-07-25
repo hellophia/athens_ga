@@ -166,7 +166,7 @@ export class BattleMenu {
     */
   handlePlayerInput(input) {
 
-    console.log("handling player input... "+input+"waiting for input? "+this.#waitingForPlayerInput)
+    console.log("handling player input... " + input + "waiting for input? " + this.#waitingForPlayerInput)
 
     if (this._messagePlaying) {
       console.log("handleplayerinput: message is playing, return");
@@ -261,8 +261,9 @@ export class BattleMenu {
     this.#userInputCursor.setAlpha(0);
 
     if (this.#inputCallback) {
-      this.#inputCallback();
+      const callback = this.#inputCallback;
       this.#inputCallback = undefined;
+      callback();
     }
   }
 
