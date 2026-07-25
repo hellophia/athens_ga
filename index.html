@@ -540,8 +540,8 @@ document.addEventListener("mouseout", function (e) {
   ]
   
   (set: $currentLine to $dialoguetext&#39;s $dialogueIndex&#39;s text)
-  &lt;!-- change back to 20ms --&gt;
-  (live: 5ms)[
+  &lt;!-- can set to 5ms for speedy --&gt;
+  (live: 20ms)[
 	(append: ?dialoguetext)[(if:$currentLine&#39;s $typewriterPos is &quot;&lt;&quot;)[&lt;br&gt;(set: $typewriterPos to it + 4)](else:)[(print: $currentLine&#39;s $typewriterPos)(set: $typewriterPos to it + 1)]]
 
 	(if: $typewriterPos &gt; $currentLine&#39;s length)[
@@ -2156,7 +2156,7 @@ you got some broccoli!
 ]
 }</tw-passagedata><tw-passagedata pid="41" name="labyrinth" tags="" position="1575,350" size="100,100">{
 [
-[[]&lt;bgimg|]&lt;environment|
+[&lt;div id=&quot;bgimg&quot;&gt;&lt;/div&gt;]&lt;environment|
 [
 [[]&lt;mazeholder|]&lt;portrait|
 [
@@ -2351,9 +2351,17 @@ function updateImage() {
 
 	const imageName =
 		`${playerX}-${playerY}-${facing}.png`;
+        
+        	console.log(&quot;Loading&quot;, imageName);
+            
+            document.getElementById(&quot;bgimg&quot;).innerHTML =
+    `&lt;img src=&quot;img/labyrinth/${imageName}&quot;&gt;`;
 
-	document.querySelector(&#39;tw-hook[name=&quot;bgimg&quot;]&#39;).innerHTML =
-		`&lt;img src=&quot;img/labyrinth/${imageName}&quot;&gt;`;
+	//document.querySelector(&#39;tw-hook[name=&quot;bgimg&quot;]&#39;).innerHTML =
+		//`&lt;img src=&quot;img/labyrinth/${imageName}&quot;&gt;`;
+        
+        //const bg = document.querySelector(&#39;tw-hook[name=&quot;bgimg&quot;]&#39;);
+//console.log(bg.innerHTML);
 
 }
 
@@ -2445,8 +2453,7 @@ for (let y = 1; y &lt;= 5; y++) {
 	}
 }
 
-updateDisplay();
-
+setTimeout(updateDisplay, 1);
 
 &lt;/script&gt;
 
