@@ -135,18 +135,18 @@ export class AttackAnimations {
                     y: groundY - 120,
                     duration: 350,
                     ease: 'Sine.Out',
+                    onComplete: () => {
+                        callback();
+                    },
                 },
 
                 {
                     x: scene.scale.width * 0.75,
                     y: groundY,
-
                     duration: 250,
                     ease: 'Bounce.Out',
-
                     onComplete: () => {
                         this.playSound(attack);
-                        callback();
                     },
                 },
 
@@ -276,13 +276,14 @@ export class AttackAnimations {
                     laser2.lineTo(endLaserX, endLaserY);
                     laser2.strokePath();
 
+                    callback();
+
                     scene.tweens.add({
                         targets: laser,
                         alpha: 0,
                         duration: 250,
                         onComplete: () => {
                             laser.destroy();
-                            callback();
                         }
                     });
 
@@ -498,6 +499,9 @@ export class AttackAnimations {
 
         let jumps = 0;
 
+        const totalFrames = scene.anims.get(attack._spriteKey).getTotalFrames();
+        let currentFrame = 0;
+
         const teleport = () => {
 
             this.playSound(attack);
@@ -513,6 +517,9 @@ export class AttackAnimations {
             );
 
             sprite.setPosition(x, y);
+
+            sprite.setFrame(currentFrame);
+            currentFrame = (currentFrame + 1) % totalFrames;
 
             sprite.setAngle(
                 Phaser.Math.Between(-30, 30)
@@ -737,7 +744,6 @@ export class AttackAnimations {
                     onStart: () => {
                         this.playSound(attack);
                         callback();
-                        attack._enemy.playWetAnimation();
                         sprite.play(attack._spriteKey);
                     }
                 },
@@ -784,7 +790,7 @@ export class AttackAnimations {
             .setAlpha(1)
             .setAngle(0)
             .setScale(.6)
-            .setDepth(DEPTHS.ATTACKS);
+            .setDepth(DEPTHS.TOP);
 
         attack._scene.tweens.chain({
 
@@ -1155,13 +1161,14 @@ export class AttackAnimations {
             duration: 800,
         });
 
+        this.playSound(attack);
+
         follower.startFollow({
 
             duration: 800,
             ease: 'Sine.In',
             onComplete: () => {
 
-                this.playSound(attack);
                 callback();
                 follower.setPath(path2);
                 follower.flipX = false;
@@ -1534,6 +1541,8 @@ export class AttackAnimations {
             ease: "Bounce",
             onComplete: () => {
 
+                this.playSound(attack);
+
                 sprite.setFrame(1);
 
                 scene.time.delayedCall(750, () => {
@@ -1544,7 +1553,7 @@ export class AttackAnimations {
 
                         sprite.setFrame(3);
 
-                        this.playSound(attack);
+                        scene.sound.play(SFX_KEYS.POTATO);
 
                         scene.tweens.add({
                             targets: sprite,
@@ -1593,7 +1602,7 @@ export class AttackAnimations {
         const ian = scene.add.sprite(0, 0, BATTLE_ASSET_KEYS.IAN)
             .setAlpha(0)
             .setPosition(endX, endY)
-            .setScale(.22)
+            .setScale(.2)
             .setDepth(DEPTHS.ATTACKS);
 
         scene.anims.create({

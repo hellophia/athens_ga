@@ -3,6 +3,7 @@ import {
   DEPTHS,
   FIGHTER_ASSET_KEYS,
   MUSIC_KEYS,
+  SFX_KEYS,
 } from '../misc/asset-keys.js';
 import { AttackManager } from '../battle/attack-manager.js';
 import { EnemyBattleGuy } from '../battle/battle-guy-enemy.js';
@@ -42,6 +43,8 @@ export class BattleScene extends Phaser.Scene {
   #pendingPlayerAction
   /** @protected @type {Phaser.GameObjects.Image} */
   _background;
+  /** @protected @type {Phaser.GameObjects.Container} */
+  _backgroundContainer
 
   constructor() {
     super({
@@ -60,14 +63,17 @@ export class BattleScene extends Phaser.Scene {
       loop: true
     });
 
-    this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0xffffff).setOrigin(0, 0).setPosition(0, 0).setDepth(DEPTHS.BACKGROUND);
+    /*
+    this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0x000000).setOrigin(0, 0).setPosition(0, 0).setDepth(DEPTHS.BACKGROUND);
     this._background = this.add.image(0, 0, BATTLE_BACKGROUND_ASSET_KEYS.CAVE)
       .setScale(0.576)
       .setOrigin(0)
-      .setAlpha(.15)
+      .setAlpha(1)
       .setDepth(DEPTHS.BACKGROUND);
 
-    this._background.setPosition(this.scale.width - this._background.displayWidth, 0);
+    this._background.setPosition(this.scale.width - this._background.displayWidth, 0);*/
+
+    this.#createBackground();
 
     this.#activeEnemyGuy = new EnemyBattleGuy({
       scene: this,
@@ -96,7 +102,30 @@ export class BattleScene extends Phaser.Scene {
 
     this.#cursorKeys = this.input.keyboard.createCursorKeys();
 
-    this.cameras.main.fadeIn(2000);
+    const fadeout = this.add
+      .rectangle(
+        0,
+        0,
+        this.scale.width,
+        this.scale.height,
+        0x000000
+      )
+      .setOrigin(0)
+      .setDepth(DEPTHS.TOP)
+      .setAlpha(1)
+      .setScrollFactor(0);
+
+    this.tweens.add({
+      delay: 1000,
+      duration: 1000,
+      targets: fadeout,
+      alpha: {
+        from: 1,
+        start: 1,
+        to: 0,
+      }
+    });
+
     /*
         this.time.delayedCall(1000, () => {
           this.#attackManager.playAttackAnimation("POTATO", () => { })
@@ -112,8 +141,7 @@ export class BattleScene extends Phaser.Scene {
 
     //if we're in battle state and need to advance dialogue
     if (wasSpaceKeyPressed && (this.#battleStateMachine.currentStateName === BATTLE_STATES.BATTLE)) {
-      if (this.#battleMenu.isMessagePlaying) {
-        console.log("returning from battlescene update loop because message is still playing");
+      if (!this.#battleMenu.isWaitingForPlayerInput) {
         return;
       }
       this.#battleMenu.handlePlayerInput('OK');
@@ -240,7 +268,9 @@ export class BattleScene extends Phaser.Scene {
               () => {
                 this.#activeEnemyGuy.playTakeDamageAnimation();
                 this.#activeEnemyGuy.takeDamage(damage, () => {
-                  this.#enemyAttack();
+                  this.time.delayedCall(1000, () => {
+                      this.#enemyAttack();
+                    })
                 });
               }
             );
@@ -262,6 +292,7 @@ export class BattleScene extends Phaser.Scene {
         () => {
           this.#activePlayerGuy.playHitAnimation();
           this.time.delayedCall(500, () => {
+            this.sound.play(SFX_KEYS.HIT);
             this.#activeEnemyGuy.playTakeDamageAnimation();
             this.#activeEnemyGuy.takeDamage(5, () => {
               this.#enemyAttack();
@@ -330,6 +361,7 @@ export class BattleScene extends Phaser.Scene {
         `${this.#activePlayerGuy.name.toUpperCase()} was about to eat a yummy snack...`,
         () => {
           this.time.delayedCall(1000, () => {
+            this.#activeEnemyGuy.playSnackAnimation();
             this.#battleMenu.updateMessageNoInputRequired(
               `${this.#activeEnemyGuy.name.toUpperCase()} stole ${this.#activePlayerGuy.name.toUpperCase()}'s snack and ate it!!!`,
               () => {
@@ -558,7 +590,7 @@ export class BattleScene extends Phaser.Scene {
   }
 
   #transitionToNextScene() {
-    this.cameras.main.fadeOut(600, 0, 0, 0);
+    this.cameras.main.fadeOut(1000, 0, 0, 0);
     this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
       this.scene.start(SCENE_KEYS.OUTRO_SCENE);
     });
@@ -582,7 +614,7 @@ export class BattleScene extends Phaser.Scene {
       onEnter: () => {
         this.#activePlayerGuy.playGuyAppearAnimation(() => { });
         this.#activeEnemyGuy.playGuyAppearAnimation(() => { })
-        this.time.delayedCall(4200, () => {
+        this.time.delayedCall(4500, () => {
           this.#activeEnemyGuy.playGuyHealthBarAppearAnimation(() => {
             this.time.delayedCall(350, () => {
               this.#activePlayerGuy.playGuyHealthBarAppearAnimation(() => {
@@ -604,7 +636,9 @@ export class BattleScene extends Phaser.Scene {
         this.#battleMenu.showTextWindow();
         this.#battleMenu.showMainBattleMenu();
         this.time.delayedCall(1000, () => {
-          this.#activePlayerGuy.playReadyAnimation();
+          if (this.#battleStateMachine.currentStateName === BATTLE_STATES.PLAYER_INPUT) {
+            this.#activePlayerGuy.playReadyAnimation();
+          }
         })
       },
     });
@@ -632,5 +666,110 @@ export class BattleScene extends Phaser.Scene {
 
     // start the state machine
     this.#battleStateMachine.setState('INTRO');
+  }
+
+  #createBackground() {
+    const BG_SCALE = 0.576;
+
+    this._backgroundContainer = this.add.container(0, 0);
+
+    this._backgroundContainer.setScale(BG_SCALE);
+    this._backgroundContainer.setDepth(DEPTHS.BACKGROUND);
+
+    const backgroundBack =
+      this.add.image(
+        0,
+        0,
+        BATTLE_BACKGROUND_ASSET_KEYS.CAVE_BACK
+      )
+        .setOrigin(0);
+
+    const backgroundFront =
+      this.add.image(
+        0,
+        0,
+        BATTLE_BACKGROUND_ASSET_KEYS.CAVE_FRONT
+      )
+        .setOrigin(0);
+
+    const makeFire = (key, x, y, animKey) => {
+      const fire = this.add.sprite(0, 0, key);
+      fire
+        .setOrigin(0)
+        .setPosition(x, y);
+
+      this.anims.create({
+        key: animKey,
+        frames: this.anims.generateFrameNumbers(key),
+        frameRate: 6,
+        repeat: -1,
+      });
+
+      fire.play(animKey);
+
+      return fire;
+    };
+
+    const fgFire1 =
+      makeFire(
+        BATTLE_BACKGROUND_ASSET_KEYS.FG_FIRE_1,
+        502,
+        203,
+        "fg-fire-1"
+      );
+
+    const fgFire2 =
+      makeFire(
+        BATTLE_BACKGROUND_ASSET_KEYS.FG_FIRE_2,
+        1455,
+        182,
+        "fg-fire-2"
+      );
+
+    const bgFire1 =
+      makeFire(
+        BATTLE_BACKGROUND_ASSET_KEYS.BG_FIRE_1,
+        90,
+        198,
+        "bg-fire-1"
+      );
+
+    const bgFire2 =
+      makeFire(
+        BATTLE_BACKGROUND_ASSET_KEYS.BG_FIRE_2,
+        922,
+        210,
+        "bg-fire-2"
+      );
+
+    const bgFire3 =
+      makeFire(
+        BATTLE_BACKGROUND_ASSET_KEYS.BG_FIRE_3,
+        2796,
+        160,
+        "bg-fire-3"
+      );
+
+    this._backgroundContainer.add([
+
+      backgroundBack,
+
+      bgFire1,
+      bgFire2,
+      bgFire3,
+
+      backgroundFront,
+
+      fgFire1,
+      fgFire2,
+
+    ]);
+
+    this._backgroundContainer.x =
+      this.scale.width
+      - 3000 * BG_SCALE;
+
+    this._backgroundContainer.y = 0;
+
   }
 }

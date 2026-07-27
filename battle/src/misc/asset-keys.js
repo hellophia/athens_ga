@@ -1,10 +1,18 @@
 export const BATTLE_BACKGROUND_ASSET_KEYS = Object.freeze({
   CAVE: 'CAVE',
+  CAVE_BACK: 'CAVE_BACK',
+  CAVE_FRONT: 'CAVE_FRONT',
+  FG_FIRE_1: 'FG_FIRE_1',
+  FG_FIRE_2: 'FG_FIRE_2',
+  BG_FIRE_1: 'BG_FIRE_1',
+  BG_FIRE_2: 'BG_FIRE_2',
+  BG_FIRE_3: 'BG_FIRE_3',
 });
 
 export const FIGHTER_ASSET_KEYS = Object.freeze({
   PLAYER: 'PLAYER',
   ENEMY: 'ENEMY',
+  SHADOW: 'SHADOW',
 });
 
 export const BATTLE_ASSET_KEYS = Object.freeze({
@@ -43,6 +51,8 @@ export const MUSIC_KEYS = Object.freeze({
 export const SFX_KEYS = Object.freeze({
   POTATO: 'POTATO',
   CARDS: 'CARDS',
+  HIT: 'HIT',
+  OUCH: 'OUCH',
 });
 
 export const DEPTHS = Object.freeze({

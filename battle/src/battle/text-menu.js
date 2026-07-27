@@ -1,7 +1,7 @@
 import Phaser from '../lib/phaser.js';
 import { BATTLE_UI_TEXT_STYLE } from './battle-menu-config.js';
 import { animateText } from '../misc/text.js';
-import { UI_ASSET_KEYS } from '../misc/asset-keys.js';
+import { DEPTHS, UI_ASSET_KEYS } from '../misc/asset-keys.js';
 
 const PORTRAIT_FRAMES = Object.freeze({
     danny_worried: 0,
@@ -9,7 +9,8 @@ const PORTRAIT_FRAMES = Object.freeze({
     danny_yelling: 2,
     danny_surprised: 3,
     mystery_none: 4,
-    af_neutral: 4,
+    af_shadow: 5,
+    af_dead: 6,
 });
 
 export class TextMenu {
@@ -139,6 +140,7 @@ export class TextMenu {
             delay: delay,
             callback: () => {
                 this.#scene.time.delayedCall(wait, () => {
+                    this.#portrait.setFrame(PORTRAIT_FRAMES.af_shadow);
                     animateText(this.#scene, this.#battleTextLines[1], message2, {
                         delay: delay * 2,
                         callback: () => {
@@ -168,23 +170,29 @@ export class TextMenu {
 
         this.#textWindowTop = this.#scene.add
             .image(0, 0, UI_ASSET_KEYS.TEXT_WINDOW_TOP)
-            .setOrigin(0);
+            .setOrigin(0)
+            .setDepth(DEPTHS.TOP);
 
         this.#textWindowMiddle = this.#scene.add
             .image(0, 0, UI_ASSET_KEYS.TEXT_WINDOW_MIDDLE)
-            .setOrigin(1).setPosition(984, 132);
+            .setOrigin(1).setPosition(984, 132).setDepth(DEPTHS.TOP);
 
         this.#textWindowBottom = this.#scene.add
             .image(0, 132, UI_ASSET_KEYS.TEXT_WINDOW_BOTTOM)
-            .setOrigin(0);
+            .setOrigin(0).setDepth(DEPTHS.TOP);
 
         this.#portrait = this.#scene.add.sprite(0, 0, UI_ASSET_KEYS.BATTLE_PORTRAITS)
-            .setOrigin(0).setPosition(23, 23);
-        this.#portrait.setFrame(PORTRAIT_FRAMES[`${this._currentSpeaker}_neutral`]);
+            .setOrigin(0).setScale(.3).setPosition(23, 23).setDepth(DEPTHS.TOP);
 
-        this.#portraitFrame = this.#scene.add.image(0, 0, UI_ASSET_KEYS.TEXT_DIALOGUE, 0).setOrigin(0).setScale(.25).setPosition(0, 0)
+        if (this._currentSpeaker === "danny") {
+            this.#portrait.setFrame(PORTRAIT_FRAMES[`${this._currentSpeaker}_worried`]);
+        } else {
+            this.#portrait.setFrame(PORTRAIT_FRAMES[`${this._currentSpeaker}_dead`]);
+        }
 
-        this.#userInputCursor = this.#scene.add.image(0, 0, UI_ASSET_KEYS.CURSOR).setOrigin(0).setAngle(90).setScale(.25).setAlpha(0).setPosition(940, 111);
+        this.#portraitFrame = this.#scene.add.image(0, 0, UI_ASSET_KEYS.TEXT_DIALOGUE, 0).setOrigin(0).setScale(.25).setPosition(0, 0).setDepth(DEPTHS.TOP);
+
+        this.#userInputCursor = this.#scene.add.image(0, 0, UI_ASSET_KEYS.CURSOR).setOrigin(0).setAngle(90).setScale(.25).setAlpha(0).setPosition(940, 111).setDepth(DEPTHS.TOP);
 
         this.#textContainer = this.#scene.add.container(19, 376, [
             this.#textWindowTop,

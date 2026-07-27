@@ -205,6 +205,10 @@ export class BattleMenu {
     return this._messagePlaying;
   }
 
+  get isWaitingForPlayerInput() {
+    return this.#waitingForPlayerInput;
+  }
+
   /**
    * @param {string} message
    * @param {() => void} [callback]

@@ -136,10 +136,10 @@ export class PlayerBattleGuy extends BattleGuy {
       .setAlpha(1)
       .setFrame(17);
 
-    this._scene.time.delayedCall(1500, () => {
+    this._scene.time.delayedCall(1750, () => {
       this._guyGameSprite.play("player-spin");
       this._scene.tweens.add({
-        duration: 1500,
+        duration: 1875,
         x: {
           from: startXPos,
           start: startXPos,
@@ -162,12 +162,14 @@ export class PlayerBattleGuy extends BattleGuy {
           callback();
         },
       });
+
       this._scene.tweens.add({
-        targets: this._scene._background,
+        targets: this._scene._backgroundContainer,
         x: 0,
         duration: 1500,
-        ease: 'Sine.easeInOut',
+        ease: "Sine.easeInOut",
       });
+
     })
 
   }

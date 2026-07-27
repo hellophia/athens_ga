@@ -1,6 +1,6 @@
 import { BattleGuy } from './battle-guy.js';
 import { animateText } from '../misc/text.js';
-import { BATTLE_ASSET_KEYS, DATA_ASSET_KEYS, DEPTHS, FIGHTER_ASSET_KEYS } from '../misc/asset-keys.js';
+import { BATTLE_ASSET_KEYS, DATA_ASSET_KEYS, DEPTHS, FIGHTER_ASSET_KEYS, SFX_KEYS } from '../misc/asset-keys.js';
 import { HealthBar } from './health-bar.js';
 
 /** @type {import('../types/typedef.js').Coordinate} */
@@ -25,7 +25,7 @@ export class EnemyBattleGuy extends BattleGuy {
     this._loadAttacksFromCache(DATA_ASSET_KEYS.ENEMY_ATTACKS);
     this._isStunned = false;
     this.#prankedFrameIndex = 0;
-    this._guyGameSprite.setScale(.22);
+    this._guyGameSprite.setScale(.63);
 
     this._scene.anims.create({
       key: 'enemy-idle-1',
@@ -84,6 +84,58 @@ export class EnemyBattleGuy extends BattleGuy {
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.ENEMY,
         {
+          start: 18,
+          end: 18,
+        }
+      ),
+      frameRate: 2,
+      repeat: 0,
+    });
+
+    this._scene.anims.create({
+      key: 'enemy-hurt-2',
+      frames: this._scene.anims.generateFrameNumbers(
+        FIGHTER_ASSET_KEYS.ENEMY,
+        {
+          start: 19,
+          end: 19,
+        }
+      ),
+      frameRate: 2,
+      repeat: 0,
+    });
+
+    this._scene.anims.create({
+      key: 'enemy-hurt-3',
+      frames: this._scene.anims.generateFrameNumbers(
+        FIGHTER_ASSET_KEYS.ENEMY,
+        {
+          start: 20,
+          end: 20,
+        }
+      ),
+      frameRate: 2,
+      repeat: 0,
+    });
+
+    this._scene.anims.create({
+      key: 'enemy-hurt-4',
+      frames: this._scene.anims.generateFrameNumbers(
+        FIGHTER_ASSET_KEYS.ENEMY,
+        {
+          start: 21,
+          end: 21,
+        }
+      ),
+      frameRate: 2,
+      repeat: 0,
+    });
+
+    this._scene.anims.create({
+      key: 'enemy-attack-1',
+      frames: this._scene.anims.generateFrameNumbers(
+        FIGHTER_ASSET_KEYS.ENEMY,
+        {
           start: 14,
           end: 14,
         }
@@ -93,7 +145,7 @@ export class EnemyBattleGuy extends BattleGuy {
     });
 
     this._scene.anims.create({
-      key: 'enemy-hurt-2',
+      key: 'enemy-attack-2',
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.ENEMY,
         {
@@ -106,7 +158,7 @@ export class EnemyBattleGuy extends BattleGuy {
     });
 
     this._scene.anims.create({
-      key: 'enemy-hurt-3',
+      key: 'enemy-attack-3',
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.ENEMY,
         {
@@ -119,7 +171,7 @@ export class EnemyBattleGuy extends BattleGuy {
     });
 
     this._scene.anims.create({
-      key: 'enemy-hurt-4',
+      key: 'enemy-attack-4',
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.ENEMY,
         {
@@ -132,64 +184,12 @@ export class EnemyBattleGuy extends BattleGuy {
     });
 
     this._scene.anims.create({
-      key: 'enemy-attack-1',
-      frames: this._scene.anims.generateFrameNumbers(
-        FIGHTER_ASSET_KEYS.ENEMY,
-        {
-          start: 10,
-          end: 10,
-        }
-      ),
-      frameRate: 6,
-      repeat: 0,
-    });
-
-    this._scene.anims.create({
-      key: 'enemy-attack-2',
-      frames: this._scene.anims.generateFrameNumbers(
-        FIGHTER_ASSET_KEYS.ENEMY,
-        {
-          start: 11,
-          end: 11,
-        }
-      ),
-      frameRate: 6,
-      repeat: 0,
-    });
-
-    this._scene.anims.create({
-      key: 'enemy-attack-3',
-      frames: this._scene.anims.generateFrameNumbers(
-        FIGHTER_ASSET_KEYS.ENEMY,
-        {
-          start: 12,
-          end: 12,
-        }
-      ),
-      frameRate: 6,
-      repeat: 0,
-    });
-
-    this._scene.anims.create({
-      key: 'enemy-attack-4',
-      frames: this._scene.anims.generateFrameNumbers(
-        FIGHTER_ASSET_KEYS.ENEMY,
-        {
-          start: 13,
-          end: 13,
-        }
-      ),
-      frameRate: 6,
-      repeat: 0,
-    });
-
-    this._scene.anims.create({
       key: 'enemy-pranked',
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.ENEMY,
         {
-          start: 4,
-          end: 7,
+          start: 8,
+          end: 11,
         }
       ),
       frameRate: .5,
@@ -201,8 +201,8 @@ export class EnemyBattleGuy extends BattleGuy {
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.ENEMY,
         {
-          start: 8,
-          end: 8,
+          start: 12,
+          end: 12,
         }
       ),
       frameRate: 3,
@@ -214,8 +214,34 @@ export class EnemyBattleGuy extends BattleGuy {
       frames: this._scene.anims.generateFrameNumbers(
         FIGHTER_ASSET_KEYS.ENEMY,
         {
-          start: 9,
-          end: 9,
+          start: 13,
+          end: 13,
+        }
+      ),
+      frameRate: 3,
+      repeat: 0,
+    });
+
+    this._scene.anims.create({
+      key: 'enemy-snack',
+      frames: this._scene.anims.generateFrameNumbers(
+        FIGHTER_ASSET_KEYS.ENEMY,
+        {
+          start: 4,
+          end: 7,
+        }
+      ),
+      frameRate: 2,
+      repeat: 0,
+    });
+
+    this._scene.anims.create({
+      key: 'enemy-dead',
+      frames: this._scene.anims.generateFrameNumbers(
+        FIGHTER_ASSET_KEYS.ENEMY,
+        {
+          start: 22,
+          end: 22,
         }
       ),
       frameRate: 3,
@@ -242,15 +268,14 @@ export class EnemyBattleGuy extends BattleGuy {
    */
   playGuyAppearAnimation(callback) {
     this.playIdleAnimation();
-    const startXPos = -30;
+    const startXPos = -this._guyGameSprite.width;
     const endXPos = ENEMY_POSITION.x;
     this._guyGameSprite.setPosition(startXPos, ENEMY_POSITION.y);
     this._guyGameSprite.setAlpha(1);
 
-    this._scene.time.delayedCall(2200, () => {
+    this._scene.time.delayedCall(2000, () => {
       this._scene.tweens.add({
-        delay: 0,
-        duration: 1000,
+        duration: 1625,
         x: {
           from: startXPos,
           start: startXPos,
@@ -270,7 +295,7 @@ export class EnemyBattleGuy extends BattleGuy {
    * @returns {void}
    */
   playGuyHealthBarAppearAnimation(callback) {
-    const duration = 4250;
+    const duration = 4500;
     const nameduration = duration - 2000;
 
     this._guyNameGameText.text = '';
@@ -315,9 +340,16 @@ export class EnemyBattleGuy extends BattleGuy {
       this._guyGameSprite.play("enemy-hurt-4");
     }
     this.damageTween();
-    this._scene.time.delayedCall(duration, () => {
-      this.playIdleAnimation();
+
+    this._guyGameSprite.once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
+      if (this.isFainted) {
+        this._scene.sound.play(SFX_KEYS.OUCH);
+        this.playDeathAnimation();
+      } else {
+        this.playIdleAnimation();
+      }
     });
+
   }
 
   playAttackAnimation() {
@@ -372,41 +404,44 @@ export class EnemyBattleGuy extends BattleGuy {
   };
 
   playSnackAnimation() {
-    //this._guyGameSprite.play("enemy-snack");
-    this._scene.time.delayedCall(1000, () => {
+    const enemyX = this._guyGameSprite.x;
+    const enemyY = this._guyGameSprite.y;
+
+    this._guyGameSprite.setDepth(DEPTHS.PLAYER);
+
+    this._scene.tweens.chain({
+
+      tweens: [
+        {
+          targets: this._guyGameSprite,
+          x: this._scene.scale.width * .4,
+          y: this._scene.scale.height * .45,
+          scale: 1,
+          duration: 500,
+          ease: "Sine.easeInOut",
+        },
+        {
+          targets: this._guyGameSprite,
+          x: enemyX,
+          y: enemyY,
+          scale: .63,
+          duration: 500,
+          ease: "Sine.easeInOut",
+        },
+      ],
+    });
+
+    this._guyGameSprite.play("enemy-snack");
+    this._guyGameSprite.once(Phaser.Animations.Events.ANIMATION_COMPLETE_KEY + "enemy-snack", () => {
+      this._guyGameSprite.setDepth(DEPTHS.ENEMY);
       this.playIdleAnimation();
     });
+
   };
 
-  playWetAnimation() {
-    //this._guyGameSprite.play("enemy-wet");
-    this._scene.time.delayedCall(1000, () => {
-      this.playIdleAnimation();
-    });
+  playDeathAnimation() {
+    this._guyGameSprite.play("enemy-dead");
   };
-
-  /**
-   * @param {() => void} callback
-   * @returns {void}
-   */
-  playDeathAnimation(callback) {
-    const startYPos = this._guyGameSprite.y;
-    const endYPos = startYPos - 400;
-
-    this._scene.tweens.add({
-      delay: 0,
-      duration: 2000,
-      y: {
-        from: startYPos,
-        start: startYPos,
-        to: endYPos,
-      },
-      targets: this._guyGameSprite,
-      onComplete: () => {
-        callback();
-      },
-    });
-  }
 
   /**
  * @returns {void}

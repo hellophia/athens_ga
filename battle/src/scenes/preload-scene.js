@@ -45,10 +45,65 @@ export class PreloadScene extends Phaser.Scene {
 
         this.load.audio(SFX_KEYS.POTATO, 'assets/sfx/player-attacks/potato.wav');
         this.load.audio(SFX_KEYS.CARDS, 'assets/sfx/player-attacks/cards.wav');
+        this.load.audio(SFX_KEYS.HIT, 'assets/sfx/hit.wav');
+        this.load.audio(SFX_KEYS.OUCH, 'assets/sfx/ouch.wav');
 
         const AssetPath = "assets/images"
 
-        this.load.image(BATTLE_BACKGROUND_ASSET_KEYS.CAVE, `${AssetPath}/cave-background.png`);
+        this.load.image(
+            BATTLE_BACKGROUND_ASSET_KEYS.CAVE_BACK,
+            `${AssetPath}/background/cave-background-back.png`
+        );
+
+        this.load.image(
+            BATTLE_BACKGROUND_ASSET_KEYS.CAVE_FRONT,
+            `${AssetPath}/background/cave-background-front.png`
+        );
+
+        this.load.spritesheet(
+            BATTLE_BACKGROUND_ASSET_KEYS.FG_FIRE_1,
+            `${AssetPath}/background/fire-fg-1.png`,
+            {
+                frameWidth: 155,
+                frameHeight: 286,
+            }
+        );
+
+        this.load.spritesheet(
+            BATTLE_BACKGROUND_ASSET_KEYS.FG_FIRE_2,
+            `${AssetPath}/background/fire-fg-2.png`,
+            {
+                frameWidth: 138,
+                frameHeight: 261,
+            }
+        );
+
+        this.load.spritesheet(
+            BATTLE_BACKGROUND_ASSET_KEYS.BG_FIRE_1,
+            `${AssetPath}/background/fire-bg-1.png`,
+            {
+                frameWidth: 100,
+                frameHeight: 208,
+            }
+        );
+
+        this.load.spritesheet(
+            BATTLE_BACKGROUND_ASSET_KEYS.BG_FIRE_2,
+            `${AssetPath}/background/fire-bg-2.png`,
+            {
+                frameWidth: 129,
+                frameHeight: 255,
+            }
+        );
+
+        this.load.spritesheet(
+            BATTLE_BACKGROUND_ASSET_KEYS.BG_FIRE_3,
+            `${AssetPath}/background/fire-bg-3.png`,
+            {
+                frameWidth: 145,
+                frameHeight: 287,
+            }
+        );
 
         this.load.image(BATTLE_ASSET_KEYS.HEALTH_BAR_BACKGROUND, `${AssetPath}/ui/healthbar-bg.png`);
 
@@ -57,9 +112,11 @@ export class PreloadScene extends Phaser.Scene {
             frameHeight: 1096,
         });
         this.load.spritesheet(FIGHTER_ASSET_KEYS.ENEMY, `${AssetPath}/af.png`, {
-            frameWidth: 1259,
-            frameHeight: 1523,
+            frameWidth: 586,
+            frameHeight: 533,
         });
+
+        this.load.image(FIGHTER_ASSET_KEYS.SHADOW, `${AssetPath}/af-shadow.png`);
 
         this.load.image(UI_ASSET_KEYS.CURSOR, `${AssetPath}/ui/cursor.png`);
         this.load.image(UI_ASSET_KEYS.SCROLL_UP, `${AssetPath}/ui/scroll-up.png`);
@@ -81,8 +138,8 @@ export class PreloadScene extends Phaser.Scene {
         }
 
         this.load.spritesheet(UI_ASSET_KEYS.BATTLE_PORTRAITS, `${AssetPath}/ui/battle-portraits.png`, {
-            frameWidth: 135,
-            frameHeight: 135,
+            frameWidth: 453,
+            frameHeight: 452,
         });
 
         const playerConfigs = this.cache.json.get(DATA_ASSET_KEYS.PLAYER_ATTACKS) || [];

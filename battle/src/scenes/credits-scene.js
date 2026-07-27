@@ -75,8 +75,8 @@ export class CreditsScene extends Phaser.Scene {
 
             this.tweens.add({
                 targets: letter,
-                y: y - 8,
-                duration: Phaser.Math.Between(2000, 3000),
+                y: y - 15,
+                duration: Phaser.Math.Between(1000, 2000),
                 ease: "Sine.inOut",
                 yoyo: true,
                 repeat: -1,

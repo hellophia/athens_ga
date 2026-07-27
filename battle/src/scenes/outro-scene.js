@@ -1,4 +1,4 @@
-import { MUSIC_KEYS } from '../misc/asset-keys.js';
+import { BATTLE_BACKGROUND_ASSET_KEYS, FIGHTER_ASSET_KEYS, MUSIC_KEYS } from '../misc/asset-keys.js';
 import { TextMenu } from '../battle/text-menu.js';
 import { SCENE_KEYS } from './scene-keys.js';
 import Phaser from '../lib/phaser.js';
@@ -24,27 +24,27 @@ export class OutroScene extends Phaser.Scene {
         this.#lines = [
             {
                 character: "af",
-                mood: "neutral",
+                mood: "dead",
                 text: "You... have... defeated me...",
             },
             {
                 character: "af",
-                mood: "neutral",
+                mood: "dead",
                 text: "... well done, Danny.",
             },
             {
                 character: "af",
-                mood: "neutral",
+                mood: "dead",
                 text: "For you see... I wasn't really the final boss.",
             },
             {
                 character: "af",
-                mood: "neutral",
+                mood: "dead",
                 text: "This was... only a test. The real boss... is called...",
             },
             {
                 character: "af",
-                mood: "neutral",
+                mood: "dead",
                 text: "... capitalism.",
             },
             {
@@ -55,15 +55,15 @@ export class OutroScene extends Phaser.Scene {
             },
             {
                 character: "af",
-                mood: "neutral",
+                mood: "dead",
                 text: "You see, Danny... capitalism is one of many possible ways that human society can organize itself.",
                 characterDelay: 40,
             },
             {
                 character: "af",
-                mood: "neutral",
+                mood: "dead",
                 text: "Under capitalism, there is one class that controls the means of production, and leverages that control over the working class, who need to earn money for food and other necessities by selling their labor. Workers become alienated from their labor, and survival becomes a constant struggle.",
-                characterDelay: 30,
+                characterDelay: 20,
             },
             {
                 character: "danny",
@@ -73,34 +73,34 @@ export class OutroScene extends Phaser.Scene {
             },
             {
                 character: "af",
-                mood: "neutral",
+                mood: "dead",
                 text: "Throughout human history there have been other economic paradigms, and human beings did not always have to depend on the market for basic survival, but in the modern era a culture of increased privatization has made it less possible for people to control their own means of production. By creating an environment of scarcity, capitalism convinces people that the only way to live is to hoard resources.",
-                characterDelay: 20,
+                characterDelay: 10,
             },
             {
                 character: "danny",
                 mood: "yelling",
-                text: "?????????????????????????????????????????????",
-                
+                text: "???????????????????????????????????????????????",
+                characterDelay: 20,
             },
             {
                 character: "af",
-                mood: "neutral",
+                mood: "dead",
                 text: "Capitalism says that we shouldn't share, and that we shouldn't be friends with each other, but actually...",
             },
             {
                 character: "af",
-                mood: "neutral",
+                mood: "dead",
                 text: "Sharing is good, and friendship is good too.",
             },
             {
                 character: "af",
-                mood: "neutral",
+                mood: "dead",
                 text: "And even though I pretended to be evil and dropped a big book on your head, I'm also your friend.",
             },
             {
                 character: "af",
-                mood: "neutral",
+                mood: "dead",
                 text: "And your friends will always try to help you, because we love you very much.",
             },
             {
@@ -130,8 +130,7 @@ export class OutroScene extends Phaser.Scene {
 
         this.#cursorKeys = this.input.keyboard.createCursorKeys();
 
-        //black bg
-        this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0x000000).setOrigin(0).setPosition(0, 0);
+        this.#createBackground()
 
         this.#textMenu = new TextMenu(this, "af");
         this.time.delayedCall(500, () => {
@@ -157,16 +156,11 @@ export class OutroScene extends Phaser.Scene {
             this.#outroMusic.play();
         }
 
-        if (index === Object.keys(this.#lines).length) {
+        if (index === Object.keys(this.#lines).length - 1) {
+            this.sound.stopAll();
+        }
 
-            this.tweens.add({
-                targets: this.#outroMusic,
-                volume: 0,
-                duration: 1000,
-                onComplete: () => {
-                    this.#outroMusic.stop();
-                }
-            });
+        if (index === Object.keys(this.#lines).length) {
 
             this.cameras.main.fadeOut(1000, 0, 0, 0);
 
@@ -188,6 +182,26 @@ export class OutroScene extends Phaser.Scene {
             line.characterDelay ?? this.#defaultCharacterDelay,
             () => this.playLine(index + 1)
         );
+    }
+
+    #createBackground() {
+
+        this.add.image(
+            0,
+            0,
+            BATTLE_BACKGROUND_ASSET_KEYS.CAVE_BACK
+        ).setOrigin(0).setScale(.576).setPosition(0, 0);
+
+        this.add.image(
+            0,
+            0,
+            BATTLE_BACKGROUND_ASSET_KEYS.CAVE_FRONT
+        ).setOrigin(0).setScale(.576).setPosition(0, 0);
+
+        this.add.sprite(585, 190, FIGHTER_ASSET_KEYS.ENEMY).setScale(.63).setFrame(22);
+
+        this.add.sprite(300, 250, FIGHTER_ASSET_KEYS.PLAYER).setScale(.35).setFrame(26);
+
     }
 
 }

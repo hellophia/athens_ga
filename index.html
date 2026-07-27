@@ -513,19 +513,7 @@ document.addEventListener("mouseout", function (e) {
 (display:&quot;items&quot;)
 }
 
-(transition: &quot;fade&quot;) + (transition-time: 8s)[(transition-arrive:&quot;fade&quot;)+(transition-time:8s)(link-goto: &quot;ATHENS, GA&quot;,&quot;opening cutscene&quot;)]&lt;start|
-
-
-
-
-
-
-
-
-
-&lt;span style=&quot;color:black&quot;&gt; [[labyrinth entrance]] &lt;/style&gt;
-&lt;span style=&quot;color:black&quot;&gt; [[end]] &lt;/style&gt;
-</tw-passagedata><tw-passagedata pid="2" name="typewriter" tags="" position="1250,75" size="100,100">{
+(transition: &quot;fade&quot;) + (transition-time: 8s)[(transition-arrive:&quot;fade&quot;)+(transition-time:8s)(link-goto: &quot;ATHENS, GA&quot;,&quot;opening cutscene&quot;)]&lt;start|</tw-passagedata><tw-passagedata pid="2" name="typewriter" tags="" position="1250,75" size="100,100">{
 	(after:1s)[
     
   (replace: ?dialoguetext)[]
@@ -737,7 +725,7 @@ document.addEventListener("mouseout", function (e) {
 }</tw-passagedata><tw-passagedata pid="10" name="burks" tags="" position="1000,425" size="100,100">{
 (display:&quot;window&quot;)
 
-(replace:?bgimg)[&lt;img src=&quot;img/bgs/burks.png&quot;&gt;]
+(replace:?bgimg)[&lt;img src=&quot;img/bgs/burks.jpg&quot;&gt;]
 
 (if: $items&#39;s &quot;Frog&quot;&#39;s &quot;found&quot; is true)[
 (set: $dialoguetext to (a:
@@ -886,7 +874,7 @@ document.addEventListener("mouseout", function (e) {
 }</tw-passagedata><tw-passagedata pid="13" name="syfritt" tags="" position="600,450" size="100,100">{
 (display:&quot;window&quot;)
 
-(replace:?bgimg)[&lt;img src=&quot;img/bgs/syfritt.png&quot;&gt;]
+(replace:?bgimg)[&lt;img src=&quot;img/bgs/syfritt.jpg&quot;&gt;]
 
 (replace:?text)[ [
 [[Talk to Memphis-&gt;memphis]]
@@ -1311,7 +1299,7 @@ mack:./audio/music/ymo-behind the mask.mp3</tw-passagedata><tw-passagedata pid="
 }</tw-passagedata><tw-passagedata pid="23" name="memphis" tags="" position="450,425" size="100,100">{
 (display:&quot;window&quot;)
 
-(replace:?bgimg)[&lt;img src=&quot;img/bgs/syfritt.png&quot;&gt;]
+(replace:?bgimg)[&lt;img src=&quot;img/bgs/syfritt.jpg&quot;&gt;]
 
 (if: $items&#39;s &quot;Cell phone&quot;&#39;s &quot;found&quot; is true)[
 (set: $dialoguetext to (a:
@@ -1377,13 +1365,13 @@ mack:./audio/music/ymo-behind the mask.mp3</tw-passagedata><tw-passagedata pid="
 }</tw-passagedata><tw-passagedata pid="24" name="maggie" tags="" position="450,550" size="100,100">{
 (display:&quot;window&quot;)
 
-(replace:?bgimg)[&lt;img src=&quot;img/bgs/syfritt.png&quot;&gt;]
+(replace:?bgimg)[&lt;img src=&quot;img/bgs/syfritt.jpg&quot;&gt;]
 
 (if: $items&#39;s &quot;Feather&quot;&#39;s &quot;found&quot; is true)[
 (set: $dialoguetext to (a:
 (dm:
 &quot;character&quot;,&quot;maggie&quot;,
-&quot;mood&quot;,&quot;neutral&quot;,
+&quot;mood&quot;,&quot;sneaky&quot;,
 &quot;text&quot;,&quot;Have fun fighting that guy mkaaay!&quot;)
 ))
 ]
@@ -1412,7 +1400,7 @@ mack:./audio/music/ymo-behind the mask.mp3</tw-passagedata><tw-passagedata pid="
 &quot;text&quot;,&quot;... say what?&quot;),
 (dm:
 &quot;character&quot;,&quot;maggie&quot;,
-&quot;mood&quot;,&quot;neutral&quot;,
+&quot;mood&quot;,&quot;yelling&quot;,
 &quot;text&quot;,&quot;Now that is just...&quot;),
 (dm:
 &quot;character&quot;,&quot;maggie&quot;,
@@ -1424,11 +1412,11 @@ mack:./audio/music/ymo-behind the mask.mp3</tw-passagedata><tw-passagedata pid="
 &quot;text&quot;,&quot;Yeah, so do you have any, like, anything &lt;br&gt;useful?&quot;),
 (dm:
 &quot;character&quot;,&quot;maggie&quot;,
-&quot;mood&quot;,&quot;neutral&quot;,
+&quot;mood&quot;,&quot;sneaky&quot;,
 &quot;text&quot;,&quot;I got this feather...&quot;),
 (dm:
 &quot;character&quot;,&quot;maggie&quot;,
-&quot;mood&quot;,&quot;neutral&quot;,
+&quot;mood&quot;,&quot;yelling&quot;,
 &quot;text&quot;,&quot;I just think it&#39;s nice!&quot;),
 (dm:
 &quot;character&quot;,&quot;narrator&quot;,
@@ -1552,7 +1540,7 @@ mack:./audio/music/ymo-behind the mask.mp3</tw-passagedata><tw-passagedata pid="
 }</tw-passagedata><tw-passagedata pid="29" name="ice" tags="" position="600,125" size="100,100">{
 (display:&quot;window&quot;)
 
-(replace:?bgimg)[&lt;img src=&quot;img/bgs/cold-plunge.jpg&quot;&gt;]
+(replace:?bgimg)[&lt;img src=&quot;img/bgs/117-coldplunge.jpg&quot;&gt;]
 
 (set: $items&#39;s &quot;Cold plunge pool&quot;&#39;s &quot;found&quot; to true)
 (set: $dialoguetext to (a:
@@ -1910,7 +1898,7 @@ you got some broccoli!
 &quot;text&quot;,&quot;In real life! That sounds stressful. Um,&lt;br&gt; maybe I can send you some supplies? I&#39;m&lt;br&gt; gonna teleport you a bunch of candy!&quot;),
 (dm:
 &quot;character&quot;,&quot;kate&quot;,
-&quot;mood&quot;,&quot;focus&quot;,
+&quot;mood&quot;,&quot;neutral&quot;,
 &quot;text&quot;,&quot;Hang on... it takes some concentration...&quot;),
 (dm:
 &quot;character&quot;,&quot;narrator&quot;,
@@ -1931,7 +1919,7 @@ you got some broccoli!
 (set: $dialoguetext to (a:
 (dm:
 &quot;character&quot;,&quot;elo&quot;,
-&quot;mood&quot;,&quot;neutral&quot;,
+&quot;mood&quot;,&quot;happy&quot;,
 &quot;text&quot;,&quot;Did you earn any gems, Danny?&quot;),
 (dm:
 &quot;character&quot;,&quot;danny&quot;,
@@ -2872,7 +2860,7 @@ setTimeout(updateDisplay, 1);
 (if: $cmacgem is true)[
 (set: $dialoguetext to (a:
 (dm:
-&quot;character&quot;,&quot;cmac&quot;,
+&quot;character&quot;,&quot;naman&quot;,
 &quot;mood&quot;,&quot;neutral&quot;,
 &quot;text&quot;,&quot;KIAI!!!&quot;)
 ))
@@ -2882,7 +2870,7 @@ setTimeout(updateDisplay, 1);
 (set:$gems to it + 1)
 (set: $dialoguetext to (a:
 (dm:
-&quot;character&quot;,&quot;cmac&quot;,
+&quot;character&quot;,&quot;naman&quot;,
 &quot;mood&quot;,&quot;neutral&quot;,
 &quot;text&quot;,&quot;Welcome to CMAC, Daniel!&quot;),
 (dm:
@@ -2890,7 +2878,7 @@ setTimeout(updateDisplay, 1);
 &quot;mood&quot;,&quot;determined&quot;,
 &quot;text&quot;,&quot;Yes chef!!&quot;),
 (dm:
-&quot;character&quot;,&quot;cmac&quot;,
+&quot;character&quot;,&quot;naman&quot;,
 &quot;mood&quot;,&quot;neutral&quot;,
 &quot;text&quot;,&quot;...?&quot;),
 (dm:
@@ -2898,7 +2886,7 @@ setTimeout(updateDisplay, 1);
 &quot;mood&quot;,&quot;happy&quot;,
 &quot;text&quot;,&quot;I mean, yes sensei!&quot;),
 (dm:
-&quot;character&quot;,&quot;cmac&quot;,
+&quot;character&quot;,&quot;naman&quot;,
 &quot;mood&quot;,&quot;neutral&quot;,
 &quot;text&quot;,&quot;Are you ready to train?!&quot;),
 (dm:
@@ -2906,7 +2894,7 @@ setTimeout(updateDisplay, 1);
 &quot;mood&quot;,&quot;yelling&quot;,
 &quot;text&quot;,&quot;YES, SANDWICH!&quot;),
 (dm:
-&quot;character&quot;,&quot;cmac&quot;,
+&quot;character&quot;,&quot;naman&quot;,
 &quot;mood&quot;,&quot;neutral&quot;,
 &quot;text&quot;,&quot;...&quot;),
 (dm:
@@ -2914,7 +2902,7 @@ setTimeout(updateDisplay, 1);
 &quot;mood&quot;,&quot;none&quot;,
 &quot;text&quot;,&quot;And so Danny trained hard at taekwondo.&quot;),
 (dm:
-&quot;character&quot;,&quot;cmac&quot;,
+&quot;character&quot;,&quot;naman&quot;,
 &quot;mood&quot;,&quot;neutral&quot;,
 &quot;text&quot;,&quot;Well done, Daniel. You have earned a gem.&quot;),
 (dm:
@@ -2926,7 +2914,7 @@ setTimeout(updateDisplay, 1);
 &quot;mood&quot;,&quot;surprised&quot;,
 &quot;text&quot;,&quot;Wait, how come you know about gems??&quot;),
 (dm:
-&quot;character&quot;,&quot;cmac&quot;,
+&quot;character&quot;,&quot;naman&quot;,
 &quot;mood&quot;,&quot;neutral&quot;,
 &quot;text&quot;,&quot;Train hard and you too will learn many&lt;br&gt; things!&quot;)
 ))
