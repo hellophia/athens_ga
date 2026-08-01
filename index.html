@@ -1693,6 +1693,13 @@ you got some broccoli!
 &quot;mood&quot;,&quot;happy&quot;,
 &quot;text&quot;,_hint)
 ))
+(if: _hintitem is &quot;He-Man&quot; or &quot;Candy&quot;)[(set: $dialoguetext to it + (a:
+(dm:
+&quot;character&quot;,&quot;elo&quot;,
+&quot;mood&quot;,&quot;happy&quot;,
+&quot;text&quot;,&quot;Remember, you can get gems by playing piano 3 times, or by going to CMAC!&quot;)
+))
+]
 ]
 (else:)[
 (set: $dialoguetext to (a:
@@ -1809,6 +1816,10 @@ you got some broccoli!
 (dm:
 &quot;character&quot;,&quot;narrator&quot;,
 &quot;mood&quot;,&quot;none&quot;,
+&quot;text&quot;,&quot;Danny spends a gem to play some videogames!&quot;),
+(dm:
+&quot;character&quot;,&quot;narrator&quot;,
+&quot;mood&quot;,&quot;none&quot;,
 &quot;text&quot;,&quot;Danny sits down to play Minecraft when the phone rings.&quot;),
 (dm:
 &quot;character&quot;,&quot;jeremy&quot;,
@@ -1856,6 +1867,10 @@ you got some broccoli!
 (set: $items&#39;s &quot;Candy&quot;&#39;s &quot;found&quot; to true)
 (set: $gems to it - 1)
 (set: $dialoguetext to (a:
+(dm:
+&quot;character&quot;,&quot;narrator&quot;,
+&quot;mood&quot;,&quot;none&quot;,
+&quot;text&quot;,&quot;Danny spends a gem to play some videogames!&quot;),
 (dm:
 &quot;character&quot;,&quot;narrator&quot;,
 &quot;mood&quot;,&quot;none&quot;,

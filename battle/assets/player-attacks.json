@@ -40,7 +40,7 @@
         "name": "Cell phone",
         "spriteKey": "DIRTBIKE",
         "url": "assets/images/player-attacks/attack-dirtbike.png",
-        "frameWidth": 400,
+        "frameWidth": 453,
         "frameHeight": 400,
         "frameRate": 8,
         "soundurl": "assets/sfx/player-attacks/dirtbike.wav",
@@ -52,8 +52,8 @@
         "name": "Feather",
         "spriteKey": "CHICKEN",
         "url": "assets/images/player-attacks/attack-chicken.png",
-        "frameWidth": 300,
-        "frameHeight": 300,
+        "frameWidth": 322,
+        "frameHeight": 400,
         "frameRate": 8,
         "soundurl": "assets/sfx/player-attacks/chicken.wav",
         "animation": true,
@@ -73,18 +73,6 @@
     },
     {
         "id": 7,
-        "name": "Potato",
-        "spriteKey": "POTATO",
-        "url": "assets/images/player-attacks/attack-potato.png",
-        "frameWidth": 800,
-        "frameHeight": 500,
-        "frameRate": 8,
-        "soundurl": "assets/sfx/player-attacks/nancy.wav",
-        "animation": true,
-        "position": {}
-    },
-    {
-        "id": 8,
         "name": "Lollipop",
         "spriteKey": "CHUPA",
         "url": "assets/images/player-attacks/attack-chupa.png",
@@ -96,7 +84,7 @@
         "position": {}
     },
     {
-        "id": 9,
+        "id": 8,
         "name": "He-Man figurine",
         "spriteKey": "HEMAN",
         "url": "assets/images/player-attacks/attack-heman.png",
@@ -108,7 +96,7 @@
         "position": {}
     },
     {
-        "id": 10,
+        "id": 9,
         "name": "Baby Ari",
         "spriteKey": "ARI",
         "url": "assets/images/player-attacks/attack-ari.png",
@@ -120,7 +108,7 @@
         "position": {}
     },
     {
-        "id": 11,
+        "id": 10,
         "name": "Homemade Candy",
         "spriteKey": "CANDY",
         "url": "assets/images/player-attacks/attack-candy.png",
@@ -132,7 +120,7 @@
         "position": {}
     },
     {
-        "id": 12,
+        "id": 11,
         "name": "Soccer ball",
         "spriteKey": "SOCCER",
         "url": "assets/images/player-attacks/attack-soccer.png",
@@ -144,7 +132,7 @@
         "position": {}
     },
     {
-        "id": 13,
+        "id": 12,
         "name": "Frog",
         "spriteKey": "FROG",
         "url": "assets/images/player-attacks/attack-frog.png",
@@ -156,7 +144,7 @@
         "position": {}
     },
     {
-        "id": 14,
+        "id": 13,
         "name": "Godzilla",
         "spriteKey": "GODZILLA",
         "url": "assets/images/player-attacks/attack-godzilla.png",
@@ -164,6 +152,18 @@
         "frameHeight": 420,
         "frameRate": 8,
         "soundurl": "assets/sfx/player-attacks/godzilla.mp3",
+        "animation": true,
+        "position": {}
+    },
+    {
+        "id": 14,
+        "name": "Potato",
+        "spriteKey": "POTATO",
+        "url": "assets/images/player-attacks/attack-potato.png",
+        "frameWidth": 800,
+        "frameHeight": 500,
+        "frameRate": 8,
+        "soundurl": "assets/sfx/player-attacks/nancy.wav",
         "animation": true,
         "position": {}
     }

@@ -565,7 +565,7 @@ export class AttackAnimations {
         sprite
             .setPosition(startX, y)
             .setAlpha(1)
-            .setScale(.5)
+            .setScale(.63)
             .setDepth(DEPTHS.ATTACKS);
 
         this.playSound(attack);
@@ -578,29 +578,30 @@ export class AttackAnimations {
 
             onComplete: () => {
 
-                sprite.play(attack._spriteKey);
+                sprite.setFrame(1);
 
-                scene.time.delayedCall(500, () => {
-                    callback();
+                console.log(sprite.frame.name);
+
+                scene.time.delayedCall(1000, () => {
+                    sprite.setFrame(0);
+
+                    scene.time.delayedCall(500, () => {
+                        scene.sound.play(SFX_KEYS.POTATO);
+                        callback();
+                    });
+
+                    scene.tweens.add({
+                        targets: sprite,
+                        x: endX,
+                        duration: 600,
+                        ease: 'Quad.In',
+
+                        onComplete: () => {
+                            cleanup();
+                        }
+                    });
                 });
 
-                sprite.once(
-                    Phaser.Animations.Events.ANIMATION_COMPLETE,
-                    () => {
-
-                        scene.tweens.add({
-                            targets: sprite,
-                            x: endX,
-                            duration: 600,
-                            ease: 'Quad.In',
-
-                            onComplete: () => {
-                                cleanup();
-                            }
-                        });
-
-                    }
-                );
             }
         });
     }
@@ -619,7 +620,7 @@ export class AttackAnimations {
         const startX = -sprite.width;
         const endX = width + sprite.width;
 
-        const groundY = height * 0.25;
+        const groundY = height * 0.35;
 
         sprite
             .setPosition(startX, groundY)

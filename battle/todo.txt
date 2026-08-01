@@ -1,29 +1,32 @@
 TODO phaser
 
-add attacks: baby ari, homemade candy, rat, frog
+1024x576
 
-sfx for hitting
+bug with animation when danny eating snack, spacebar related?
 
+memphis, maggie on bike, chicken
+
+add loops for af idles?
+
+change throat singing animation position depending on pose/hp
 make sure all attacks have cues for player/enemy hit animation
 
-remove demon sounds from battle intro
-
-cut aaron stealing snacks
-
-fix enemy sus animation?
 bug where player can interact too early?
-
-change prank to player input needed
 tweak input cursor?
-
-danny idle animation
-
-enemy dead animation
-
-throat singing
-
-bg for dialogue scene with peekin
+credits?
 
 comment everything
 
-credits?
+snax
+
+cheerios
+apples
+eggs and bacon
+seaweed
+cheese and wasa
+pizza from automatic only
+peanut butter and jelly only separate
+crackers and cheese
+bunny crackers
+goldfish
+steak
