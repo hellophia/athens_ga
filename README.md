@@ -16,4 +16,6 @@ a playlist of some of the music used https://open.spotify.com/playlist/5WVhALCwR
 
 a lot of music was made in garageband with midis from musescore
 
+text generator which helped me organize attack animation code https://edukits.co/text-art/
+
 thanks to Angie, Morgan, and Elo for playtesting!

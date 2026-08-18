@@ -1033,6 +1033,14 @@ export class AttackAnimations {
         });
     }
 
+    /*
+      _   _            __  __             
+     | | | | ___      |  \/  | __ _ _ __  
+     | |_| |/ _ \_____| |\/| |/ _` | '_ \ 
+     |  _  |  __/_____| |  | | (_| | | | |
+     |_| |_|\___|     |_|  |_|\__,_|_| |_|
+                                          
+     */
     static heman(attack, callback, cleanup) {
 
         const { scene, sprite, width, height } = this.#context;
@@ -1098,6 +1106,13 @@ export class AttackAnimations {
         this.playSound(attack);
     }
 
+    /*
+         _         _ 
+        / \   _ __(_)
+       / _ \ | '__| |
+      / ___ \| |  | |
+     /_/   \_\_|  |_|
+    */
     static ari(attack, callback, cleanup) {
 
         const { scene, sprite, width, height } = this.#context;
@@ -1194,6 +1209,13 @@ export class AttackAnimations {
         });
     }
 
+    /*
+       ____           _     _ _ _       
+      / ___| ___   __| |___(_) | | __ _ 
+     | |  _ / _ \ / _` |_  / | | |/ _` |
+     | |_| | (_) | (_| |/ /| | | | (_| |
+      \____|\___/ \__,_/___|_|_|_|\__,_|
+    */
     static godzilla(attack, callback, cleanup) {
 
         const { scene, sprite, width, height } = this.#context;
@@ -1304,6 +1326,14 @@ export class AttackAnimations {
         });
     }
 
+    /*
+      _____                
+     |  ___| __ ___   __ _ 
+     | |_ | '__/ _ \ / _` |
+     |  _|| | | (_) | (_| |
+     |_|  |_|  \___/ \__, |
+                     |___/ 
+    */
     static frog(attack, callback, cleanup) {
 
         const { scene, sprite, width, height } = this.#context;
@@ -1390,6 +1420,14 @@ export class AttackAnimations {
         });
     }
 
+    /*
+       ____                _       
+      / ___|__ _ _ __   __| |_   _ 
+     | |   / _` | '_ \ / _` | | | |
+     | |__| (_| | | | | (_| | |_| |
+      \____\__,_|_| |_|\__,_|\__, |
+                             |___/ 
+    */
     static candy(attack, callback, cleanup) {
 
         const { scene, sprite, width, height } = this.#context;
@@ -1451,6 +1489,13 @@ export class AttackAnimations {
         teleport();
     }
 
+    /*
+      ____                          
+     / ___|  ___   ___ ___ ___ _ __ 
+     \___ \ / _ \ / __/ __/ _ \ '__|
+      ___) | (_) | (_| (_|  __/ |   
+     |____/ \___/ \___\___\___|_|   
+    */
     static soccer(attack, callback, cleanup) {
 
         const { scene, sprite, width, height } = this.#context;
@@ -1495,6 +1540,13 @@ export class AttackAnimations {
 
     }
 
+    /*
+      __  __                 _            
+     |  \/  | ___  _ __  ___| |_ ___ _ __ 
+     | |\/| |/ _ \| '_ \/ __| __/ _ \ '__|
+     | |  | | (_) | | | \__ \ ||  __/ |   
+     |_|  |_|\___/|_| |_|___/\__\___|_|   
+    */
     static monster(attack, callback, cleanup) {
 
         const { scene, sprite, width, height } = this.#context;
@@ -1524,6 +1576,14 @@ export class AttackAnimations {
         });
     }
 
+    /*
+      _____              ____             
+     | ____|   _  ___   / ___|_   _ _   _ 
+     |  _|| | | |/ _ \ | |  _| | | | | | |
+     | |__| |_| |  __/ | |_| | |_| | |_| |
+     |_____\__, |\___|  \____|\__,_|\__, |
+           |___/                    |___/ 
+    */
     static eye(attack, callback, cleanup) {
 
         const { scene, sprite, width, height } = this.#context;
@@ -1573,6 +1633,13 @@ export class AttackAnimations {
         });
     }
 
+    /*
+      ____                      __   _____          _                     
+     |  _ \__      ____ _ _ __ / _| |  ___|__  _ __| |_ _ __ ___  ___ ___ 
+     | | | \ \ /\ / / _` | '__| |_  | |_ / _ \| '__| __| '__/ _ \/ __/ __|
+     | |_| |\ V  V / (_| | |  |  _| |  _| (_) | |  | |_| | |  __/\__ \__ \
+     |____/  \_/\_/ \__,_|_|  |_|   |_|  \___/|_|   \__|_|  \___||___/___/
+    */
     static dwarf(attack, callback, cleanup) {
 
         const { scene, sprite, width, height } = this.#context;
@@ -1593,6 +1660,13 @@ export class AttackAnimations {
         });
     }
 
+    /*
+      ____       _        _        
+     |  _ \ ___ | |_ __ _| |_ ___  
+     | |_) / _ \| __/ _` | __/ _ \ 
+     |  __/ (_) | || (_| | || (_) |
+     |_|   \___/ \__\__,_|\__\___/ 
+    */
     static potato(attack, callback, cleanup) {
 
         const { scene, sprite, width, height } = this.#context;
